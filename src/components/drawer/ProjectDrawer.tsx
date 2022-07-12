@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, FunctionComponent, ReactNode } from 'react';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import {
   Typography,
@@ -11,6 +11,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -60,10 +62,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
-const ProjectDrawer: React.FunctionComponent<Props> = ({ children }) => {
-  const [open, setOpen] = React.useState(true);
+const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
+  const theme = useTheme();
+  const isBelowSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const marginTop = isBelowSm ? 58 : 66;
+  const mode = theme.palette.mode;
+  const grey =
+    mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900];
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -78,7 +86,7 @@ const ProjectDrawer: React.FunctionComponent<Props> = ({ children }) => {
       <Drawer
         variant="permanent"
         open={open}
-        PaperProps={{ style: { marginTop: 70 } }}
+        PaperProps={{ style: { marginTop, backgroundColor: grey } }}
       >
         <Box
           sx={{
