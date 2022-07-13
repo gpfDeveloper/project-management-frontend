@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <Layout>
-      <Link to="/sample-project">Sample Project</Link>
+      <Link to="/project/sampleproject">Sample Project</Link>
     </Layout>
   );
 }

@@ -17,6 +17,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { LightDarkTogglerMenuItem } from './LightDarkToggler';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from 'contexts/auth-context';
+import { YourWorkMenuItem } from './NavYourWork';
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -49,7 +51,7 @@ function stringAvatar(name: string) {
 
 const MyAvatar: FunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isLogin, setIsLogin] = useState(false);
+  const { user, login, logout } = useAuth();
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -61,14 +63,15 @@ const MyAvatar: FunctionComponent = () => {
     setAnchorEl(null);
   };
   const loginHandler = () => {
-    setIsLogin(true);
+    login('user', '123');
     setAnchorEl(null);
   };
   const logoutHandler = () => {
-    setIsLogin(false);
+    logout();
     setAnchorEl(null);
   };
-  const commonMobileMenuItem = <LightDarkTogglerMenuItem />;
+  const commonMobileMenuItems = <LightDarkTogglerMenuItem />;
+  const authMobileMenuItems = <YourWorkMenuItem />;
   let content = (
     <Box>
       <IconButton
@@ -88,8 +91,12 @@ const MyAvatar: FunctionComponent = () => {
           horizontal: 'right',
         }}
       >
-        {commonMobileMenuItem}
-        <Divider />
+        {isBelowMd && (
+          <>
+            {commonMobileMenuItems}
+            <Divider />
+          </>
+        )}
         <MenuItem onClick={loginHandler}>
           <ListItemIcon>
             <LoginIcon />
@@ -99,7 +106,7 @@ const MyAvatar: FunctionComponent = () => {
       </Menu>
     </Box>
   );
-  if (isLogin) {
+  if (user) {
     content = (
       <Box>
         <IconButton onClick={openMenuHandler}>
@@ -114,8 +121,14 @@ const MyAvatar: FunctionComponent = () => {
             horizontal: 'right',
           }}
         >
-          {commonMobileMenuItem}
-          <Divider />
+          {isBelowMd && (
+            <>
+              {commonMobileMenuItems}
+              <Divider />
+              {authMobileMenuItems}
+              <Divider />
+            </>
+          )}
           <MenuItem onClick={logoutHandler}>
             <ListItemIcon>
               <LogoutIcon />

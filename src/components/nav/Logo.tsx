@@ -1,22 +1,37 @@
 import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 
 const Logo: FunctionComponent = () => {
+  const theme = useTheme();
+  const mode = theme.palette.mode;
+  let bg = 'white';
+  if (mode === 'dark') {
+    bg = theme.palette.grey[900];
+  }
   return (
     <Link to="/">
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box
           sx={{
-            mr: 1,
-            height: 30,
-            width: 30,
+            mr: 1.2,
+            height: 24,
+            width: 24,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: 'primary.main',
+            transform: 'rotate(45deg)',
           }}
         >
-          <img src="Logo.svg" alt="logo" />
+          <Box
+            sx={{
+              height: 10,
+              width: 10,
+              backgroundColor: bg,
+              borderRadius: '100%',
+            }}
+          ></Box>
         </Box>
         <Typography
           variant="h5"
