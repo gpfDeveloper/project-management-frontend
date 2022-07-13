@@ -1,22 +1,16 @@
 import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Logo: FunctionComponent = () => {
-  const theme = useTheme();
-  const mode = theme.palette.mode;
-  let bg = 'white';
-  if (mode === 'dark') {
-    bg = theme.palette.grey[900];
-  }
   return (
     <Link to="/">
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box
           sx={{
             mr: 1.2,
-            height: 24,
-            width: 24,
+            height: 20,
+            width: 20,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -28,7 +22,7 @@ const Logo: FunctionComponent = () => {
             sx={{
               height: 10,
               width: 10,
-              backgroundColor: bg,
+              backgroundColor: 'background.paper',
               borderRadius: '100%',
             }}
           ></Box>

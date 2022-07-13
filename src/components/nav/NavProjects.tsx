@@ -10,23 +10,24 @@ const NavProjects: FunctionComponent = () => {
   const clickBtnHandler = () => {
     navigate('/projects');
   };
-  const active = location.pathname === '/projects';
+  const active = location.pathname.startsWith('/project');
   let content = (
     <>
       <Button
         onClick={clickBtnHandler}
         sx={{
+          borderBottomWidth: 3,
+          borderBottomStyle: 'solid',
+          borderBottomColor: 'transparent',
           ...(active && {
-            borderBottomWidth: 3,
             borderBottomColor: 'primary.main',
-            borderBottomStyle: 'solid',
           }),
           borderRadius: 0,
           height: 64,
         }}
-        endIcon={<ExpandMoreIcon />}
       >
         Projects
+        <ExpandMoreIcon fontSize="small" />
       </Button>
     </>
   );

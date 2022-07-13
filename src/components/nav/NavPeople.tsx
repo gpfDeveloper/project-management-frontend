@@ -15,10 +15,11 @@ const NavPeople: FunctionComponent = () => {
       <Button
         onClick={clickBtnHandler}
         sx={{
+          borderBottomWidth: 3,
+          borderBottomStyle: 'solid',
+          borderBottomColor: 'transparent',
           ...(active && {
-            borderBottomWidth: 3,
             borderBottomColor: 'primary.main',
-            borderBottomStyle: 'solid',
           }),
           borderRadius: 0,
           height: 64,
