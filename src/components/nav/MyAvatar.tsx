@@ -7,10 +7,16 @@ import {
   MenuItem,
   useTheme,
   useMediaQuery,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { LightDarkTogglerMenuItem } from './LightDarkToggler';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -62,6 +68,7 @@ const MyAvatar: FunctionComponent = () => {
     setIsLogin(false);
     setAnchorEl(null);
   };
+  const commonMobileMenuItem = <LightDarkTogglerMenuItem />;
   let content = (
     <Box>
       <IconButton
@@ -81,7 +88,14 @@ const MyAvatar: FunctionComponent = () => {
           horizontal: 'right',
         }}
       >
-        <MenuItem onClick={loginHandler}>Log in</MenuItem>
+        {commonMobileMenuItem}
+        <Divider />
+        <MenuItem onClick={loginHandler}>
+          <ListItemIcon>
+            <LoginIcon />
+          </ListItemIcon>
+          <ListItemText>Log in</ListItemText>
+        </MenuItem>
       </Menu>
     </Box>
   );
@@ -100,7 +114,14 @@ const MyAvatar: FunctionComponent = () => {
             horizontal: 'right',
           }}
         >
-          <MenuItem onClick={logoutHandler}>Log out</MenuItem>
+          {commonMobileMenuItem}
+          <Divider />
+          <MenuItem onClick={logoutHandler}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Log out</ListItemText>
+          </MenuItem>
         </Menu>
       </Box>
     );
