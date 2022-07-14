@@ -11,7 +11,20 @@ export const getTheme = (mode: 'light' | 'dark') => {
           root: {
             textTransform: 'none',
             fontWeight: 700,
-            borderRadius: 100,
+          },
+        },
+      },
+      MuiFilledInput: {
+        styleOverrides: {
+          root: ({ theme }) => {
+            const mode = theme.palette.mode;
+            let ret = {};
+            if (mode === 'light') {
+              ret = { backgroundColor: theme.palette.grey['A100'] };
+            } else {
+              ret = { backgroundColor: theme.palette.grey['900'] };
+            }
+            return ret;
           },
         },
       },

@@ -1,14 +1,7 @@
 import { FunctionComponent, useState } from 'react';
-import {
-  Box,
-  Button,
-  Typography,
-  Modal,
-  useTheme,
-  useMediaQuery,
-  IconButton,
-} from '@mui/material';
+import { Button, useTheme, useMediaQuery, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import CreateIssueModal from './CreateIssueModal';
 
 const CreateIssue: FunctionComponent = () => {
   const theme = useTheme();
@@ -18,6 +11,7 @@ const CreateIssue: FunctionComponent = () => {
   if (mode === 'dark') {
     addIconColor = 'black';
   }
+
   const [open, setOpen] = useState(false);
   const openHandler = () => {
     setOpen(true);
@@ -25,13 +19,14 @@ const CreateIssue: FunctionComponent = () => {
   const closeHandler = () => {
     setOpen(false);
   };
+
   return (
     <>
       {!isBelowMd && (
         <Button
           onClick={openHandler}
           variant="contained"
-          sx={{ borderRadius: '4px', height: 40, ml: 2, mr: 'auto' }}
+          sx={{ height: 40, ml: 2, mr: 'auto' }}
         >
           Create
         </Button>
@@ -52,26 +47,7 @@ const CreateIssue: FunctionComponent = () => {
           <AddIcon />
         </IconButton>
       )}
-      <Modal open={open} onClose={closeHandler}>
-        <Box
-          sx={{
-            position: 'absolute' as 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
+      <CreateIssueModal open={open} onClose={closeHandler} />
     </>
   );
 };
