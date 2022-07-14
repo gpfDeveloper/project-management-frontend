@@ -10,7 +10,9 @@ import {
   Divider,
   AppBar,
   useScrollTrigger,
+  Button,
 } from '@mui/material';
+import TextEditor from 'components/shared/TextEditor';
 
 const projects = [
   {
@@ -31,6 +33,20 @@ const issueTypes = [
   { value: 'task', label: 'Task' },
   { value: 'story', label: 'Story' },
   { value: 'bug', label: 'Bug' },
+];
+
+const people = [
+  { value: 'pengfei', label: 'Pengfei Gao' },
+  { value: 'user1', label: 'User 1' },
+  { value: 'user2', label: 'User 2' },
+];
+
+const priorities = [
+  { value: 'highest', label: 'Highest' },
+  { value: 'high', label: 'High' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'low', label: 'Low' },
+  { value: 'lowest', label: 'Lowest' },
 ];
 
 type Props = {
@@ -58,6 +74,18 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const [issueType, setIssueType] = useState('');
   const issueTypeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIssueType(e.target.value);
+  };
+  const [reporter, setReporter] = useState('');
+  const reporterSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReporter(e.target.value);
+  };
+  const [assignee, setAssignee] = useState('');
+  const assigneeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAssignee(e.target.value);
+  };
+  const [priority, setPriority] = useState('');
+  const prioritySelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPriority(e.target.value);
   };
   return (
     <Modal open={open} onClose={onClose}>
@@ -128,9 +156,87 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
             </Box>
           </Box>
           <Divider />
-          <TextField label="Summary *" size="small" variant="filled" />
-          <Box mt={100}>aaa</Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <TextField label="Summary *" size="small" variant="filled" />
+            <Box>
+              <Typography variant="body2" color="text.secondary" mb={0.6}>
+                Description
+              </Typography>
+              <TextEditor />
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              mb: 4,
+              width: isBelowMd ? '100%' : '50%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+            }}
+          >
+            <TextField
+              fullWidth
+              select
+              size="small"
+              label="Reporter *"
+              value={reporter}
+              variant="filled"
+              onChange={reporterSelectorHandler}
+            >
+              {people.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              fullWidth
+              select
+              size="small"
+              label="Assignee"
+              value={assignee}
+              variant="filled"
+              onChange={assigneeSelectorHandler}
+            >
+              {people.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              fullWidth
+              select
+              size="small"
+              label="Priority"
+              value={priority}
+              variant="filled"
+              onChange={prioritySelectorHandler}
+            >
+              {priorities.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
         </Box>
+        <AppBar
+          elevation={isScroll ? 0 : 1}
+          sx={{
+            position: 'sticky',
+            p: '1rem 2rem',
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            top: 'auto',
+            bottom: 0,
+          }}
+        >
+          <Box sx={{ ml: 'auto', display: 'flex', gap: 2 }}>
+            <Button>Cancel</Button>
+            <Button variant="contained">Create</Button>
+          </Box>
+        </AppBar>
       </Box>
     </Modal>
   );

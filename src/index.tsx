@@ -9,14 +9,16 @@ import { AuthProvider } from 'contexts/auth-context';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+// comment StrictMode due to double toolbar header rendered, see this post for detial: https://github.com/zenoamaro/react-quill/issues/784
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeModeProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </ThemeModeProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <ThemeModeProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ThemeModeProvider>
+  </BrowserRouter>
+  // </React.StrictMode>
 );
