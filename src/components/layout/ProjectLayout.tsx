@@ -18,7 +18,6 @@ export const ProjectLayout: FunctionComponent<Props> = ({ children }) => {
       <Nav />
       <Box sx={{ margin: '2rem auto', mt: 10, padding: { xs: 1 } }}>
         <ProjectDrawer children={children} />
-        {children}
       </Box>
     </ThemeProvider>
   );

@@ -20,6 +20,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import TaskIcon from '@mui/icons-material/Task';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RocketIcon from '@mui/icons-material/Rocket';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 200;
 
@@ -72,6 +73,12 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
   const grey =
     mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900];
   const [open, setOpen] = useState(true);
+  const location = useLocation();
+  // /project/sampleproject/board => board
+  const locations = location.pathname.split('/');
+  const projectId = locations[2];
+  const sideBarLoc = locations[3];
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -131,14 +138,18 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
         </Box>
         <Divider />
         <List>
-          {['Board', 'Issues'].map((text, index) => (
+          {['Board', 'Issues'].map((text) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
+                selected={sideBarLoc === text.toLowerCase()}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
                 }}
+                onClick={() =>
+                  navigate(`/project/${projectId}/${text.toLocaleLowerCase()}`)
+                }
               >
                 <ListItemIcon
                   sx={{

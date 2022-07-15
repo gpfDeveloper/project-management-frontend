@@ -1,17 +1,20 @@
 import { Typography, Box } from '@mui/material';
 import { ProjectLayout } from 'components/layout/ProjectLayout';
+import AllIssuesDataGrid from 'components/project/issue/AllIssuesDataGrid';
 import { FunctionComponent } from 'react';
 
-const ProjectDetail: FunctionComponent = () => {
+const ProjectDetailIssues: FunctionComponent = () => {
   return (
     <ProjectLayout>
-      <Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Typography variant="body2" color="text.secondary" fontWeight={500}>
           Projects / Sample Project
         </Typography>
+        <Typography variant="h4">Issues</Typography>
+        <AllIssuesDataGrid />
       </Box>
     </ProjectLayout>
   );
 };
 
-export default ProjectDetail;
+export default ProjectDetailIssues;

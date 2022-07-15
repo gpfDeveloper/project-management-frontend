@@ -90,7 +90,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   return (
     <Modal open={open} onClose={onClose}>
       <Box
-        ref={(node: undefined) => {
+        ref={(node: Node) => {
           if (node) setScrollTarget(node);
         }}
         sx={{

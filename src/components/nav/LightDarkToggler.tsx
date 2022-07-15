@@ -13,13 +13,13 @@ const LightDarkToggler: FunctionComponent = () => {
   const { mode, setMode } = useThemeMode();
   let content = (
     <IconButton onClick={() => setMode('dark')}>
-      <DarkModeIcon />
+      <DarkModeIcon color="primary" />
     </IconButton>
   );
   if (mode === 'dark') {
     content = (
       <IconButton onClick={() => setMode('light')}>
-        <LightModeIcon />
+        <LightModeIcon color="primary" />
       </IconButton>
     );
   }
