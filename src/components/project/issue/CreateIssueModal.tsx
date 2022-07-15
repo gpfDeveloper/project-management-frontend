@@ -13,6 +13,7 @@ import {
   Button,
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
+import DateSelector from 'components/shared/DateSelector';
 
 const projects = [
   {
@@ -219,6 +220,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
                 </MenuItem>
               ))}
             </TextField>
+            <DateSelector />
           </Box>
         </Box>
         <AppBar
