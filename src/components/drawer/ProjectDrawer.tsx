@@ -148,7 +148,7 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
                   px: 2.5,
                 }}
                 onClick={() =>
-                  navigate(`/project/${projectId}/${text.toLocaleLowerCase()}`)
+                  navigate(`/projects/${projectId}/${text.toLocaleLowerCase()}`)
                 }
               >
                 <ListItemIcon

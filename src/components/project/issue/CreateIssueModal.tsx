@@ -11,9 +11,15 @@ import {
   AppBar,
   useScrollTrigger,
   Button,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
+import { projectIssueType } from 'types/project';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import TaskIcon from '@mui/icons-material/Task';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 const projects = [
   {
@@ -30,11 +36,7 @@ const projects = [
   },
 ];
 
-const issueTypes = [
-  { value: 'task', label: 'Task' },
-  { value: 'story', label: 'Story' },
-  { value: 'bug', label: 'Bug' },
-];
+const issueTypes: projectIssueType[] = ['Story', 'Task', 'Bug'];
 
 const people = [
   { value: 'pengfei', label: 'Pengfei Gao' },
@@ -87,6 +89,12 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const [priority, setPriority] = useState('');
   const prioritySelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPriority(e.target.value);
+  };
+  const cancelHandler = () => {
+    onClose();
+  };
+  const createHandler = () => {
+    onClose();
   };
   return (
     <Modal open={open} onClose={onClose}>
@@ -148,11 +156,46 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
                 variant="filled"
                 onChange={issueTypeSelectorHandler}
               >
-                {issueTypes.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
+                {issueTypes.map((option) => {
+                  let story = (
+                    <MenuItem key={option} value={option}>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ListItemIcon
+                          sx={{ color: 'success.main', minWidth: 30 }}
+                        >
+                          <BookmarkIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>Story</ListItemText>
+                      </Box>
+                    </MenuItem>
+                  );
+                  let bug = (
+                    <MenuItem key={option} value={option}>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ListItemIcon
+                          sx={{ color: 'error.main', minWidth: 30 }}
+                        >
+                          <BugReportIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>Bug</ListItemText>
+                      </Box>
+                    </MenuItem>
+                  );
+                  let task = (
+                    <MenuItem key={option} value={option}>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ListItemIcon sx={{ color: 'info.main', minWidth: 30 }}>
+                          <TaskIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>Task</ListItemText>
+                      </Box>
+                    </MenuItem>
+                  );
+                  let content = story;
+                  if (option === 'Bug') content = bug;
+                  if (option === 'Task') content = task;
+                  return content;
+                })}
               </TextField>
             </Box>
           </Box>
@@ -235,8 +278,10 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
           }}
         >
           <Box sx={{ ml: 'auto', display: 'flex', gap: 2 }}>
-            <Button>Cancel</Button>
-            <Button variant="contained">Create</Button>
+            <Button onClick={cancelHandler}>Cancel</Button>
+            <Button variant="contained" onClick={createHandler}>
+              Create
+            </Button>
           </Box>
         </AppBar>
       </Box>
