@@ -15,7 +15,7 @@ const Nav: FunctionComponent = () => {
   const { user } = useAuth();
   return (
     <AppBar position="fixed" sx={{ backgroundColor: 'background.paper' }}>
-      <Toolbar sx={{ display: 'flex' }}>
+      <Toolbar sx={{ display: 'flex', gap: 2 }}>
         <Logo />
         {user && !isBelowMd && (
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>

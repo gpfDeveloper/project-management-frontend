@@ -71,7 +71,8 @@ const columns: GridColDef[] = [
     field: 'summary',
     headerName: 'Summary',
     renderCell: renderSummary,
-    width: 480,
+    minWidth: 480,
+    flex: 1,
   },
   { field: 'assignee', headerName: 'Assignee' },
   { field: 'reporter', headerName: 'Reporter' },
@@ -218,29 +219,162 @@ const rows = [
     updated: 'Jul 7, 2022',
     due: 'Jul 7, 2022',
   },
+  {
+    id: 11,
+    type: 'Task',
+    summary:
+      'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
+    assignee: 'Pengfei Gao',
+    reporter: 'Pengfei Gao',
+    priority: 'Low',
+    status: 'TO DO',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 12,
+    type: 'Bug',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'Lowest',
+    status: 'TO DO',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 13,
+    type: 'Story',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'High',
+    status: 'IN PROGRESS',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 14,
+    type: 'Bug',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'Highest',
+    status: 'DONE',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 15,
+    type: 'Story',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'Medium',
+    status: 'TO DO',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 16,
+    type: 'Task',
+    summary:
+      'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
+    assignee: 'Pengfei Gao',
+    reporter: 'Pengfei Gao',
+    priority: 'Low',
+    status: 'TO DO',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 17,
+    type: 'Bug',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'Lowest',
+    status: 'TO DO',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 18,
+    type: 'Story',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'High',
+    status: 'IN PROGRESS',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 19,
+    type: 'Bug',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'Highest',
+    status: 'DONE',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
+  {
+    id: 20,
+    type: 'Story',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: 'Unassigned',
+    reporter: 'Pengfei Gao',
+    priority: 'Medium',
+    status: 'TO DO',
+    created: 'Jul 7, 2022',
+    updated: 'Jul 7, 2022',
+    due: 'Jul 7, 2022',
+  },
 ];
 
 export default function AllIssuesDataGrid() {
   return (
-    <Box sx={{ height: 600, width: 1 }}>
-      <DataGrid
-        getRowHeight={() => 'auto'}
-        columns={columns}
-        rows={rows}
-        disableDensitySelector
-        components={{ Toolbar: GridToolbar }}
-        componentsProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 },
-          },
-        }}
-        sx={{
-          '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
-            py: '12px',
-          },
-        }}
-      />
+    <Box sx={{ display: 'flex' }}>
+      <Box sx={{ flexGrow: 1 }}>
+        <DataGrid
+          autoHeight
+          getRowHeight={() => 'auto'}
+          columns={columns}
+          rows={rows}
+          disableDensitySelector
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+          sx={{
+            '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
+              py: '12px',
+            },
+          }}
+        />
+      </Box>
     </Box>
   );
 }
