@@ -17,7 +17,7 @@ const Logo: FunctionComponent = () => {
             color: 'text.primary',
           }}
         >
-          Serverless Agile
+          Project Management
         </Typography>
       </Box>
     </Link>
