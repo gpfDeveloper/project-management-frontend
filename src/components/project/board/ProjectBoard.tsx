@@ -4,6 +4,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
 import { ProjectIssueProps } from 'types/project';
 import { sampleIssues } from 'dummyData/dummyData';
+import ProjectBoardFilters from './ProjectBoardFilters';
 
 export type ColumnType = { id: string; title: string; issueIds: string[] };
 type BoardType = {
@@ -128,8 +129,11 @@ const ProjectBoard: FunctionComponent = () => {
   });
 
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
-      <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <ProjectBoardFilters />
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>
+      </Box>
     </Box>
   );
 };
