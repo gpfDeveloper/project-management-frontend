@@ -20,7 +20,7 @@ export const getTheme = (mode: 'light' | 'dark') => {
             const mode = theme.palette.mode;
             let ret = {};
             if (mode === 'light') {
-              ret = { backgroundColor: theme.palette.grey['A100'] };
+              ret = { backgroundColor: theme.palette.grey['50'] };
             } else {
               ret = { backgroundColor: theme.palette.grey['900'] };
             }

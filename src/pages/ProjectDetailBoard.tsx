@@ -10,7 +10,7 @@ const ProjectDetailBoard: FunctionComponent = () => {
         <Typography variant="body2" color="text.secondary" fontWeight={500}>
           Projects / Sample Project
         </Typography>
-        <Typography variant="h4">Board</Typography>
+        <Typography variant="h4">Kanban Board</Typography>
         <ProjectBoard />
       </Box>
     </ProjectLayout>

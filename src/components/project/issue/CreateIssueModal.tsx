@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
-import { projectIssueType } from 'types/project';
+import { ProjectIssueType } from 'types/project';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import TaskIcon from '@mui/icons-material/Task';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -36,7 +36,7 @@ const projects = [
   },
 ];
 
-const issueTypes: projectIssueType[] = ['Story', 'Task', 'Bug'];
+const issueTypes: ProjectIssueType[] = ['Story', 'Task', 'Bug'];
 
 const people = [
   { value: 'pengfei', label: 'Pengfei Gao' },

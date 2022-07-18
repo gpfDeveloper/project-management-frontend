@@ -71,7 +71,7 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
   const marginTop = isBelowSm ? 58 : 66;
   const mode = theme.palette.mode;
   const grey =
-    mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900];
+    mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900];
   const [open, setOpen] = useState(true);
   const location = useLocation();
   // /project/sampleproject/board => board

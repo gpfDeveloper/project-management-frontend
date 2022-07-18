@@ -1,114 +1,50 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import ProjectBoardColumn from './ProjectBoardColumn';
+import { ProjectIssueProps } from 'types/project';
+import { sampleIssues } from 'dummyData/dummyData';
 
-type TaskType = { id: string; content: string };
-type ColumnType = { id: string; title: string; taskIds: string[] };
+export type ColumnType = { id: string; title: string; issueIds: string[] };
 type BoardType = {
-  tasks: { [k: string]: TaskType };
+  issues: { [k: string]: ProjectIssueProps };
   columns: { [k: string]: ColumnType };
   columnOrder: string[];
 };
 
+let issues: { [k: string]: ProjectIssueProps } = {};
+const issueIds = [];
+for (const issue of sampleIssues) {
+  issues[issue.id] = issue;
+  issueIds.push(issue.id);
+}
+
 const initialData: BoardType = {
-  tasks: {
-    'task-1': { id: 'task-1', content: 'Take out the garbage' },
-    'task-2': { id: 'task-2', content: 'Watch my favorite show' },
-    'task-3': { id: 'task-3', content: 'Charge my phone' },
-    'task-4': { id: 'task-4', content: 'Cook dinner' },
-  },
+  issues,
   columns: {
     'column-0': {
       id: 'column-0',
-      title: 'Backlog',
-      taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
+      title: 'BACKLOG',
+      issueIds,
     },
     'column-1': {
       id: 'column-1',
-      title: 'To do',
-      taskIds: [],
+      title: 'TO DO',
+      issueIds: [],
     },
     'column-2': {
       id: 'column-2',
-      title: 'In progress',
-      taskIds: [],
+      title: 'IN PROGRESS',
+      issueIds: [],
     },
     'column-3': {
       id: 'column-3',
-      title: 'Done',
-      taskIds: [],
+      title: 'DONE',
+      issueIds: [],
     },
   },
   // Facilitate reordering of the columns
   columnOrder: ['column-0', 'column-1', 'column-2', 'column-3'],
-};
-
-type TaskProps = {
-  task: TaskType;
-  index: number;
-};
-
-const Task: FunctionComponent<TaskProps> = ({ task, index }) => {
-  return (
-    <Draggable draggableId={task.id} index={index}>
-      {(provided) => (
-        <Box
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          sx={{ border: '1px solid lightgrey', padding: 2, mb: 2 }}
-        >
-          {task.content}
-        </Box>
-      )}
-    </Draggable>
-  );
-};
-
-type ColumnProps = {
-  column: ColumnType;
-  tasks: TaskType[];
-};
-
-const Column: FunctionComponent<ColumnProps> = ({ column, tasks }) => {
-  return (
-    <Droppable droppableId={column.id}>
-      {(provided, snapshot) => (
-        <Box
-          sx={{
-            margin: 2,
-            border: '1px solid lightgrey',
-            borderRadius: '2px',
-            flex: 1,
-            minWidth: 200,
-            backgroundColor: snapshot.isDraggingOver
-              ? 'primary.main'
-              : 'background.paper',
-          }}
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-        >
-          <Typography sx={{ padding: 2 }}>{column.title}</Typography>
-
-          <Box
-            sx={{
-              padding: 2,
-            }}
-          >
-            {tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
-            ))}
-          </Box>
-          {provided.placeholder}
-        </Box>
-      )}
-    </Droppable>
-  );
 };
 
 const ProjectBoard: FunctionComponent = () => {
@@ -116,6 +52,8 @@ const ProjectBoard: FunctionComponent = () => {
 
   const dragEndHandler = (result: DropResult) => {
     const { destination, source, draggableId } = result;
+    console.log('source: ', source);
+    console.log('destination: ', destination);
 
     if (!destination) {
       return;
@@ -130,15 +68,17 @@ const ProjectBoard: FunctionComponent = () => {
 
     const start = state.columns[source.droppableId];
     const finish = state.columns[destination.droppableId];
+    console.log(start);
+    console.log(finish);
 
     if (start === finish) {
-      const newTaskIds = Array.from(start.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
+      const newIssueIds = Array.from(start.issueIds);
+      newIssueIds.splice(source.index, 1);
+      newIssueIds.splice(destination.index, 0, draggableId);
 
       const newColumn = {
         ...start,
-        taskIds: newTaskIds,
+        issueIds: newIssueIds,
       };
 
       const newState = {
@@ -154,18 +94,18 @@ const ProjectBoard: FunctionComponent = () => {
     }
 
     // Moving from one list to another
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
+    const startIssueIds = Array.from(start.issueIds);
+    startIssueIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      taskIds: startTaskIds,
+      issueIds: startIssueIds,
     };
 
-    const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
+    const finishIssueIds = Array.from(finish.issueIds);
+    finishIssueIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      taskIds: finishTaskIds,
+      issueIds: finishIssueIds,
     };
 
     const newState = {
@@ -181,12 +121,14 @@ const ProjectBoard: FunctionComponent = () => {
 
   let boards = state.columnOrder.map((columnId) => {
     const column = state.columns[columnId];
-    const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
-    return <Column key={columnId} column={column} tasks={tasks} />;
+    const issues = column.issueIds.map((issueId) => state.issues[issueId]);
+    return (
+      <ProjectBoardColumn key={columnId} column={column} issues={issues} />
+    );
   });
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', gap: 2 }}>
       <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>
     </Box>
   );
