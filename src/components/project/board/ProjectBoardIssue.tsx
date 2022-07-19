@@ -1,5 +1,5 @@
 import { Box, ListItemButton, Tooltip, Typography } from '@mui/material';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import type { ProjectIssueProps } from 'types/project';
 import { Draggable } from 'react-beautiful-dnd';
 import BugReportIcon from '@mui/icons-material/BugReport';
@@ -12,6 +12,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import type { ProjectIssueType, ProjectIssuePriority } from 'types/project';
 import StringAvatar from 'components/shared/StringAvatar';
+import EditIssueModal from './EditIssueModal';
 
 type IssueProps = {
   issue: ProjectIssueProps;
@@ -51,58 +52,72 @@ const IssuePriority: FunctionComponent<{
 };
 
 const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
+  const [open, setOpen] = useState(false);
+  const closeModalHandler = () => {
+    setOpen(false);
+  };
+  const openModalHandler = () => {
+    setOpen(true);
+  };
   return (
-    <ListItemButton sx={{ margin: 0, padding: 0 }}>
-      <Draggable draggableId={issue.id} index={index}>
-        {(provided) => (
-          <Box
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            sx={{
-              p: 2,
-              bgcolor: 'background.paper',
-              '&:hover': {
-                bgcolor: 'initial',
-                boxShadow: 2,
-              },
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 1,
-              boxShadow: 1,
-            }}
-          >
-            <Typography variant="body2" sx={{ fontWeight: 500 }}>
-              {issue.summary}
-            </Typography>
-            <Tooltip title={`Due date: ${issue.due}`}>
-              <Typography sx={{ fontSize: 12, color: 'text.secondary' }}>
-                {issue.due}
+    <>
+      <EditIssueModal
+        issueId={issue.id}
+        open={open}
+        onClose={closeModalHandler}
+      />
+      <ListItemButton onClick={openModalHandler} sx={{ margin: 0, padding: 0 }}>
+        <Draggable draggableId={issue.id} index={index}>
+          {(provided) => (
+            <Box
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              sx={{
+                p: 2,
+                bgcolor: 'background.paper',
+                '&:hover': {
+                  bgcolor: 'initial',
+                  boxShadow: 2,
+                },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1,
+                boxShadow: 1,
+              }}
+            >
+              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                {issue.summary}
               </Typography>
-            </Tooltip>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Box sx={{ display: 'flex', gap: 0.2, alignItems: 'center' }}>
-                <IssueType issueType={issue.type} />
-                <IssuePriority issuePriority={issue.priority} />
-              </Box>
-              <Box>
-                {issue.assignee !== 'Unassigned' && (
-                  <Tooltip title={`Assignee ${issue.assignee}`}>
-                    <Box>
-                      <StringAvatar
-                        name={issue.assignee}
-                        width={32}
-                        height={32}
-                      />
-                    </Box>
-                  </Tooltip>
-                )}
+              <Tooltip title={`Due date: ${issue.due}`}>
+                <Typography sx={{ fontSize: 12, color: 'text.secondary' }}>
+                  {issue.due}
+                </Typography>
+              </Tooltip>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box sx={{ display: 'flex', gap: 0.2, alignItems: 'center' }}>
+                  <IssueType issueType={issue.type} />
+                  <IssuePriority issuePriority={issue.priority} />
+                </Box>
+                <Box>
+                  {issue.assignee !== 'Unassigned' && (
+                    <Tooltip title={`Assignee ${issue.assignee}`}>
+                      <Box>
+                        <StringAvatar
+                          name={issue.assignee}
+                          width={32}
+                          height={32}
+                        />
+                      </Box>
+                    </Tooltip>
+                  )}
+                </Box>
               </Box>
             </Box>
-          </Box>
-        )}
-      </Draggable>
-    </ListItemButton>
+          )}
+        </Draggable>
+      </ListItemButton>
+    </>
   );
 };
 

@@ -1,8 +1,9 @@
 import { ProjectIssueProps } from 'types/project';
+import { v4 as uuid } from 'uuid';
 
 export const sampleIssues: ProjectIssueProps[] = [
   {
-    id: '1',
+    id: uuid(),
     projectId: 'project1',
     type: 'Task',
     summary:
@@ -16,7 +17,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: 'Jul 7, 2022',
   },
   {
-    id: '2',
+    id: uuid(),
     projectId: 'project1',
     type: 'Bug',
     summary:
@@ -30,7 +31,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: 'Jul 7, 2022',
   },
   {
-    id: '3',
+    id: uuid(),
     projectId: 'project1',
     type: 'Story',
     summary:
@@ -44,7 +45,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: 'Jul 7, 2022',
   },
   {
-    id: '4',
+    id: uuid(),
     projectId: 'project1',
     type: 'Bug',
     summary:
@@ -58,7 +59,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: 'Jul 7, 2022',
   },
   {
-    id: '5',
+    id: uuid(),
     projectId: 'project1',
     type: 'Story',
     summary:
@@ -72,7 +73,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: 'Jul 7, 2022',
   },
   {
-    id: '6',
+    id: uuid(),
     projectId: 'project1',
     type: 'Task',
     summary:
