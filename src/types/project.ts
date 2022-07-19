@@ -9,6 +9,7 @@ export type ProjectIssueStatus = 'TO DO' | 'IN PROGRESS' | 'DONE';
 
 export type ProjectIssueProps = {
   id: string;
+  projectId: string;
   type: ProjectIssueType;
   summary: string;
   assignee: string;

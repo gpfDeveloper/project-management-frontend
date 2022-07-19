@@ -3,6 +3,7 @@ import { ProjectIssueProps } from 'types/project';
 export const sampleIssues: ProjectIssueProps[] = [
   {
     id: '1',
+    projectId: 'project1',
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
@@ -16,6 +17,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '2',
+    projectId: 'project1',
     type: 'Bug',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -29,6 +31,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '3',
+    projectId: 'project1',
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -42,6 +45,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '4',
+    projectId: 'project1',
     type: 'Bug',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -55,6 +59,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '5',
+    projectId: 'project1',
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -68,6 +73,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '6',
+    projectId: 'project1',
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
