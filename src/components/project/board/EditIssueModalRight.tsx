@@ -2,74 +2,71 @@ import { Box, TextField, MenuItem } from '@mui/material';
 import { FunctionComponent } from 'react';
 import IssuePrioritySelector from 'components/shared/IssuePrioritySelector';
 import DateSelector from 'components/shared/DateSelector';
-import { ProjectIssuePriority } from 'types/project';
-
-const people = [
-  { value: 'pengfei', label: 'Pengfei Gao' },
-  { value: 'user1', label: 'User 1' },
-  { value: 'user2', label: 'User 2' },
-];
+import PeopleSelector from 'components/shared/PeopleSelector';
+import type {
+  ProjectIssuePriority,
+  People,
+  ProjectIssueStatus,
+} from 'types/project';
+import IssueStatusSelector from 'components/shared/IssueStatusSelector';
 
 type Props = {
-  reporter: string;
-  assignee: string;
-  issuePriority: ProjectIssuePriority;
-  onChangeReporter: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeAssignee: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  allPeople: People[];
+  reporter: People | null;
+  assignee: People | null;
+  priority: ProjectIssuePriority;
+  issueStatus: ProjectIssueStatus;
+  onChangeReporter: (
+    event: React.SyntheticEvent<Element, Event>,
+    value: People | null
+  ) => void;
+  onChangeAssignee: (
+    event: React.SyntheticEvent<Element, Event>,
+    value: People | null
+  ) => void;
   onChangePriority: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeIssueStatus: (status: ProjectIssueStatus) => void;
 };
 
 const EditIssueModalRight: FunctionComponent<Props> = ({
+  allPeople,
   reporter,
   assignee,
-  issuePriority,
+  priority,
+  issueStatus,
   onChangeAssignee,
   onChangePriority,
   onChangeReporter,
+  onChangeIssueStatus,
 }) => {
   return (
     <Box
       sx={{
         flex: 1,
         mb: 4,
-        width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
+        gap: 4,
       }}
     >
-      <TextField
-        fullWidth
-        select
-        size="small"
+      <IssueStatusSelector
+        issueStatus={issueStatus}
+        onSelect={onChangeIssueStatus}
+      />
+      <PeopleSelector
+        people={reporter}
+        onSelect={onChangeReporter}
+        options={allPeople}
         label="Reporter"
-        value={reporter}
-        variant="filled"
-        onChange={onChangeReporter}
-      >
-        {people.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        fullWidth
-        select
-        size="small"
+      />
+      <PeopleSelector
+        people={assignee}
+        onSelect={onChangeAssignee}
+        options={allPeople}
         label="Assignee"
-        value={assignee}
-        variant="filled"
-        onChange={onChangeAssignee}
-      >
-        {people.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
+      />
       <IssuePrioritySelector
-        issuePriority={issuePriority}
+        issuePriority={priority}
         onSelect={onChangePriority}
       />
       <DateSelector />

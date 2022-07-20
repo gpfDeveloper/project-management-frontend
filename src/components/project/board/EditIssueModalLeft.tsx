@@ -14,7 +14,7 @@ const EditIssueModalLeft: FunctionComponent<Props> = ({
   description,
 }) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 2 }}>
       <TextField
         onChange={onChangeSummary}
         value={summary}

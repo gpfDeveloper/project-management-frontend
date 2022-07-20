@@ -21,7 +21,7 @@ const PeopleSelector: FunctionComponent<Props> = ({
 }) => {
   return (
     <Box sx={{ position: 'relative' }}>
-      <Typography sx={{ fontWeight: 500, fontSize: 14, mb: 0.2 }}>
+      <Typography sx={{ fontWeight: 500, fontSize: 13, mb: 0.2 }}>
         {label}
       </Typography>
       {people && (

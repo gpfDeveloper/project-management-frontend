@@ -1,31 +1,23 @@
 import React, { FunctionComponent, useState } from 'react';
 import {
   Box,
-  Typography,
   useTheme,
   useMediaQuery,
-  TextField,
-  MenuItem,
   Modal,
   Divider,
   AppBar,
   useScrollTrigger,
   Button,
 } from '@mui/material';
-import TextEditor from 'components/shared/TextEditor';
-import DateSelector from 'components/shared/DateSelector';
-import { People, ProjectIssuePriority, ProjectIssueType } from 'types/project';
-import IssuePrioritySelector from 'components/shared/IssuePrioritySelector';
+import {
+  People,
+  ProjectIssuePriority,
+  ProjectIssueStatus,
+} from 'types/project';
 import { sampleIssues, samplePeople } from 'dummyData/dummyData';
 import EditIssueModalHeader from './EditIssueModalHeader';
 import EditIssueModalLeft from './EditIssueModalLeft';
-import PeopleSelector from 'components/shared/PeopleSelector';
-
-const people = [
-  { value: 'pengfei', label: 'Pengfei Gao' },
-  { value: 'user1', label: 'User 1' },
-  { value: 'user2', label: 'User 2' },
-];
+import EditIssueModalRight from './EditIssueModalRight';
 
 type Props = {
   issueId: string;
@@ -38,8 +30,6 @@ const EditIssueModal: FunctionComponent<Props> = ({
   onClose,
   issueId,
 }) => {
-  const theme = useTheme();
-  const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
   const issue = sampleIssues.find((item) => item.id === issueId)!;
   const [summary, setSummary] = useState(issue.summary);
 
@@ -50,6 +40,12 @@ const EditIssueModal: FunctionComponent<Props> = ({
     target: scrollTarget,
   });
 
+  const [issueStatus, setIssueStatus] = useState<ProjectIssueStatus>(
+    issue.status
+  );
+  const issueStatusSelectorHandler = (status: ProjectIssueStatus) => {
+    setIssueStatus(status);
+  };
   const [reporter, setReporter] = useState<People | null>(samplePeople[1]);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
@@ -100,40 +96,23 @@ const EditIssueModal: FunctionComponent<Props> = ({
           scrollTarget={scrollTarget}
           onClose={onClose}
         />
-        <Box sx={{ p: '0 2rem', display: 'flex', gap: 3 }}>
+        <Box sx={{ p: '0 2rem', display: 'flex', gap: 4 }}>
           <EditIssueModalLeft
             summary={summary}
             onChangeSummary={(e) => setSummary(e.target.value)}
             description=""
           />
-          <Box
-            sx={{
-              flex: 1,
-              mb: 4,
-              width: isBelowMd ? '100%' : '50%',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-            }}
-          >
-            <PeopleSelector
-              people={reporter}
-              onSelect={reporterSelectorHandler}
-              options={samplePeople}
-              label="Reporter"
-            />
-            <PeopleSelector
-              people={assignee}
-              onSelect={assigneeSelectorHandler}
-              options={samplePeople}
-              label="Assignee"
-            />
-            <IssuePrioritySelector
-              issuePriority={priority}
-              onSelect={prioritySelectorHandler}
-            />
-            <DateSelector />
-          </Box>
+          <EditIssueModalRight
+            allPeople={samplePeople}
+            assignee={assignee}
+            onChangeAssignee={assigneeSelectorHandler}
+            reporter={reporter}
+            onChangeReporter={reporterSelectorHandler}
+            priority={priority}
+            onChangePriority={prioritySelectorHandler}
+            issueStatus={issueStatus}
+            onChangeIssueStatus={issueStatusSelectorHandler}
+          />
         </Box>
         <AppBar
           elevation={isScroll ? 0 : 1}
