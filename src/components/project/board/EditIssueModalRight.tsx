@@ -1,4 +1,4 @@
-import { Box, TextField, MenuItem } from '@mui/material';
+import { Box } from '@mui/material';
 import { FunctionComponent } from 'react';
 import IssuePrioritySelector from 'components/shared/IssuePrioritySelector';
 import DateSelector from 'components/shared/DateSelector';

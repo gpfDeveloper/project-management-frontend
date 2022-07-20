@@ -1,14 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import {
-  Box,
-  useTheme,
-  useMediaQuery,
-  Modal,
-  Divider,
-  AppBar,
-  useScrollTrigger,
-  Button,
-} from '@mui/material';
+import { Box, Modal, AppBar, useScrollTrigger, Button } from '@mui/material';
 import {
   People,
   ProjectIssuePriority,
@@ -32,6 +23,12 @@ const EditIssueModal: FunctionComponent<Props> = ({
 }) => {
   const issue = sampleIssues.find((item) => item.id === issueId)!;
   const [summary, setSummary] = useState(issue.summary);
+  const [description, setDescription] = useState({
+    text: issue.description || '',
+  });
+  const changeDescriptionHandler = (content: string) => {
+    setDescription({ text: content });
+  };
 
   const [scrollTarget, setScrollTarget] = useState<Node | Window | undefined>();
   const isScroll = useScrollTrigger({
@@ -46,7 +43,7 @@ const EditIssueModal: FunctionComponent<Props> = ({
   const issueStatusSelectorHandler = (status: ProjectIssueStatus) => {
     setIssueStatus(status);
   };
-  const [reporter, setReporter] = useState<People | null>(samplePeople[1]);
+  const [reporter, setReporter] = useState<People | null>(issue.reporter);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
     value: People | null
@@ -54,7 +51,7 @@ const EditIssueModal: FunctionComponent<Props> = ({
     if (!value) setReporter(samplePeople[0]);
     else setReporter(value);
   };
-  const [assignee, setAssignee] = useState<People | null>(samplePeople[0]);
+  const [assignee, setAssignee] = useState<People | null>(issue.assignee);
   const assigneeSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
     value: People | null
@@ -100,7 +97,8 @@ const EditIssueModal: FunctionComponent<Props> = ({
           <EditIssueModalLeft
             summary={summary}
             onChangeSummary={(e) => setSummary(e.target.value)}
-            description=""
+            description={description}
+            onChangeDescription={changeDescriptionHandler}
           />
           <EditIssueModalRight
             allPeople={samplePeople}

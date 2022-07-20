@@ -62,6 +62,13 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const issueTypeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIssueType(e.target.value as ProjectIssueType);
   };
+  const [summary, setSummary] = useState('');
+  const [description, setDescription] = useState({
+    text: '',
+  });
+  const changeDescriptionHandler = (content: string) => {
+    setDescription({ text: content });
+  };
   const [reporter, setReporter] = useState<People | null>(samplePeople[1]);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
@@ -152,12 +159,21 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
           </Box>
           <Divider />
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <TextField label="Summary *" size="small" variant="filled" />
+            <TextField
+              label="Summary *"
+              size="small"
+              variant="filled"
+              value={summary}
+              onChange={(e) => setSummary(e.target.value)}
+            />
             <Box>
               <Typography variant="body2" color="text.secondary" mb={0.6}>
                 Description
               </Typography>
-              <TextEditor />
+              <TextEditor
+                editorState={description}
+                onChange={changeDescriptionHandler}
+              />
             </Box>
           </Box>
           <Box

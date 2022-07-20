@@ -53,8 +53,6 @@ const ProjectBoard: FunctionComponent = () => {
 
   const dragEndHandler = (result: DropResult) => {
     const { destination, source, draggableId } = result;
-    console.log('source: ', source);
-    console.log('destination: ', destination);
 
     if (!destination) {
       return;
@@ -69,8 +67,6 @@ const ProjectBoard: FunctionComponent = () => {
 
     const start = state.columns[source.droppableId];
     const finish = state.columns[destination.droppableId];
-    console.log(start);
-    console.log(finish);
 
     if (start === finish) {
       const newIssueIds = Array.from(start.issueIds);

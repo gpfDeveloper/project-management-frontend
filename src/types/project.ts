@@ -12,8 +12,9 @@ export type ProjectIssueProps = {
   projectId: string;
   type: ProjectIssueType;
   summary: string;
-  assignee: string;
-  reporter: string;
+  description?: string;
+  assignee: People;
+  reporter: People;
   priority: ProjectIssuePriority;
   status: ProjectIssueStatus;
   created: string;

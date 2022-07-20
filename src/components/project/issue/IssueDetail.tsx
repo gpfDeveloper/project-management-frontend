@@ -87,7 +87,7 @@ const IssueDetail: FunctionComponent<Props> = ({ issueId }) => {
               <Typography variant="body2" color="text.secondary" mb={0.6}>
                 Description
               </Typography>
-              <TextEditor />
+              {/* <TextEditor /> */}
             </Box>
           </Box>
           <Box

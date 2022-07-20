@@ -100,11 +100,11 @@ const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
                   <IssuePriority issuePriority={issue.priority} />
                 </Box>
                 <Box>
-                  {issue.assignee !== 'Unassigned' && (
+                  {issue.assignee.name !== 'Unassigned' && (
                     <Tooltip title={`Assignee ${issue.assignee}`}>
                       <Box>
                         <StringAvatar
-                          name={issue.assignee}
+                          name={issue.assignee.name}
                           width={32}
                           height={32}
                         />
