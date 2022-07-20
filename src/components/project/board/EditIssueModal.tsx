@@ -7,8 +7,8 @@ import {
 } from 'types/project';
 import { sampleIssues, samplePeople } from 'dummyData/dummyData';
 import EditIssueModalHeader from './EditIssueModalHeader';
-import EditIssueModalLeft from './EditIssueModalLeft';
-import EditIssueModalRight from './EditIssueModalRight';
+import IssueDetailLeft from '../issue/IssueDetailLeft';
+import IssueDetailRight from '../issue/IssueDetailRight';
 
 type Props = {
   issueId: string;
@@ -94,13 +94,13 @@ const EditIssueModal: FunctionComponent<Props> = ({
           onClose={onClose}
         />
         <Box sx={{ p: '0 2rem', display: 'flex', gap: 4 }}>
-          <EditIssueModalLeft
+          <IssueDetailLeft
             summary={summary}
             onChangeSummary={(e) => setSummary(e.target.value)}
             description={description}
             onChangeDescription={changeDescriptionHandler}
           />
-          <EditIssueModalRight
+          <IssueDetailRight
             allPeople={samplePeople}
             assignee={assignee}
             onChangeAssignee={assigneeSelectorHandler}

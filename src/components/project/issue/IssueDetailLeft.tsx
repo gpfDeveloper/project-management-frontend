@@ -9,16 +9,17 @@ type Props = {
   onChangeDescription: (content: string) => void;
 };
 
-const EditIssueModalLeft: FunctionComponent<Props> = ({
+const IssueDetailLeft: FunctionComponent<Props> = ({
   summary,
   onChangeSummary,
   description,
   onChangeDescription,
 }) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 2 }}>
       <TextField
         onChange={onChangeSummary}
+        multiline
         value={summary}
         label="Summary *"
         size="small"
@@ -30,8 +31,11 @@ const EditIssueModalLeft: FunctionComponent<Props> = ({
         </Typography>
         <TextEditor editorState={description} onChange={onChangeDescription} />
       </Box>
+      <Box sx={{ mt: 4 }}>
+        <Typography sx={{ fontWeight: 700 }}>Activity</Typography>
+      </Box>
     </Box>
   );
 };
 
-export default EditIssueModalLeft;
+export default IssueDetailLeft;

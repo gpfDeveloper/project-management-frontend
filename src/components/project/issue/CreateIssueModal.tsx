@@ -160,6 +160,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
           <Divider />
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <TextField
+              multiline
               label="Summary *"
               size="small"
               variant="filled"

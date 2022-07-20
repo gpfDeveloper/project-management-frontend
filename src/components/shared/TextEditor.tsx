@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 
 const config = {
   theme: 'snow',

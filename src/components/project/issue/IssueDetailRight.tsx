@@ -28,7 +28,7 @@ type Props = {
   onChangeIssueStatus: (status: ProjectIssueStatus) => void;
 };
 
-const EditIssueModalRight: FunctionComponent<Props> = ({
+const IssueDetailRight: FunctionComponent<Props> = ({
   allPeople,
   reporter,
   assignee,
@@ -46,7 +46,7 @@ const EditIssueModalRight: FunctionComponent<Props> = ({
         mb: 4,
         display: 'flex',
         flexDirection: 'column',
-        gap: 4,
+        gap: 3,
       }}
     >
       <IssueStatusSelector
@@ -74,4 +74,4 @@ const EditIssueModalRight: FunctionComponent<Props> = ({
   );
 };
 
-export default EditIssueModalRight;
+export default IssueDetailRight;
