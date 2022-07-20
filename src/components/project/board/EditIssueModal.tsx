@@ -14,11 +14,12 @@ import {
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
-import { ProjectIssuePriority, ProjectIssueType } from 'types/project';
-import IssuePrioritySelector from 'components/project/issue/IssuePrioritySelector';
-import { sampleIssues } from 'dummyData/dummyData';
+import { People, ProjectIssuePriority, ProjectIssueType } from 'types/project';
+import IssuePrioritySelector from 'components/shared/IssuePrioritySelector';
+import { sampleIssues, samplePeople } from 'dummyData/dummyData';
 import EditIssueModalHeader from './EditIssueModalHeader';
 import EditIssueModalLeft from './EditIssueModalLeft';
+import PeopleSelector from 'components/shared/PeopleSelector';
 
 const people = [
   { value: 'pengfei', label: 'Pengfei Gao' },
@@ -49,13 +50,21 @@ const EditIssueModal: FunctionComponent<Props> = ({
     target: scrollTarget,
   });
 
-  const [reporter, setReporter] = useState('');
-  const reporterSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReporter(e.target.value);
+  const [reporter, setReporter] = useState<People | null>(samplePeople[1]);
+  const reporterSelectorHandler = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: People | null
+  ) => {
+    if (!value) setReporter(samplePeople[0]);
+    else setReporter(value);
   };
-  const [assignee, setAssignee] = useState('');
-  const assigneeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAssignee(e.target.value);
+  const [assignee, setAssignee] = useState<People | null>(samplePeople[0]);
+  const assigneeSelectorHandler = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: People | null
+  ) => {
+    if (!value) setAssignee(samplePeople[0]);
+    else setAssignee(value);
   };
   const [priority, setPriority] = useState<ProjectIssuePriority>('Medium');
   const prioritySelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,36 +116,18 @@ const EditIssueModal: FunctionComponent<Props> = ({
               gap: 2,
             }}
           >
-            <TextField
-              fullWidth
-              select
-              size="small"
+            <PeopleSelector
+              people={reporter}
+              onSelect={reporterSelectorHandler}
+              options={samplePeople}
               label="Reporter"
-              value={reporter}
-              variant="filled"
-              onChange={reporterSelectorHandler}
-            >
-              {people.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              fullWidth
-              select
-              size="small"
+            />
+            <PeopleSelector
+              people={assignee}
+              onSelect={assigneeSelectorHandler}
+              options={samplePeople}
               label="Assignee"
-              value={assignee}
-              variant="filled"
-              onChange={assigneeSelectorHandler}
-            >
-              {people.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
             <IssuePrioritySelector
               issuePriority={priority}
               onSelect={prioritySelectorHandler}

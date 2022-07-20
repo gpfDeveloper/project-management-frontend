@@ -20,3 +20,9 @@ export type ProjectIssueProps = {
   updated: string;
   due: string;
 };
+
+export type People = {
+  email: string;
+  name: string;
+  img?: string;
+};

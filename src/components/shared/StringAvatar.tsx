@@ -42,6 +42,9 @@ type Props = {
   height?: number;
 };
 const StringAvatar: FunctionComponent<Props> = ({ name, width, height }) => {
+  if (name === 'Unassigned') {
+    return <Avatar sx={{ width, height }} />;
+  }
   const props = stringAvatar(name, width, height);
   return <Avatar {...props} />;
 };

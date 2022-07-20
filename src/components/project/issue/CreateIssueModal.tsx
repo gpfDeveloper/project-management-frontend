@@ -15,8 +15,11 @@ import {
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
 import { ProjectIssuePriority, ProjectIssueType } from 'types/project';
-import IssueTypeSelector from './IssueTypeSelector';
-import IssuePrioritySelector from './IssuePrioritySelector';
+import IssueTypeSelector from '../../shared/IssueTypeSelector';
+import IssuePrioritySelector from '../../shared/IssuePrioritySelector';
+import { samplePeople } from 'dummyData/dummyData';
+import type { People } from 'types/project';
+import PeopleSelector from 'components/shared/PeopleSelector';
 
 const projects = [
   {
@@ -31,12 +34,6 @@ const projects = [
     value: 'project3',
     label: 'Sample Project 3',
   },
-];
-
-const people = [
-  { value: 'pengfei', label: 'Pengfei Gao' },
-  { value: 'user1', label: 'User 1' },
-  { value: 'user2', label: 'User 2' },
 ];
 
 type Props = {
@@ -65,13 +62,21 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const issueTypeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIssueType(e.target.value as ProjectIssueType);
   };
-  const [reporter, setReporter] = useState('');
-  const reporterSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReporter(e.target.value);
+  const [reporter, setReporter] = useState<People | null>(samplePeople[1]);
+  const reporterSelectorHandler = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: People | null
+  ) => {
+    if (!value) setReporter(samplePeople[0]);
+    else setReporter(value);
   };
-  const [assignee, setAssignee] = useState('');
-  const assigneeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAssignee(e.target.value);
+  const [assignee, setAssignee] = useState<People | null>(samplePeople[0]);
+  const assigneeSelectorHandler = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: People | null
+  ) => {
+    if (!value) setAssignee(samplePeople[0]);
+    else setAssignee(value);
   };
   const [priority, setPriority] = useState<ProjectIssuePriority>('Medium');
   const prioritySelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,36 +169,18 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
               gap: 2,
             }}
           >
-            <TextField
-              fullWidth
-              select
-              size="small"
+            <PeopleSelector
+              people={reporter}
+              onSelect={reporterSelectorHandler}
+              options={samplePeople}
               label="Reporter"
-              value={reporter}
-              variant="filled"
-              onChange={reporterSelectorHandler}
-            >
-              {people.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              fullWidth
-              select
-              size="small"
+            />
+            <PeopleSelector
+              people={assignee}
+              onSelect={assigneeSelectorHandler}
+              options={samplePeople}
               label="Assignee"
-              value={assignee}
-              variant="filled"
-              onChange={assigneeSelectorHandler}
-            >
-              {people.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
             <IssuePrioritySelector
               issuePriority={priority}
               onSelect={prioritySelectorHandler}

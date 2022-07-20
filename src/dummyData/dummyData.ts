@@ -1,4 +1,4 @@
-import { ProjectIssueProps } from 'types/project';
+import { People, ProjectIssueProps } from 'types/project';
 import { v4 as uuid } from 'uuid';
 
 export const sampleIssues: ProjectIssueProps[] = [
@@ -86,4 +86,11 @@ export const sampleIssues: ProjectIssueProps[] = [
     updated: 'Jul 7, 2022',
     due: 'Jul 7, 2022',
   },
+];
+
+export const samplePeople: People[] = [
+  { email: '', name: 'Unassigned' },
+  { email: 'pengfei@pengfeidevelopment.com', name: 'Pengfei Gao' },
+  { email: 'tom@gmail.com', name: 'Tom Smith' },
+  { email: 'john@gmail.com', name: 'John Robert' },
 ];

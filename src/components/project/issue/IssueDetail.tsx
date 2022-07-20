@@ -13,7 +13,7 @@ import {
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
 import { ProjectIssuePriority } from 'types/project';
-import IssuePrioritySelector from 'components/project/issue/IssuePrioritySelector';
+import IssuePrioritySelector from 'components/shared/IssuePrioritySelector';
 import IssueDetailHeader from '../issue/IssueDetailHeader';
 import { sampleIssues } from 'dummyData/dummyData';
 
