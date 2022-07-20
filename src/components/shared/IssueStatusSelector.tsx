@@ -47,7 +47,7 @@ const IssueStatusSelector: FunctionComponent<Props> = ({
 
   return (
     <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-      <Box sx={{ color: 'text.secondary' }}>
+      <Box sx={{ color: '#333' }}>
         <Button
           variant="contained"
           color={ColorMap[issueStatus]}
