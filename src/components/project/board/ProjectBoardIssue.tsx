@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Box, ListItemButton, Tooltip, Typography } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import type { ProjectIssueProps } from 'types/project';
@@ -59,6 +60,7 @@ const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
   const openModalHandler = () => {
     setOpen(true);
   };
+  const dueDate = issue.due ? moment(issue.due).format('DD[/]MMM[/]YY') : null;
   return (
     <>
       <EditIssueModal
@@ -89,11 +91,13 @@ const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
               <Typography variant="body2" sx={{ fontWeight: 500 }}>
                 {issue.summary}
               </Typography>
-              <Tooltip title={`Due date: ${issue.due}`}>
-                <Typography sx={{ fontSize: 12, color: 'text.secondary' }}>
-                  {issue.due}
-                </Typography>
-              </Tooltip>
+              {dueDate && (
+                <Tooltip title={`Due date: ${dueDate}`}>
+                  <Typography sx={{ fontSize: 12, color: 'text.secondary' }}>
+                    {dueDate}
+                  </Typography>
+                </Tooltip>
+              )}
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', gap: 0.2, alignItems: 'center' }}>
                   <IssueType issueType={issue.type} />

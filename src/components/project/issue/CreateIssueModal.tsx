@@ -15,8 +15,8 @@ import {
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
 import { ProjectIssuePriority, ProjectIssueType } from 'types/project';
-import IssueTypeSelector from '../../shared/IssueTypeSelector';
-import IssuePrioritySelector from '../../shared/IssuePrioritySelector';
+import IssueTypeSelector from './IssueTypeSelector';
+import IssuePrioritySelector from './IssuePrioritySelector';
 import { samplePeople } from 'dummyData/dummyData';
 import type { People } from 'types/project';
 import PeopleSelector from 'components/shared/PeopleSelector';
@@ -89,6 +89,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const prioritySelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPriority(e.target.value as ProjectIssuePriority);
   };
+  const [dueDate, setDueDate] = useState<Date | null>(null);
   const cancelHandler = () => {
     onClose();
   };
@@ -202,7 +203,11 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
               issuePriority={priority}
               onSelect={prioritySelectorHandler}
             />
-            <DateSelector />
+            <DateSelector
+              date={dueDate}
+              onChange={(date) => setDueDate(date)}
+              label="Due date"
+            />
           </Box>
         </Box>
         <AppBar

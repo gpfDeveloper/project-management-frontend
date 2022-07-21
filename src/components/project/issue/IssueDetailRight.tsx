@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { FunctionComponent } from 'react';
-import IssuePrioritySelector from 'components/shared/IssuePrioritySelector';
+import IssuePrioritySelector from 'components/project/issue/IssuePrioritySelector';
 import DateSelector from 'components/shared/DateSelector';
 import PeopleSelector from 'components/shared/PeopleSelector';
 import type {
@@ -8,7 +8,7 @@ import type {
   People,
   ProjectIssueStatus,
 } from 'types/project';
-import IssueStatusSelector from 'components/shared/IssueStatusSelector';
+import IssueStatusSelector from 'components/project/issue/IssueStatusSelector';
 
 type Props = {
   allPeople: People[];
@@ -16,6 +16,7 @@ type Props = {
   assignee: People | null;
   priority: ProjectIssuePriority;
   issueStatus: ProjectIssueStatus;
+  dueDate: Date | null;
   onChangeReporter: (
     event: React.SyntheticEvent<Element, Event>,
     value: People | null
@@ -26,6 +27,7 @@ type Props = {
   ) => void;
   onChangePriority: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeIssueStatus: (status: ProjectIssueStatus) => void;
+  onChangeDueDate: (date: Date | null) => void;
 };
 
 const IssueDetailRight: FunctionComponent<Props> = ({
@@ -34,10 +36,12 @@ const IssueDetailRight: FunctionComponent<Props> = ({
   assignee,
   priority,
   issueStatus,
+  dueDate,
   onChangeAssignee,
   onChangePriority,
   onChangeReporter,
   onChangeIssueStatus,
+  onChangeDueDate,
 }) => {
   return (
     <Box
@@ -69,7 +73,11 @@ const IssueDetailRight: FunctionComponent<Props> = ({
         issuePriority={priority}
         onSelect={onChangePriority}
       />
-      <DateSelector />
+      <DateSelector
+        label="Due date"
+        date={dueDate}
+        onChange={onChangeDueDate}
+      />
     </Box>
   );
 };

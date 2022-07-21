@@ -19,7 +19,7 @@ export type ProjectIssueProps = {
   status: ProjectIssueStatus;
   created: string;
   updated: string;
-  due: string;
+  due?: string;
 };
 
 export type People = {

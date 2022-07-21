@@ -20,6 +20,7 @@ import type {
 } from 'types/project';
 import { Link } from 'react-router-dom';
 import { sampleIssues } from 'dummyData/dummyData';
+import moment from 'moment';
 
 const renderType = (params: GridRenderCellParams<ProjectIssueType>) => {
   let icon = <TaskIcon fontSize="small" color="info" />;
@@ -75,8 +76,16 @@ const columns: GridColDef[] = [
     minWidth: 480,
     flex: 1,
   },
-  { field: 'assignee', headerName: 'Assignee' },
-  { field: 'reporter', headerName: 'Reporter' },
+  {
+    field: 'assignee',
+    headerName: 'Assignee',
+    valueFormatter: (params) => params.value.name,
+  },
+  {
+    field: 'reporter',
+    headerName: 'Reporter',
+    valueFormatter: (params) => params.value.name,
+  },
   { field: 'priority', headerName: 'P', renderCell: renderPriority, width: 30 },
   {
     field: 'status',
@@ -84,9 +93,27 @@ const columns: GridColDef[] = [
     renderCell: renderStatus,
     width: 120,
   },
-  { field: 'created', headerName: 'Created' },
-  { field: 'updated', headerName: 'Updated' },
-  { field: 'due', headerName: 'Due' },
+  {
+    field: 'created',
+    headerName: 'Created',
+    width: 110,
+    valueFormatter: (params) => moment(params?.value).format('MMM D[,] YYYY'),
+  },
+  {
+    field: 'updated',
+    headerName: 'Updated',
+    width: 110,
+    valueFormatter: (params) => moment(params?.value).format('MMM D[,] YYYY'),
+  },
+  {
+    field: 'due',
+    headerName: 'Due',
+    width: 110,
+    valueFormatter: (params) => {
+      if (!params.value) return null;
+      return moment(params.value).format('MMM D[,] YYYY');
+    },
+  },
 ];
 
 export default function AllIssuesDataGrid() {

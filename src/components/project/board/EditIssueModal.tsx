@@ -63,6 +63,12 @@ const EditIssueModal: FunctionComponent<Props> = ({
   const prioritySelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPriority(e.target.value as ProjectIssuePriority);
   };
+  let _due = null;
+  if (issue.due) _due = new Date(issue.due);
+  const [dueDate, setDueDate] = useState<Date | null>(_due);
+  const dueDateSelectorHandler = (date: Date | null) => {
+    setDueDate(date);
+  };
   const cancelHandler = () => {
     onClose();
   };
@@ -110,6 +116,8 @@ const EditIssueModal: FunctionComponent<Props> = ({
             onChangePriority={prioritySelectorHandler}
             issueStatus={issueStatus}
             onChangeIssueStatus={issueStatusSelectorHandler}
+            dueDate={dueDate}
+            onChangeDueDate={dueDateSelectorHandler}
           />
         </Box>
         <AppBar
