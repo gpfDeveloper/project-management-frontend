@@ -89,7 +89,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
                 Save
               </Button>
               <Button
-                sx={{ color: 'text.secondary' }}
+                color="inherit"
                 onClick={() => setIsFocusDescription(false)}
               >
                 Cancel

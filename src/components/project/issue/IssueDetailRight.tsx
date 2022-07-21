@@ -1,4 +1,5 @@
-import { Box } from '@mui/material';
+import moment from 'moment';
+import { Box, Typography } from '@mui/material';
 import { FunctionComponent } from 'react';
 import IssuePrioritySelector from 'components/project/issue/IssuePrioritySelector';
 import DateSelector from 'components/shared/DateSelector';
@@ -17,6 +18,8 @@ type Props = {
   priority: ProjectIssuePriority;
   issueStatus: ProjectIssueStatus;
   dueDate: Date | null;
+  createdAt: string;
+  updatedAt: string;
   onChangeReporter: (
     event: React.SyntheticEvent<Element, Event>,
     value: People | null
@@ -37,6 +40,8 @@ const IssueDetailRight: FunctionComponent<Props> = ({
   priority,
   issueStatus,
   dueDate,
+  createdAt,
+  updatedAt,
   onChangeAssignee,
   onChangePriority,
   onChangeReporter,
@@ -50,34 +55,50 @@ const IssueDetailRight: FunctionComponent<Props> = ({
         mb: 4,
         display: 'flex',
         flexDirection: 'column',
-        gap: 3,
+        gap: 4,
       }}
     >
-      <IssueStatusSelector
-        issueStatus={issueStatus}
-        onSelect={onChangeIssueStatus}
-      />
-      <PeopleSelector
-        people={reporter}
-        onSelect={onChangeReporter}
-        options={allPeople}
-        label="Reporter"
-      />
-      <PeopleSelector
-        people={assignee}
-        onSelect={onChangeAssignee}
-        options={allPeople}
-        label="Assignee"
-      />
-      <IssuePrioritySelector
-        issuePriority={priority}
-        onSelect={onChangePriority}
-      />
-      <DateSelector
-        label="Due date"
-        date={dueDate}
-        onChange={onChangeDueDate}
-      />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 3,
+        }}
+      >
+        <IssueStatusSelector
+          issueStatus={issueStatus}
+          onSelect={onChangeIssueStatus}
+        />
+        <PeopleSelector
+          people={reporter}
+          onSelect={onChangeReporter}
+          options={allPeople}
+          label="Reporter"
+        />
+        <PeopleSelector
+          people={assignee}
+          onSelect={onChangeAssignee}
+          options={allPeople}
+          label="Assignee"
+        />
+        <IssuePrioritySelector
+          issuePriority={priority}
+          onSelect={onChangePriority}
+        />
+        <DateSelector
+          label="Due date"
+          date={dueDate}
+          onChange={onChangeDueDate}
+        />
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Typography variant="body2" color="text.secondary">
+          Created at {moment(createdAt).format('LLL')}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Updated at {moment(updatedAt).format('LLL')}
+        </Typography>
+      </Box>
     </Box>
   );
 };

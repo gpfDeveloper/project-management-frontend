@@ -1,13 +1,4 @@
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  useScrollTrigger,
-  Tooltip,
-  Typography,
-  Button,
-  IconButton,
-} from '@mui/material';
+import { Box, Tooltip, Typography, Button, IconButton } from '@mui/material';
 import { FunctionComponent } from 'react';
 import { ProjectIssueType } from 'types/project';
 import BugReportIcon from '@mui/icons-material/BugReport';

@@ -83,6 +83,8 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
         onChangeIssueStatus={issueStatusSelectorHandler}
         dueDate={dueDate}
         onChangeDueDate={dueDateSelectorHandler}
+        createdAt={issue.created}
+        updatedAt={issue.updated}
       />
     </>
   );
