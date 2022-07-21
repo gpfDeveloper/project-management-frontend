@@ -14,6 +14,9 @@ const config = {
       [{ color: [] }, { background: [] }],
       ['clean'],
     ],
+    clipboard: {
+      matchVisual: false,
+    },
   },
 };
 

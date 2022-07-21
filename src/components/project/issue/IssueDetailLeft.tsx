@@ -21,14 +21,19 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
   onChangeDescription,
   onSaveDescription,
 }) => {
-  const [isFocus, setIsFocus] = useState(false);
+  const [isFocusSummary, setIsFocusSummary] = useState(false);
+  const [isFocusDescription, setIsFocusDescription] = useState(false);
+  const saveDescriptionHandler = () => {
+    setIsFocusDescription(false);
+    onSaveDescription();
+  };
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 2 }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <TextField
           fullWidth
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setTimeout(() => setIsFocus(false), 300)}
+          onFocus={() => setIsFocusSummary(true)}
+          onBlur={() => setTimeout(() => setIsFocusSummary(false), 300)}
           onChange={onChangeSummary}
           multiline
           value={summary}
@@ -36,7 +41,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
           size="small"
           variant="filled"
         />
-        {isFocus && (
+        {isFocusSummary && (
           <Box sx={{ alignSelf: 'flex-end', display: 'flex', gap: 1 }}>
             <IconButton
               sx={{ boxShadow: 1, borderRadius: '4px' }}
@@ -55,10 +60,43 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
         <Typography variant="body2" mb={0.6} fontWeight={500}>
           Description
         </Typography>
-        <TextEditor editorState={description} onChange={onChangeDescription} />
-        <Button sx={{ mt: 1 }} variant="contained" onClick={onSaveDescription}>
-          Save
-        </Button>
+        {!isFocusDescription && (
+          <Box
+            onClick={() => setIsFocusDescription(true)}
+            sx={{
+              cursor: 'text',
+              padding: 2,
+              borderRadius: '4px',
+              '&:hover': { backgroundColor: 'rgba(0,0,0,0.06)' },
+            }}
+          >
+            <div
+              className="ql-editor"
+              data-gramm="false"
+              contentEditable={false}
+              dangerouslySetInnerHTML={{ __html: description.text }}
+            ></div>
+          </Box>
+        )}
+        {isFocusDescription && (
+          <Box>
+            <TextEditor
+              editorState={description}
+              onChange={onChangeDescription}
+            />
+            <Box sx={{ mt: 1, display: 'flex', gap: 1, alignItems: 'center' }}>
+              <Button variant="contained" onClick={saveDescriptionHandler}>
+                Save
+              </Button>
+              <Button
+                sx={{ color: 'text.secondary' }}
+                onClick={() => setIsFocusDescription(false)}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        )}
       </Box>
       <Box sx={{ mt: 4 }}>
         <Typography sx={{ fontWeight: 700 }}>Activity</Typography>

@@ -22,6 +22,7 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
     text: issue.description || '',
   });
   const changeDescriptionHandler = (content: string) => {
+    console.log('des:', content);
     setDescription({ text: content });
   };
   const saveDescriptionHandler = () => {
