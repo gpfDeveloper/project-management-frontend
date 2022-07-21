@@ -23,15 +23,10 @@ for (const issue of sampleIssues) {
 const initialData: BoardType = {
   issues,
   columns: {
-    'column-0': {
-      id: 'column-0',
-      title: 'BACKLOG',
-      issueIds,
-    },
     'column-1': {
       id: 'column-1',
       title: 'TO DO',
-      issueIds: [],
+      issueIds,
     },
     'column-2': {
       id: 'column-2',
@@ -45,7 +40,7 @@ const initialData: BoardType = {
     },
   },
   // Facilitate reordering of the columns
-  columnOrder: ['column-0', 'column-1', 'column-2', 'column-3'],
+  columnOrder: ['column-1', 'column-2', 'column-3'],
 };
 
 const ProjectBoard: FunctionComponent = () => {

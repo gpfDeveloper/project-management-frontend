@@ -4,6 +4,7 @@ import {
   GridColDef,
   GridRenderCellParams,
   GridToolbar,
+  GridComparatorFn,
 } from '@mui/x-data-grid';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import TaskIcon from '@mui/icons-material/Task';
@@ -15,12 +16,38 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import type {
   ProjectIssuePriority,
+  ProjectIssueProps,
   ProjectIssueStatus,
   ProjectIssueType,
 } from 'types/project';
 import { Link } from 'react-router-dom';
 import { sampleIssues } from 'dummyData/dummyData';
 import moment from 'moment';
+import StringAvatar from 'components/shared/StringAvatar';
+
+const PriorityValue = {
+  Lowest: 0,
+  Low: 1,
+  Medium: 2,
+  High: 3,
+  Highest: 4,
+};
+
+const priorityComparator: GridComparatorFn<ProjectIssuePriority> = (v1, v2) =>
+  PriorityValue[v1] - PriorityValue[v2];
+
+const dataTransfer = (issues: ProjectIssueProps[]) => {
+  const rows = [];
+  for (const issue of issues) {
+    const row = {
+      ...issue,
+      reporter: issue.reporter.name,
+      assignee: issue.assignee.name,
+    };
+    rows.push(row);
+  }
+  return rows;
+};
 
 const renderType = (params: GridRenderCellParams<ProjectIssueType>) => {
   let icon = <TaskIcon fontSize="small" color="info" />;
@@ -38,6 +65,17 @@ const renderSummary = (params: GridRenderCellParams<string>) => {
         {params.value}
       </Typography>
     </Link>
+  );
+};
+
+const renderPeople = (params: GridRenderCellParams<string>) => {
+  return (
+    <Box
+      sx={{ display: 'flex', alignItems: 'center', gap: 0.8, width: '100%' }}
+    >
+      <StringAvatar height={30} width={30} name={params.value!} />
+      <Typography variant="body2">{params.value}</Typography>
+    </Box>
   );
 };
 
@@ -68,46 +106,69 @@ const renderStatus = (params: GridRenderCellParams<ProjectIssueStatus>) => {
 };
 
 const columns: GridColDef[] = [
-  { field: 'type', headerName: 'Type', renderCell: renderType, width: 30 },
+  {
+    field: 'type',
+    headerName: 'Type',
+    renderCell: renderType,
+    width: 30,
+    type: 'singleSelect',
+    valueOptions: ['Bug', 'Story', 'Task'],
+  },
   {
     field: 'summary',
     headerName: 'Summary',
     renderCell: renderSummary,
+    sortable: false,
     minWidth: 480,
     flex: 1,
   },
   {
     field: 'assignee',
     headerName: 'Assignee',
-    valueFormatter: (params) => params.value.name,
+    renderCell: renderPeople,
+    minWidth: 150,
   },
   {
     field: 'reporter',
     headerName: 'Reporter',
-    valueFormatter: (params) => params.value.name,
+    renderCell: renderPeople,
+    minWidth: 150,
   },
-  { field: 'priority', headerName: 'P', renderCell: renderPriority, width: 30 },
+  {
+    field: 'priority',
+    headerName: 'P',
+    renderCell: renderPriority,
+    width: 30,
+    type: 'singleSelect',
+    valueOptions: ['Highest', 'High', 'Medium', 'Low', 'Lowest'],
+    sortComparator: priorityComparator,
+  },
   {
     field: 'status',
     headerName: 'Status',
     renderCell: renderStatus,
     width: 120,
+    type: 'singleSelect',
+    valueOptions: ['TO DO', 'IN PROGRESS', 'DONE'],
   },
   {
     field: 'created',
     headerName: 'Created',
+    type: 'date',
     width: 110,
     valueFormatter: (params) => moment(params?.value).format('MMM D[,] YYYY'),
   },
   {
     field: 'updated',
     headerName: 'Updated',
+    type: 'date',
     width: 110,
     valueFormatter: (params) => moment(params?.value).format('MMM D[,] YYYY'),
   },
   {
     field: 'due',
     headerName: 'Due',
+    type: 'date',
     width: 110,
     valueFormatter: (params) => {
       if (!params.value) return null;
@@ -124,7 +185,7 @@ export default function AllIssuesDataGrid() {
           autoHeight
           getRowHeight={() => 'auto'}
           columns={columns}
-          rows={sampleIssues}
+          rows={dataTransfer(sampleIssues)}
           disableDensitySelector
           components={{ Toolbar: GridToolbar }}
           componentsProps={{

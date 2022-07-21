@@ -1,4 +1,11 @@
-import { Box, IconButton, Button, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Button,
+  TextField,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
 import { FunctionComponent, useState } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
@@ -21,6 +28,10 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
   onChangeDescription,
   onSaveDescription,
 }) => {
+  const theme = useTheme();
+  const mode = theme.palette.mode;
+  const grey =
+    mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900];
   const [isFocusSummary, setIsFocusSummary] = useState(false);
   const [isFocusDescription, setIsFocusDescription] = useState(false);
   const saveDescriptionHandler = () => {
@@ -67,7 +78,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
               cursor: 'text',
               padding: 2,
               borderRadius: '4px',
-              '&:hover': { backgroundColor: 'rgba(0,0,0,0.06)' },
+              '&:hover': { backgroundColor: grey },
             }}
           >
             <div
