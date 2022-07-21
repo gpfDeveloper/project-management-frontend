@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { ProjectLayout } from 'components/layout/ProjectLayout';
-import IssueDetail from 'components/project/issue/IssueDetail';
+import IssueDetailWrapper from 'components/project/issue/IssueDetailWrapper';
 import { FunctionComponent } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const IssueDetailPage: FunctionComponent = () => {
   return (
     <ProjectLayout>
       <Box>
-        <IssueDetail issueId={issueId} />
+        <IssueDetailWrapper issueId={issueId} />
       </Box>
     </ProjectLayout>
   );

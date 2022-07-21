@@ -18,7 +18,6 @@ import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type Props = {
-  scrollTarget: Node | Window | undefined;
   issueId: string;
   projectId: string;
   issueType: ProjectIssueType;
@@ -38,49 +37,44 @@ const IssueIcon: FunctionComponent<IssueIconProps> = ({ issueType }) => {
 };
 
 const IssueDetailHeader: FunctionComponent<Props> = ({
-  scrollTarget,
   issueId,
   issueType,
   projectId,
 }) => {
-  const isScroll = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: scrollTarget,
-  });
   return (
-    <AppBar
-      elevation={isScroll ? 1 : 0}
+    <Box
       sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
         position: 'sticky',
+        top: 64,
+        zIndex: 3,
         bgcolor: 'background.paper',
         color: 'text.primary',
       }}
     >
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IssueIcon issueType={issueType} />
-          <Typography variant="body2" color="text.secondary">
-            {issueId}
-          </Typography>
-        </Box>
-        <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
-          <Button color="inherit">
-            <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />
-            Give feedback
-          </Button>
-          <Button color="inherit">
-            <LinkIcon sx={{ mr: 0.2 }} />
-            Copy link
-          </Button>
-          <Tooltip title="Delete this issue">
-            <IconButton>
-              <DeleteForeverIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Toolbar>
-    </AppBar>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <IssueIcon issueType={issueType} />
+        <Typography variant="body2" color="text.secondary">
+          {issueId}
+        </Typography>
+      </Box>
+      <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
+        <Button color="inherit">
+          <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />
+          Give feedback
+        </Button>
+        <Button color="inherit">
+          <LinkIcon sx={{ mr: 0.2 }} />
+          Copy link
+        </Button>
+        <Tooltip title="Delete this issue">
+          <IconButton>
+            <DeleteForeverIcon />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    </Box>
   );
 };
 
