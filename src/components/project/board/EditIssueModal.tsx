@@ -36,6 +36,7 @@ const EditIssueModal: FunctionComponent<Props> = ({
           boxShadow: 4,
           overflowY: 'auto',
           maxHeight: '90vh',
+          pb: 4,
         }}
       >
         <EditIssueModalHeader

@@ -2,7 +2,6 @@ import {
   IconButton,
   Box,
   Typography,
-  Avatar,
   Menu,
   MenuItem,
   useTheme,
@@ -82,7 +81,7 @@ const MyAvatar: FunctionComponent = () => {
     content = (
       <Box>
         <IconButton onClick={openMenuHandler}>
-          <StringAvatar name="Peng Fei" />
+          <StringAvatar name={user.username} />
         </IconButton>
         <Menu
           open={open}

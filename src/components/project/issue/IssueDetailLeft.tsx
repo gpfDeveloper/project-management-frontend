@@ -10,6 +10,7 @@ import TextEditor from 'components/shared/TextEditor';
 import { FunctionComponent, useState } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import IssueDetailActivity from './activity/IssueDetailActivity';
 
 type Props = {
   summary: string;
@@ -68,7 +69,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
         )}
       </Box>
       <Box>
-        <Typography variant="body2" mb={0.6} fontWeight={500}>
+        <Typography mb={0.6} fontWeight={500}>
           Description
         </Typography>
         {!isFocusDescription && (
@@ -109,9 +110,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
           </Box>
         )}
       </Box>
-      <Box sx={{ mt: 4 }}>
-        <Typography sx={{ fontWeight: 700 }}>Activity</Typography>
-      </Box>
+      <IssueDetailActivity />
     </Box>
   );
 };

@@ -1,5 +1,4 @@
 import { People, ProjectIssueProps } from 'types/project';
-import { v4 as uuid } from 'uuid';
 
 export const samplePeople: People[] = [
   { email: '', name: 'Unassigned' },
@@ -10,7 +9,7 @@ export const samplePeople: People[] = [
 
 export const sampleIssues: ProjectIssueProps[] = [
   {
-    id: uuid(),
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     projectId: 'project1',
     type: 'Bug',
     summary:
@@ -26,7 +25,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: '2022-08-14T17:21:07.5272333Z',
   },
   {
-    id: uuid(),
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a02',
     projectId: 'project1',
     type: 'Story',
     summary:
@@ -40,7 +39,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: '2022-08-15T17:21:07.5272333Z',
   },
   {
-    id: uuid(),
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a03',
     projectId: 'project1',
     type: 'Task',
     summary:
@@ -54,7 +53,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: '2022-08-16T17:21:07.5272333Z',
   },
   {
-    id: uuid(),
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a04',
     projectId: 'project1',
     type: 'Task',
     summary:
@@ -67,7 +66,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     updated: '2022-07-11T17:21:07.5272333Z',
   },
   {
-    id: uuid(),
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a05',
     projectId: 'project1',
     type: 'Bug',
     summary:
@@ -81,7 +80,7 @@ export const sampleIssues: ProjectIssueProps[] = [
     due: '2022-08-12T17:21:07.5272333Z',
   },
   {
-    id: uuid(),
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a06',
     projectId: 'project1',
     type: 'Story',
     summary:

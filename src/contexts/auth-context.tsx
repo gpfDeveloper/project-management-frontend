@@ -91,7 +91,7 @@ export const AuthProvider: FunctionComponent<Props> = ({ children }) => {
   const login = async (username: string, password: string) => {
     // await AmpAuth.signIn(username, password);
     // await initiateUser();
-    setUser({ username: 'Pengfei', id: '123', picture: '/' });
+    setUser({ username: 'Pengfei Gao', id: '123', picture: '/' });
   };
 
   const loginWithGoogle = async () => {
