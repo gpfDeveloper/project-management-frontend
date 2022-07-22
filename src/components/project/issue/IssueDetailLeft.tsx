@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState, useRef } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import IssueDetailActivity from './activity/IssueDetailActivity';
@@ -38,6 +38,11 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
   const saveDescriptionHandler = () => {
     setIsFocusDescription(false);
     onSaveDescription();
+  };
+  const descriptionInputRef = useRef<HTMLInputElement>();
+  const descriptionFocusHandler = () => {
+    setIsFocusDescription(true);
+    setTimeout(() => descriptionInputRef!.current!.focus(), 300);
   };
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 2 }}>
@@ -74,7 +79,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
         </Typography>
         {!isFocusDescription && (
           <Box
-            onClick={() => setIsFocusDescription(true)}
+            onClick={descriptionFocusHandler}
             sx={{
               cursor: 'text',
               padding: 2,
@@ -93,6 +98,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
         {isFocusDescription && (
           <Box>
             <TextEditor
+              ref={descriptionInputRef}
               editorState={description}
               onChange={onChangeDescription}
             />

@@ -1,7 +1,12 @@
 import { Box } from '@mui/material';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { FunctionComponent } from 'react';
+import {
+  FunctionComponent,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 
 const config = {
   theme: 'snow',
@@ -23,14 +28,27 @@ const config = {
 type Props = {
   editorState: { text: string };
   onChange: (content: string) => void;
+  ref?: any;
 };
 
-const TextEditor: FunctionComponent<Props> = ({ editorState, onChange }) => {
-  return (
-    <Box sx={{ '& .ql-editor': { minHeight: 120 } }}>
-      <ReactQuill value={editorState.text} onChange={onChange} {...config} />
-    </Box>
-  );
-};
+const TextEditor: FunctionComponent<Props> = forwardRef(
+  ({ editorState, onChange }, ref) => {
+    const inputRef = useRef<any>();
+    const focus = () => inputRef.current.focus();
+    useImperativeHandle(ref, () => {
+      return { focus };
+    });
+    return (
+      <Box sx={{ '& .ql-editor': { minHeight: 120 } }}>
+        <ReactQuill
+          ref={inputRef}
+          value={editorState.text}
+          onChange={onChange}
+          {...config}
+        />
+      </Box>
+    );
+  }
+);
 
 export default TextEditor;
