@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { Box, List, Typography, useTheme } from '@mui/material';
 import type { ColumnType } from './ProjectBoard';
-import type { ProjectIssueProps } from 'types/project';
+import type { ProjectIssueProps } from 'types/types';
 import { Droppable } from 'react-beautiful-dnd';
 import ProjectBoardIssue from './ProjectBoardIssue';
 

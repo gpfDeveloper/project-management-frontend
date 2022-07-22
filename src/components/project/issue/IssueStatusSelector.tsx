@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckIcon from '@mui/icons-material/Check';
 
-import { ProjectIssueStatus } from 'types/project';
+import { ProjectIssueStatus } from 'types/types';
 
 type Props = {
   issueStatus: ProjectIssueStatus;

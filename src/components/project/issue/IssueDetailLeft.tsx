@@ -99,6 +99,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
           <Box>
             <TextEditor
               ref={descriptionInputRef}
+              placeholder="Add a description..."
               editorState={description}
               onChange={onChangeDescription}
             />

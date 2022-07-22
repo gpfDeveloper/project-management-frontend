@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { FunctionComponent } from 'react';
-import { ProjectIssueType } from 'types/project';
+import { ProjectIssueType } from 'types/types';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import TaskIcon from '@mui/icons-material/Task';
 import BookmarkIcon from '@mui/icons-material/Bookmark';

@@ -19,7 +19,7 @@ import type {
   ProjectIssueProps,
   ProjectIssueStatus,
   ProjectIssueType,
-} from 'types/project';
+} from 'types/types';
 import { Link } from 'react-router-dom';
 import { sampleIssues } from 'dummyData/dummyData';
 import moment from 'moment';
@@ -152,21 +152,21 @@ const columns: GridColDef[] = [
     valueOptions: ['TO DO', 'IN PROGRESS', 'DONE'],
   },
   {
-    field: 'created',
+    field: 'createdAt',
     headerName: 'Created',
     type: 'date',
     width: 110,
     valueFormatter: (params) => moment(params?.value).format('MMM D[,] YYYY'),
   },
   {
-    field: 'updated',
+    field: 'updatedAt',
     headerName: 'Updated',
     type: 'date',
     width: 110,
     valueFormatter: (params) => moment(params?.value).format('MMM D[,] YYYY'),
   },
   {
-    field: 'due',
+    field: 'dueAt',
     headerName: 'Due',
     type: 'date',
     width: 110,

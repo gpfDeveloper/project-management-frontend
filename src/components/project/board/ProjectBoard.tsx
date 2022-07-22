@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
-import { ProjectIssueProps } from 'types/project';
+import { ProjectIssueProps } from 'types/types';
 import { sampleIssues } from 'dummyData/dummyData';
 import ProjectBoardFilters from './ProjectBoardFilters';
 

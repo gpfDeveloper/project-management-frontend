@@ -45,7 +45,8 @@ type Props = {
 };
 
 export const AuthProvider: FunctionComponent<Props> = ({ children }) => {
-  const [user, setUser] = useState<User>(null);
+  const curUser = { username: 'Pengfei Gao', id: '123', picture: '/' };
+  const [user, setUser] = useState<User>(curUser);
 
   const initiateUser = async () => {
     // try {

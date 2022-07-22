@@ -1,4 +1,4 @@
-import { People, ProjectIssueProps } from 'types/project';
+import { Comment, People, ProjectIssueProps } from 'types/types';
 
 export const samplePeople: People[] = [
   { email: '', name: 'Unassigned' },
@@ -20,9 +20,9 @@ export const sampleIssues: ProjectIssueProps[] = [
     reporter: samplePeople[1],
     priority: 'Highest',
     status: 'DONE',
-    created: '2022-06-14T17:21:07.5272333Z',
-    updated: '2022-07-14T17:21:07.5272333Z',
-    due: '2022-08-14T17:21:07.5272333Z',
+    createdAt: '2022-06-14T17:21:07.5272333Z',
+    updatedAt: '2022-07-14T17:21:07.5272333Z',
+    dueAt: '2022-08-14T17:21:07.5272333Z',
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a02',
@@ -34,9 +34,9 @@ export const sampleIssues: ProjectIssueProps[] = [
     reporter: samplePeople[1],
     priority: 'Medium',
     status: 'TO DO',
-    created: '2022-06-15T17:21:07.5272333Z',
-    updated: '2022-07-15T17:21:07.5272333Z',
-    due: '2022-08-15T17:21:07.5272333Z',
+    createdAt: '2022-06-15T17:21:07.5272333Z',
+    updatedAt: '2022-07-15T17:21:07.5272333Z',
+    dueAt: '2022-08-15T17:21:07.5272333Z',
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a03',
@@ -48,9 +48,9 @@ export const sampleIssues: ProjectIssueProps[] = [
     reporter: samplePeople[1],
     priority: 'Low',
     status: 'TO DO',
-    created: '2022-06-16T17:21:07.5272333Z',
-    updated: '2022-07-16T17:21:07.5272333Z',
-    due: '2022-08-16T17:21:07.5272333Z',
+    createdAt: '2022-06-16T17:21:07.5272333Z',
+    updatedAt: '2022-07-16T17:21:07.5272333Z',
+    dueAt: '2022-08-16T17:21:07.5272333Z',
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a04',
@@ -62,8 +62,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     reporter: samplePeople[1],
     priority: 'Low',
     status: 'TO DO',
-    created: '2022-06-11T17:21:07.5272333Z',
-    updated: '2022-07-11T17:21:07.5272333Z',
+    createdAt: '2022-06-11T17:21:07.5272333Z',
+    updatedAt: '2022-07-11T17:21:07.5272333Z',
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a05',
@@ -75,9 +75,9 @@ export const sampleIssues: ProjectIssueProps[] = [
     reporter: samplePeople[1],
     priority: 'Lowest',
     status: 'TO DO',
-    created: '2022-06-12T17:21:07.5272333Z',
-    updated: '2022-07-12T17:21:07.5272333Z',
-    due: '2022-08-12T17:21:07.5272333Z',
+    createdAt: '2022-06-12T17:21:07.5272333Z',
+    updatedAt: '2022-07-12T17:21:07.5272333Z',
+    dueAt: '2022-08-12T17:21:07.5272333Z',
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a06',
@@ -89,7 +89,26 @@ export const sampleIssues: ProjectIssueProps[] = [
     reporter: samplePeople[1],
     priority: 'High',
     status: 'IN PROGRESS',
-    created: '2022-06-13T17:21:07.5272333Z',
-    updated: '2022-07-13T17:21:07.5272333Z',
+    createdAt: '2022-06-13T17:21:07.5272333Z',
+    updatedAt: '2022-07-13T17:21:07.5272333Z',
+  },
+];
+
+export const sampleComments: Comment[] = [
+  {
+    id: '85cc7df2-35a4-4342-b1ac-b72316a36a01',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdBy: samplePeople[1],
+    createdAt: '2022-08-13T17:21:07.5272333Z',
+    updatedAt: '2022-08-13T17:21:07.5272333Z',
+    content: 'A test comment.',
+  },
+  {
+    id: '85cc7df2-35a4-4342-b1ac-b72316a36a02',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdBy: samplePeople[2],
+    createdAt: '2022-08-14T17:21:07.5272333Z',
+    updatedAt: '2022-08-15T17:21:07.5272333Z',
+    content: 'Another test comment.',
   },
 ];

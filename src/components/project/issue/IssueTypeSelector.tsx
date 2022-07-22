@@ -9,7 +9,7 @@ import { FunctionComponent } from 'react';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import TaskIcon from '@mui/icons-material/Task';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { ProjectIssueType } from 'types/project';
+import { ProjectIssueType } from 'types/types';
 
 type Props = {
   issueType: ProjectIssueType;

@@ -29,10 +29,11 @@ type Props = {
   editorState: { text: string };
   onChange: (content: string) => void;
   ref?: any;
+  placeholder?: string;
 };
 
 const TextEditor: FunctionComponent<Props> = forwardRef(
-  ({ editorState, onChange }, ref) => {
+  ({ editorState, onChange, placeholder }, ref) => {
     const inputRef = useRef<any>();
     const focus = () => inputRef.current.focus();
     useImperativeHandle(ref, () => {
@@ -41,6 +42,7 @@ const TextEditor: FunctionComponent<Props> = forwardRef(
     return (
       <Box sx={{ '& .ql-editor': { minHeight: 120 } }}>
         <ReactQuill
+          placeholder={placeholder}
           ref={inputRef}
           value={editorState.text}
           onChange={onChange}

@@ -17,13 +17,22 @@ export type ProjectIssueProps = {
   reporter: People;
   priority: ProjectIssuePriority;
   status: ProjectIssueStatus;
-  created: string;
-  updated: string;
-  due?: string;
+  createdAt: string;
+  updatedAt: string;
+  dueAt?: string;
 };
 
 export type People = {
   email: string;
   name: string;
   img?: string;
+};
+
+export type Comment = {
+  id: string;
+  issueId: string;
+  createdBy: People;
+  createdAt: string;
+  updatedAt: string;
+  content: string;
 };

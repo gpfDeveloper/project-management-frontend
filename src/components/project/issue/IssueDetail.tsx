@@ -4,7 +4,7 @@ import {
   ProjectIssuePriority,
   ProjectIssueProps,
   ProjectIssueStatus,
-} from 'types/project';
+} from 'types/types';
 import { samplePeople } from 'dummyData/dummyData';
 import IssueDetailLeft from './IssueDetailLeft';
 import IssueDetailRight from './IssueDetailRight';
@@ -56,7 +56,7 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
     setPriority(e.target.value as ProjectIssuePriority);
   };
   let _due = null;
-  if (issue.due) _due = new Date(issue.due);
+  if (issue.dueAt) _due = new Date(issue.dueAt);
   const [dueDate, setDueDate] = useState<Date | null>(_due);
   const dueDateSelectorHandler = (date: Date | null) => {
     setDueDate(date);
@@ -83,8 +83,8 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
         onChangeIssueStatus={issueStatusSelectorHandler}
         dueDate={dueDate}
         onChangeDueDate={dueDateSelectorHandler}
-        createdAt={issue.created}
-        updatedAt={issue.updated}
+        createdAt={issue.createdAt}
+        updatedAt={issue.updatedAt}
       />
     </>
   );

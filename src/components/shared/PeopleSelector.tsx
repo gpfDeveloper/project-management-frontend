@@ -1,6 +1,6 @@
 import { Box, TextField, Autocomplete, Typography } from '@mui/material';
 import { FunctionComponent } from 'react';
-import { People } from 'types/project';
+import { People } from 'types/types';
 import StringAvatar from './StringAvatar';
 
 type Props = {

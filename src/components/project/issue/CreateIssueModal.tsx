@@ -14,11 +14,11 @@ import {
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
-import { ProjectIssuePriority, ProjectIssueType } from 'types/project';
+import { ProjectIssuePriority, ProjectIssueType } from 'types/types';
 import IssueTypeSelector from './IssueTypeSelector';
 import IssuePrioritySelector from './IssuePrioritySelector';
 import { samplePeople } from 'dummyData/dummyData';
-import type { People } from 'types/project';
+import type { People } from 'types/types';
 import PeopleSelector from 'components/shared/PeopleSelector';
 
 const projects = [
@@ -173,6 +173,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
                 Description
               </Typography>
               <TextEditor
+                placeholder="Add a description..."
                 editorState={description}
                 onChange={changeDescriptionHandler}
               />

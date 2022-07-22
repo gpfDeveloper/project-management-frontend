@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Box, ListItemButton, Tooltip, Typography } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
-import type { ProjectIssueProps } from 'types/project';
+import type { ProjectIssueProps } from 'types/types';
 import { Draggable } from 'react-beautiful-dnd';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import TaskIcon from '@mui/icons-material/Task';
@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import type { ProjectIssueType, ProjectIssuePriority } from 'types/project';
+import type { ProjectIssueType, ProjectIssuePriority } from 'types/types';
 import StringAvatar from 'components/shared/StringAvatar';
 import EditIssueModal from './EditIssueModal';
 
@@ -60,7 +60,9 @@ const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
   const openModalHandler = () => {
     setOpen(true);
   };
-  const dueDate = issue.due ? moment(issue.due).format('DD[/]MMM[/]YY') : null;
+  const dueDate = issue.dueAt
+    ? moment(issue.dueAt).format('DD[/]MMM[/]YY')
+    : null;
   return (
     <>
       <EditIssueModal

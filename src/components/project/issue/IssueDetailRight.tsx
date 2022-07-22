@@ -8,7 +8,7 @@ import type {
   ProjectIssuePriority,
   People,
   ProjectIssueStatus,
-} from 'types/project';
+} from 'types/types';
 import IssueStatusSelector from 'components/project/issue/IssueStatusSelector';
 
 type Props = {

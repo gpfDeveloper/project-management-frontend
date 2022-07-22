@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { FunctionComponent } from 'react';
 
-import { ProjectIssuePriority } from 'types/project';
+import { ProjectIssuePriority } from 'types/types';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';

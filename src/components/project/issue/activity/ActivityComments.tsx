@@ -29,7 +29,6 @@ const ActivityComments: FunctionComponent = () => {
 
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {
-      console.log(e.key);
       if (!focus && e.key.toLowerCase() === 'm') {
         focusHandler();
       }
@@ -86,6 +85,7 @@ const ActivityComments: FunctionComponent = () => {
       {focus && (
         <Box ref={commentDivRef}>
           <TextEditor
+            placeholder="Add a comment..."
             ref={commentRef}
             editorState={comment}
             onChange={commentChangeHandler}
