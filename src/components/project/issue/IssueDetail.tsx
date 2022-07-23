@@ -1,25 +1,18 @@
 import React, { FunctionComponent, useState } from 'react';
-import {
-  People,
-  ProjectIssuePriority,
-  ProjectIssueProps,
-  ProjectIssueStatus,
-} from 'types/types';
+import { People, ProjectIssuePriority, ProjectIssueStatus } from 'types/types';
 import { samplePeople } from 'dummyData/dummyData';
 import IssueDetailLeft from './IssueDetailLeft';
 import IssueDetailRight from './IssueDetailRight';
+import { useProject } from 'contexts/project-context';
 
-type Props = {
-  issue: ProjectIssueProps;
-};
-
-const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
-  const [summary, setSummary] = useState(issue.summary);
+const IssueDetail: FunctionComponent = () => {
+  const { currentIssue: issue } = useProject();
+  const [summary, setSummary] = useState(issue!.summary);
   const saveSummaryHandler = () => {
     console.log(summary);
   };
   const [description, setDescription] = useState({
-    text: issue.description || '',
+    text: issue!.description || '',
   });
   const changeDescriptionHandler = (content: string) => {
     console.log('des:', content);
@@ -30,12 +23,12 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
   };
 
   const [issueStatus, setIssueStatus] = useState<ProjectIssueStatus>(
-    issue.status
+    issue!.status
   );
   const issueStatusSelectorHandler = (status: ProjectIssueStatus) => {
     setIssueStatus(status);
   };
-  const [reporter, setReporter] = useState<People | null>(issue.reporter);
+  const [reporter, setReporter] = useState<People | null>(issue!.reporter);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
     value: People | null
@@ -43,7 +36,7 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
     if (!value) setReporter(samplePeople[0]);
     else setReporter(value);
   };
-  const [assignee, setAssignee] = useState<People | null>(issue.assignee);
+  const [assignee, setAssignee] = useState<People | null>(issue!.assignee);
   const assigneeSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
     value: People | null
@@ -56,7 +49,7 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
     setPriority(e.target.value as ProjectIssuePriority);
   };
   let _due = null;
-  if (issue.dueAt) _due = new Date(issue.dueAt);
+  if (issue!.dueAt) _due = new Date(issue!.dueAt);
   const [dueDate, setDueDate] = useState<Date | null>(_due);
   const dueDateSelectorHandler = (date: Date | null) => {
     setDueDate(date);
@@ -83,8 +76,8 @@ const IssueDetail: FunctionComponent<Props> = ({ issue }) => {
         onChangeIssueStatus={issueStatusSelectorHandler}
         dueDate={dueDate}
         onChangeDueDate={dueDateSelectorHandler}
-        createdAt={issue.createdAt}
-        updatedAt={issue.updatedAt}
+        createdAt={issue!.createdAt}
+        updatedAt={issue!.updatedAt}
       />
     </>
   );

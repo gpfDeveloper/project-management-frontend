@@ -47,7 +47,7 @@ const EditIssueModal: FunctionComponent<Props> = ({
           onClose={onClose}
         />
         <Box sx={{ p: '0 2rem', display: 'flex', gap: 4 }}>
-          <IssueDetail issue={issue} />
+          <IssueDetail />
         </Box>
       </Box>
     </Modal>
