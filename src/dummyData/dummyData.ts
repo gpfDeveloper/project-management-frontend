@@ -1,4 +1,4 @@
-import { Comment, People, ProjectIssueProps } from 'types/types';
+import { Comment, People, ProjectIssueProps, History } from 'types/types';
 
 export const samplePeople: People[] = [
   { email: '', name: 'Unassigned' },
@@ -11,7 +11,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     projectId: 'project1',
-    type: 'Bug',
+    type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
     description:
@@ -110,5 +110,49 @@ export const sampleComments: Comment[] = [
     createdAt: '2022-08-14T17:21:07.5272333Z',
     updatedAt: '2022-08-14T17:21:07.5272333Z',
     content: 'Another test comment.',
+  },
+];
+
+export const sampleHistory: History[] = [
+  {
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdAt: '2022-06-14T17:21:07.5272333Z',
+    field: 'Issue',
+    updatedBy: samplePeople[1],
+  },
+  {
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdAt: '2022-06-14T18:21:07.5272333Z',
+    field: 'Priority',
+    updatedBy: samplePeople[1],
+    from: 'Medium',
+    to: 'Highest',
+  },
+  {
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdAt: '2022-06-14T19:21:07.5272333Z',
+    field: 'Comment',
+    updatedBy: samplePeople[3],
+  },
+  {
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdAt: '2022-06-14T20:21:07.5272333Z',
+    field: 'Status',
+    updatedBy: samplePeople[2],
+    from: 'TO DO',
+    to: 'IN PROGRESS',
+  },
+  {
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
+    createdAt: '2022-06-15T20:21:07.5272333Z',
+    updatedBy: samplePeople[3],
+    field: 'Status',
+    from: 'IN PROGRESS',
+    to: 'DONE',
   },
 ];

@@ -36,3 +36,24 @@ export type Comment = {
   updatedAt: string;
   content: string;
 };
+
+export type HistoryField =
+  | 'Issue'
+  | 'Summary'
+  | 'Description'
+  | 'Assignee'
+  | 'Reporter'
+  | 'Priority'
+  | 'Status'
+  | 'Due'
+  | 'Comment';
+
+export type History = {
+  id: string;
+  issueId: string;
+  createdAt: string;
+  field: HistoryField;
+  updatedBy: People;
+  from?: string;
+  to?: string;
+};

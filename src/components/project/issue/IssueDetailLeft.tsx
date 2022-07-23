@@ -45,7 +45,14 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
     setTimeout(() => descriptionInputRef!.current!.focus(), 300);
   };
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 2 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        flex: 2,
+      }}
+    >
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <TextField
           fullWidth
