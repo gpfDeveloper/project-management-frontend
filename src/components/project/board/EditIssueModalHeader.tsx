@@ -17,12 +17,10 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CloseIcon from '@mui/icons-material/Close';
+import { useProject } from 'contexts/project-context';
 
 type Props = {
   scrollTarget: Node | Window | undefined;
-  issueId: string;
-  projectId: string;
-  issueType: ProjectIssueType;
   onClose: () => void;
 };
 
@@ -41,11 +39,9 @@ const IssueIcon: FunctionComponent<IssueIconProps> = ({ issueType }) => {
 
 const EditIssueModalHeader: FunctionComponent<Props> = ({
   scrollTarget,
-  issueId,
-  issueType,
-  projectId,
   onClose,
 }) => {
+  const { currentIssue } = useProject();
   const isScroll = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -62,9 +58,9 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IssueIcon issueType={issueType} />
+          <IssueIcon issueType={currentIssue!.type} />
           <Typography variant="body2" color="text.secondary">
-            {issueId}
+            {currentIssue!.id}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>

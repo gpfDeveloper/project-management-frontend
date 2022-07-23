@@ -6,15 +6,11 @@ import {
   useContext,
   useEffect,
 } from 'react';
-
-export type User = {
-  username: string;
-  id: string;
-  picture: string;
-} | null;
+import { People } from 'types/types';
+import { samplePeople } from 'dummyData/dummyData';
 
 type AuthProps = {
-  user: User;
+  user: People | null;
   signUp: (username: string, email: string, password: string) => void;
   confirmSignUp: (username: string, authCode: string, password: string) => void;
   login: (username: string, password: string) => void;
@@ -45,8 +41,7 @@ type Props = {
 };
 
 export const AuthProvider: FunctionComponent<Props> = ({ children }) => {
-  const curUser = { username: 'Pengfei Gao', id: '123', picture: '/' };
-  const [user, setUser] = useState<User>(curUser);
+  const [user, setUser] = useState<People | null>(samplePeople[1]);
 
   const initiateUser = async () => {
     // try {
@@ -92,7 +87,7 @@ export const AuthProvider: FunctionComponent<Props> = ({ children }) => {
   const login = async (username: string, password: string) => {
     // await AmpAuth.signIn(username, password);
     // await initiateUser();
-    setUser({ username: 'Pengfei Gao', id: '123', picture: '/' });
+    setUser(samplePeople[1]);
   };
 
   const loginWithGoogle = async () => {

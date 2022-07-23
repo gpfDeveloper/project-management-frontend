@@ -3,6 +3,10 @@ import { Box, TextField, Button, Typography, useTheme } from '@mui/material';
 import { useAuth } from 'contexts/auth-context';
 import StringAvatar from 'components/shared/StringAvatar';
 import TextEditor from 'components/shared/TextEditor';
+import { Comment } from 'types/types';
+import { sampleComments } from 'dummyData/dummyData';
+import ActivityCommentItems from './ActivityCommentItems';
+import { useProject } from 'contexts/project-context';
 
 const ActivityComments: FunctionComponent = () => {
   const { user } = useAuth();
@@ -41,12 +45,22 @@ const ActivityComments: FunctionComponent = () => {
       document.removeEventListener('keydown', keydownHandler);
     };
   }, [focus]);
+
+  const { currentIssue } = useProject();
+  const initComments = sampleComments
+    .filter((item) => item.issueId === currentIssue!.id)
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  const [comments, setComments] = useState<Comment[]>(initComments);
+
   return (
     <Box sx={{ mt: 2 }}>
       {!focus && (
         <Box>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <StringAvatar name={user?.username || 'Unassigned'} />
+            <StringAvatar name={user?.name || 'Unassigned'} />
             <TextField
               size="small"
               onFocus={focusHandler}
@@ -100,6 +114,7 @@ const ActivityComments: FunctionComponent = () => {
           </Box>
         </Box>
       )}
+      <ActivityCommentItems items={comments} />
     </Box>
   );
 };

@@ -100,7 +100,7 @@ export const sampleComments: Comment[] = [
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdBy: samplePeople[1],
     createdAt: '2022-08-13T17:21:07.5272333Z',
-    updatedAt: '2022-08-13T17:21:07.5272333Z',
+    updatedAt: '2022-08-14T17:21:07.5272333Z',
     content: 'A test comment.',
   },
   {
@@ -108,7 +108,7 @@ export const sampleComments: Comment[] = [
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdBy: samplePeople[2],
     createdAt: '2022-08-14T17:21:07.5272333Z',
-    updatedAt: '2022-08-15T17:21:07.5272333Z',
+    updatedAt: '2022-08-14T17:21:07.5272333Z',
     content: 'Another test comment.',
   },
 ];

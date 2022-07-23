@@ -7,12 +7,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
-type Props = {
-  issueId: string;
-  projectId: string;
-  issueType: ProjectIssueType;
-};
+import { useProject } from 'contexts/project-context';
 
 type IssueIconProps = {
   issueType: ProjectIssueType;
@@ -27,11 +22,8 @@ const IssueIcon: FunctionComponent<IssueIconProps> = ({ issueType }) => {
   return <Tooltip title={issueType}>{icon}</Tooltip>;
 };
 
-const IssueDetailHeader: FunctionComponent<Props> = ({
-  issueId,
-  issueType,
-  projectId,
-}) => {
+const IssueDetailHeader: FunctionComponent = () => {
+  const { currentIssue } = useProject();
   return (
     <Box
       sx={{
@@ -45,9 +37,9 @@ const IssueDetailHeader: FunctionComponent<Props> = ({
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <IssueIcon issueType={issueType} />
+        <IssueIcon issueType={currentIssue!.type} />
         <Typography variant="body2" color="text.secondary">
-          {issueId}
+          {currentIssue!.id}
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>

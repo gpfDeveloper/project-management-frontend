@@ -81,7 +81,7 @@ const MyAvatar: FunctionComponent = () => {
     content = (
       <Box>
         <IconButton onClick={openMenuHandler}>
-          <StringAvatar name={user.username} />
+          <StringAvatar name={user.name} />
         </IconButton>
         <Menu
           open={open}

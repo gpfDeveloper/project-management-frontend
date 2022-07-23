@@ -1,9 +1,10 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Box, Modal } from '@mui/material';
 
 import { sampleIssues } from 'dummyData/dummyData';
 import EditIssueModalHeader from './EditIssueModalHeader';
 import IssueDetail from '../issue/IssueDetail';
+import { useProject } from 'contexts/project-context';
 
 type Props = {
   issueId: string;
@@ -16,7 +17,18 @@ const EditIssueModal: FunctionComponent<Props> = ({
   onClose,
   issueId,
 }) => {
-  const issue = sampleIssues.find((item) => item.id === issueId)!;
+  const [loading, setLoading] = useState(true);
+  const { setCurrentIssue } = useProject();
+  useEffect(() => {
+    if (open) {
+      const issue = sampleIssues.find((item) => item.id === issueId)!;
+      setCurrentIssue(issue);
+      setLoading(false);
+    } else {
+      setCurrentIssue(undefined);
+      setLoading(true);
+    }
+  }, [open, issueId, setCurrentIssue]);
 
   const [scrollTarget, setScrollTarget] = useState<Node | Window | undefined>();
 
@@ -39,16 +51,17 @@ const EditIssueModal: FunctionComponent<Props> = ({
           pb: 4,
         }}
       >
-        <EditIssueModalHeader
-          issueId={issue.id}
-          projectId={issue.projectId}
-          issueType={issue.type}
-          scrollTarget={scrollTarget}
-          onClose={onClose}
-        />
-        <Box sx={{ p: '0 2rem', display: 'flex', gap: 4 }}>
-          <IssueDetail />
-        </Box>
+        {!loading && (
+          <>
+            <EditIssueModalHeader
+              scrollTarget={scrollTarget}
+              onClose={onClose}
+            />
+            <Box sx={{ p: '0 2rem', display: 'flex', gap: 4 }}>
+              <IssueDetail />
+            </Box>
+          </>
+        )}
       </Box>
     </Modal>
   );
