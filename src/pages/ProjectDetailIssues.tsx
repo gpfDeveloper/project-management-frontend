@@ -1,9 +1,15 @@
 import { Typography, Box } from '@mui/material';
 import { ProjectLayout } from 'components/layout/ProjectLayout';
 import AllIssuesDataGrid from 'components/project/issue/AllIssuesDataGrid';
-import { FunctionComponent } from 'react';
+import { useProject } from 'contexts/project-context';
+import { FunctionComponent, useEffect } from 'react';
+import { sampleIssues } from 'dummyData/dummyData';
 
 const ProjectDetailIssues: FunctionComponent = () => {
+  const { setAllIssues } = useProject();
+  useEffect(() => {
+    setAllIssues(sampleIssues);
+  }, [setAllIssues]);
   return (
     <ProjectLayout>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

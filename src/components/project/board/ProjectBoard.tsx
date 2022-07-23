@@ -3,7 +3,6 @@ import { FunctionComponent, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
 import { ProjectIssueProps } from 'types/types';
-import { sampleIssues } from 'dummyData/dummyData';
 import ProjectBoardFilters from './ProjectBoardFilters';
 
 export type ColumnType = { id: string; title: string; issueIds: string[] };
@@ -13,37 +12,40 @@ type BoardType = {
   columnOrder: string[];
 };
 
-let issues: { [k: string]: ProjectIssueProps } = {};
-const issueIds = [];
-for (const issue of sampleIssues) {
-  issues[issue.id] = issue;
-  issueIds.push(issue.id);
-}
-
-const initialData: BoardType = {
-  issues,
-  columns: {
-    'column-1': {
-      id: 'column-1',
-      title: 'TO DO',
-      issueIds,
-    },
-    'column-2': {
-      id: 'column-2',
-      title: 'IN PROGRESS',
-      issueIds: [],
-    },
-    'column-3': {
-      id: 'column-3',
-      title: 'DONE',
-      issueIds: [],
-    },
-  },
-  // Facilitate reordering of the columns
-  columnOrder: ['column-1', 'column-2', 'column-3'],
+type Props = {
+  issues: ProjectIssueProps[];
 };
 
-const ProjectBoard: FunctionComponent = () => {
+const ProjectBoard: FunctionComponent<Props> = ({ issues }) => {
+  const issueIds: string[] = [];
+
+  let _issues: { [k: string]: ProjectIssueProps } = {};
+  for (const issue of issues) {
+    _issues[issue.id] = issue;
+    issueIds.push(issue.id);
+  }
+  const initialData: BoardType = {
+    issues: _issues,
+    columns: {
+      'column-1': {
+        id: 'column-1',
+        title: 'TO DO',
+        issueIds,
+      },
+      'column-2': {
+        id: 'column-2',
+        title: 'IN PROGRESS',
+        issueIds: [],
+      },
+      'column-3': {
+        id: 'column-3',
+        title: 'DONE',
+        issueIds: [],
+      },
+    },
+    // Facilitate reordering of the columns
+    columnOrder: ['column-1', 'column-2', 'column-3'],
+  };
   const [state, setState] = useState(initialData);
 
   const dragEndHandler = (result: DropResult) => {

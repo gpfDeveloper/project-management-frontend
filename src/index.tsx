@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeModeProvider } from 'contexts/theme-mode-context';
 import { AuthProvider } from 'contexts/auth-context';
+import { ProjectProvider } from 'contexts/project-context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,10 @@ root.render(
   <BrowserRouter>
     <ThemeModeProvider>
       <AuthProvider>
-        <App />
+        <ProjectProvider>
+          <App />
+        </ProjectProvider>
+        j
       </AuthProvider>
     </ThemeModeProvider>
   </BrowserRouter>

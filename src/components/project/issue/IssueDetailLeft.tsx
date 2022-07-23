@@ -93,6 +93,11 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
               contentEditable={false}
               dangerouslySetInnerHTML={{ __html: description.text }}
             ></div>
+            {!description.text.trim() && (
+              <Typography color="text.secondary">
+                Add a description...
+              </Typography>
+            )}
           </Box>
         )}
         {isFocusDescription && (

@@ -21,9 +21,10 @@ import type {
   ProjectIssueType,
 } from 'types/types';
 import { Link } from 'react-router-dom';
-import { sampleIssues } from 'dummyData/dummyData';
 import moment from 'moment';
 import StringAvatar from 'components/shared/StringAvatar';
+import { FunctionComponent } from 'react';
+import { useProject } from 'contexts/project-context';
 
 const PriorityValue = {
   Lowest: 0,
@@ -177,7 +178,8 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function AllIssuesDataGrid() {
+const AllIssuesDataGrid: FunctionComponent = () => {
+  const { allIssues } = useProject();
   return (
     <Box sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1 }}>
@@ -185,7 +187,7 @@ export default function AllIssuesDataGrid() {
           autoHeight
           getRowHeight={() => 'auto'}
           columns={columns}
-          rows={dataTransfer(sampleIssues)}
+          rows={dataTransfer(allIssues)}
           disableDensitySelector
           components={{ Toolbar: GridToolbar }}
           componentsProps={{
@@ -203,4 +205,5 @@ export default function AllIssuesDataGrid() {
       </Box>
     </Box>
   );
-}
+};
+export default AllIssuesDataGrid;
