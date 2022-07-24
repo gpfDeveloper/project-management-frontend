@@ -179,7 +179,7 @@ const columns: GridColDef[] = [
 ];
 
 const AllIssuesDataGrid: FunctionComponent = () => {
-  const { allIssues } = useProject();
+  const { issuesPerProject } = useProject();
   return (
     <Box sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1 }}>
@@ -187,7 +187,7 @@ const AllIssuesDataGrid: FunctionComponent = () => {
           autoHeight
           getRowHeight={() => 'auto'}
           columns={columns}
-          rows={dataTransfer(allIssues)}
+          rows={dataTransfer(issuesPerProject)}
           disableDensitySelector
           components={{ Toolbar: GridToolbar }}
           componentsProps={{

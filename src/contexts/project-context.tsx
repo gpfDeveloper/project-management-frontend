@@ -8,8 +8,10 @@ import {
 import { ProjectIssueProps } from 'types/types';
 
 type ProjectProps = {
-  allIssues: ProjectIssueProps[];
-  setAllIssues: React.Dispatch<React.SetStateAction<ProjectIssueProps[]>>;
+  issuesPerProject: ProjectIssueProps[];
+  setIssuesPerProject: React.Dispatch<
+    React.SetStateAction<ProjectIssueProps[]>
+  >;
   currentIssue: ProjectIssueProps | undefined;
   setCurrentIssue: React.Dispatch<
     React.SetStateAction<ProjectIssueProps | undefined>
@@ -17,8 +19,8 @@ type ProjectProps = {
 };
 
 const ProjectContext = createContext<ProjectProps>({
-  allIssues: [],
-  setAllIssues: () => {},
+  issuesPerProject: [],
+  setIssuesPerProject: () => {},
   currentIssue: undefined,
   setCurrentIssue: () => {},
 });
@@ -29,15 +31,17 @@ type Props = {
 };
 
 export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
-  const [allIssues, setAllIssues] = useState<ProjectIssueProps[]>([]);
+  const [issuesPerProject, setIssuesPerProject] = useState<ProjectIssueProps[]>(
+    []
+  );
   const [currentIssue, setCurrentIssue] = useState<
     ProjectIssueProps | undefined
   >();
   return (
     <ProjectContext.Provider
       value={{
-        allIssues,
-        setAllIssues,
+        issuesPerProject,
+        setIssuesPerProject,
         currentIssue,
         setCurrentIssue,
       }}

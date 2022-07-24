@@ -6,10 +6,10 @@ import { FunctionComponent, useEffect } from 'react';
 import { sampleIssues } from 'dummyData/dummyData';
 
 const ProjectDetailIssues: FunctionComponent = () => {
-  const { setAllIssues } = useProject();
+  const { setIssuesPerProject } = useProject();
   useEffect(() => {
-    setAllIssues(sampleIssues);
-  }, [setAllIssues]);
+    setIssuesPerProject(sampleIssues);
+  }, [setIssuesPerProject]);
   return (
     <ProjectLayout>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

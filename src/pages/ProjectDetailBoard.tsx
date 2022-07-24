@@ -6,12 +6,12 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import { sampleIssues } from 'dummyData/dummyData';
 
 const ProjectDetailBoard: FunctionComponent = () => {
-  const { setAllIssues, allIssues } = useProject();
+  const { issuesPerProject, setIssuesPerProject } = useProject();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setAllIssues(sampleIssues);
+    setIssuesPerProject(sampleIssues);
     setLoading(false);
-  }, [setAllIssues]);
+  }, [setIssuesPerProject]);
   return (
     <ProjectLayout>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -19,7 +19,7 @@ const ProjectDetailBoard: FunctionComponent = () => {
           Projects / Sample Project
         </Typography>
         <Typography variant="h4">Kanban Board</Typography>
-        {!loading && <ProjectBoard issues={allIssues} />}
+        {!loading && <ProjectBoard issues={issuesPerProject} />}
       </Box>
     </ProjectLayout>
   );
