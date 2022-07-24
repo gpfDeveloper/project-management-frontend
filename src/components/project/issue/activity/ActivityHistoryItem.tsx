@@ -8,12 +8,18 @@ import type {
 } from 'types/types';
 import moment from 'moment';
 import StringAvatar from 'components/shared/StringAvatar';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
+import EastIcon from '@mui/icons-material/East';
+
+const MyArrowForwardIcon = () => (
+  <Box sx={{ color: 'text.secondary', display: 'flex', alignItems: 'center' }}>
+    <EastIcon fontSize="small" color="inherit" />
+  </Box>
+);
 
 const StatusHistory: FunctionComponent<{
   from: ProjectIssueStatus;
@@ -28,7 +34,7 @@ const StatusHistory: FunctionComponent<{
   return (
     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
       <Chip size="small" color={getColor(from)} label={from} />
-      <ArrowForwardIcon />
+      <MyArrowForwardIcon />
       <Chip size="small" label={to} color={getColor(to)} />
     </Box>
   );
@@ -66,7 +72,7 @@ const PriorityHistory: FunctionComponent<{
           {from}
         </Typography>
       </Box>
-      <ArrowForwardIcon />
+      <MyArrowForwardIcon />
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.4 }}>
         {iconTo}
         <Typography variant="body2" fontWeight={500}>
@@ -83,14 +89,14 @@ const PeopleHistory: FunctionComponent<{ from: People; to: People }> = ({
 }) => {
   return (
     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.4 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <StringAvatar height={30} width={30} name={from.name} />
         <Typography variant="body2" fontWeight={500}>
           {from.name}
         </Typography>
       </Box>
-      <ArrowForwardIcon />
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.4 }}>
+      <MyArrowForwardIcon />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <StringAvatar height={30} width={30} name={to.name} />
         <Typography variant="body2" fontWeight={500}>
           {to.name}
@@ -115,7 +121,7 @@ const DueHistory: FunctionComponent<{
       <Typography variant="body2" fontWeight={500} color={getColor(_from)}>
         {_from}
       </Typography>
-      <ArrowForwardIcon />
+      <MyArrowForwardIcon />
       <Typography variant="body2" fontWeight={500} color={getColor(_to)}>
         {_to}
       </Typography>
