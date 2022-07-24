@@ -172,7 +172,7 @@ const ActivityHistoryItem: FunctionComponent<Props> = ({ item }) => {
       break;
   }
   return (
-    <Box sx={{ display: 'flex', gap: 2, my: 4 }}>
+    <Box sx={{ display: 'flex', gap: 2 }}>
       <StringAvatar name={item.updatedBy.name} />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         <Box sx={{ display: 'flex', gap: 1 }}>

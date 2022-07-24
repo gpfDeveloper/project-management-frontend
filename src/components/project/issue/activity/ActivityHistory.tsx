@@ -13,7 +13,7 @@ const ActivityHistory: FunctionComponent = () => {
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 6 }}>
       {history.map((item) => (
         <ActivityHistoryItem key={item.id} item={item} />
       ))}
