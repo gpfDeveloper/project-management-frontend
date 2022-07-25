@@ -73,6 +73,7 @@ export type ProjectProps = {
   type: ProjectType;
   createdAt: string;
   updatedAt: string;
+  owner: People;
   URL?: string;
   avatar: ProjectAvatar;
   lead: People;

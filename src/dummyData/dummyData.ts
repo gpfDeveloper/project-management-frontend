@@ -197,6 +197,7 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Software',
     createdAt: '2022-06-01T20:21:07.5272333Z',
     updatedAt: '2022-06-02T20:21:07.5272333Z',
+    owner: samplePeople[1],
     lead: samplePeople[1],
     avatar: 'Rocket',
     isPrivate: false,
