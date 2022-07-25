@@ -5,6 +5,7 @@ import { useProject } from 'contexts/project-context';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { queryIssues, getProject } from 'dummyData/dummyData';
 import { useParams } from 'react-router-dom';
+import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
 
 const ProjectDetailBoard: FunctionComponent = () => {
   const { setIssuesPerProject, setCurrentProject } = useProject();
@@ -22,9 +23,7 @@ const ProjectDetailBoard: FunctionComponent = () => {
   return (
     <ProjectLayout>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Typography variant="body2" color="text.secondary" fontWeight={500}>
-          Projects / Sample Project
-        </Typography>
+        <ProjectBreadcrumbs />
         <Typography variant="h4">Kanban Board</Typography>
         {!loading && <ProjectBoard />}
       </Box>

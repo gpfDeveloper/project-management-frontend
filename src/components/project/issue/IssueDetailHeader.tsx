@@ -1,29 +1,11 @@
-import { Box, Tooltip, Typography, Button, IconButton } from '@mui/material';
+import { Box, Tooltip, Button, IconButton } from '@mui/material';
 import { FunctionComponent } from 'react';
-import { ProjectIssueType } from 'types/types';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import TaskIcon from '@mui/icons-material/Task';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useProject } from 'contexts/project-context';
-
-type IssueIconProps = {
-  issueType: ProjectIssueType;
-};
-
-const IssueIcon: FunctionComponent<IssueIconProps> = ({ issueType }) => {
-  let icon = <TaskIcon fontSize="small" color="info" />;
-  if (issueType === 'Bug')
-    icon = <BugReportIcon fontSize="small" color="error" />;
-  if (issueType === 'Story')
-    icon = <BookmarkIcon fontSize="small" color="success" />;
-  return <Tooltip title={issueType}>{icon}</Tooltip>;
-};
+import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
 
 const IssueDetailHeader: FunctionComponent = () => {
-  const { currentIssue } = useProject();
   return (
     <Box
       sx={{
@@ -34,14 +16,10 @@ const IssueDetailHeader: FunctionComponent = () => {
         zIndex: 3,
         bgcolor: 'background.paper',
         color: 'text.primary',
+        alignItems: 'center',
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <IssueIcon issueType={currentIssue!.type} />
-        <Typography variant="body2" color="text.secondary">
-          {currentIssue!.id}
-        </Typography>
-      </Box>
+      <ProjectBreadcrumbs />
       <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
         <Button color="inherit">
           <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />

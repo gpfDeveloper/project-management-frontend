@@ -193,7 +193,7 @@ export const sampleHistory: History[] = [
 export const sampleProjects: ProjectProps[] = [
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
-    name: 'Sample project 1',
+    name: 'Sample Project 1',
     type: 'Software',
     createdAt: '2022-06-01T20:21:07.5272333Z',
     updatedAt: '2022-06-02T20:21:07.5272333Z',

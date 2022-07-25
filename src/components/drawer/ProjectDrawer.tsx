@@ -21,6 +21,7 @@ import TaskIcon from '@mui/icons-material/Task';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RocketIcon from '@mui/icons-material/Rocket';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useProject } from 'contexts/project-context';
 
 const drawerWidth = 200;
 
@@ -79,6 +80,7 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
   const projectId = locations[2];
   const sideBarLoc = locations[3];
   const navigate = useNavigate();
+  const { currentProject } = useProject();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -118,10 +120,10 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
                 <RocketIcon color="primary" />
                 <Box>
                   <Typography sx={{ fontWeight: 700 }}>
-                    Sample Project
+                    {currentProject?.name}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    Software Project
+                    {currentProject?.type} Project
                   </Typography>
                 </Box>
               </Box>
