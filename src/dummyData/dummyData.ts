@@ -1,4 +1,10 @@
-import { Comment, People, ProjectIssueProps, History } from 'types/types';
+import {
+  Comment,
+  People,
+  ProjectIssueProps,
+  History,
+  ProjectProps,
+} from 'types/types';
 
 export const samplePeople: People[] = [
   { email: '', name: 'Unassigned' },
@@ -10,7 +16,7 @@ export const samplePeople: People[] = [
 export const sampleIssues: ProjectIssueProps[] = [
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
-    projectId: 'project1',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -26,7 +32,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a02',
-    projectId: 'project1',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -40,7 +46,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a03',
-    projectId: 'project1',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
@@ -54,7 +60,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a04',
-    projectId: 'project1',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
@@ -67,7 +73,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a05',
-    projectId: 'project1',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     type: 'Bug',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -81,7 +87,7 @@ export const sampleIssues: ProjectIssueProps[] = [
   },
   {
     id: '95cc7df2-35a4-4342-b1ac-b72316a36a06',
-    projectId: 'project1',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
@@ -122,7 +128,7 @@ export const sampleHistory: History[] = [
     updatedBy: samplePeople[1],
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a02',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:21:07.5272333Z',
     field: 'Priority',
@@ -131,7 +137,7 @@ export const sampleHistory: History[] = [
     to: 'Highest',
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a03',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:22:07.5272333Z',
     field: 'Due',
@@ -140,7 +146,7 @@ export const sampleHistory: History[] = [
     to: '2022-06-15T20:21:07.5272333Z',
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a04',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:23:07.5272333Z',
     field: 'Assignee',
@@ -149,7 +155,7 @@ export const sampleHistory: History[] = [
     to: JSON.stringify(samplePeople[2]),
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a05',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:24:07.5272333Z',
     field: 'Reporter',
@@ -158,14 +164,14 @@ export const sampleHistory: History[] = [
     to: JSON.stringify(samplePeople[3]),
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a06',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T19:21:07.5272333Z',
     field: 'Comment',
     updatedBy: samplePeople[3],
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a07',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T20:21:07.5272333Z',
     field: 'Status',
@@ -174,7 +180,7 @@ export const sampleHistory: History[] = [
     to: 'IN PROGRESS',
   },
   {
-    id: '75cc7df2-35a4-4342-b1ac-b72316a36a01',
+    id: '75cc7df2-35a4-4342-b1ac-b72316a36a08',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-15T20:21:07.5272333Z',
     updatedBy: samplePeople[2],
@@ -183,3 +189,24 @@ export const sampleHistory: History[] = [
     to: 'DONE',
   },
 ];
+
+export const sampleProjects: ProjectProps[] = [
+  {
+    id: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
+    name: 'Sample project 1',
+    type: 'Software',
+    createdAt: '2022-06-01T20:21:07.5272333Z',
+    updatedAt: '2022-06-02T20:21:07.5272333Z',
+    lead: samplePeople[1],
+    avatar: 'Rocket',
+    isPrivate: false,
+  },
+];
+
+export const queryIssues = (projectId: string) => {
+  return sampleIssues.filter((item) => item.projectId === projectId);
+};
+
+export const getProject = (projectId: string) => {
+  return sampleProjects.filter((item) => item.id === projectId)[0];
+};

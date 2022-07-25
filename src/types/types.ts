@@ -57,3 +57,25 @@ export type History = {
   from?: string;
   to?: string;
 };
+
+export type ProjectType = 'Software' | 'Business';
+export type ProjectAvatar =
+  | 'Rocket'
+  | 'Snow'
+  | 'Bug'
+  | 'Airplane'
+  | 'Camara'
+  | 'Castle'
+  | 'Tower';
+export type ProjectProps = {
+  id: string;
+  name: string;
+  type: ProjectType;
+  createdAt: string;
+  updatedAt: string;
+  URL?: string;
+  avatar: ProjectAvatar;
+  lead: People;
+  description?: string;
+  isPrivate: boolean;
+};

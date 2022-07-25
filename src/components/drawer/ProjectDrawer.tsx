@@ -171,6 +171,9 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
           {['Settings'].map((text) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
+                onClick={() =>
+                  navigate(`/projects/${projectId}/${text.toLocaleLowerCase()}`)
+                }
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',

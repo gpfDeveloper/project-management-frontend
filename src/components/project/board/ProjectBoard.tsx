@@ -4,6 +4,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
 import { ProjectIssueProps } from 'types/types';
 import ProjectBoardFilters from './ProjectBoardFilters';
+import { useProject } from 'contexts/project-context';
 
 export type ColumnType = { id: string; title: string; issueIds: string[] };
 type BoardType = {
@@ -12,11 +13,8 @@ type BoardType = {
   columnOrder: string[];
 };
 
-type Props = {
-  issues: ProjectIssueProps[];
-};
-
-const ProjectBoard: FunctionComponent<Props> = ({ issues }) => {
+const ProjectBoard: FunctionComponent = () => {
+  const { issuesPerProject: issues } = useProject();
   const issueIds: string[] = [];
 
   let _issues: { [k: string]: ProjectIssueProps } = {};
