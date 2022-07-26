@@ -35,7 +35,12 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
 
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchor);
-  const menuOpenHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const [currentProjectId, setCurrentProjectId] = useState('');
+  const menuOpenHandler = (
+    pid: string,
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setCurrentProjectId(pid);
     setAnchor(e.currentTarget);
   };
   const menuCloseHandler = () => {
@@ -44,10 +49,9 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
   const deleteProjectHandler = () => {
     setAnchor(null);
   };
-  const projectSettingHandler = (projectId: string) => {
+  const projectSettingHandler = () => {
     setAnchor(null);
-    console.log(projectId);
-    navigate(`/projects/${projectId}/settings`);
+    navigate(`/projects/${currentProjectId}/settings`);
   };
 
   return (
@@ -97,7 +101,7 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
               </TableCell>
               <TableCell align="center">
                 <Box>
-                  <IconButton onClick={menuOpenHandler}>
+                  <IconButton onClick={menuOpenHandler.bind(null, project.id)}>
                     <MoreHorizIcon />
                   </IconButton>
                   <Menu
@@ -110,14 +114,10 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
                       horizontal: 'right',
                     }}
                   >
-                    <MenuItem
-                      onClick={projectSettingHandler.bind(this, project.id)}
-                    >
+                    <MenuItem onClick={projectSettingHandler}>
                       Project Settings
                     </MenuItem>
-                    <MenuItem
-                      onClick={deleteProjectHandler.bind(this, project.id)}
-                    >
+                    <MenuItem onClick={deleteProjectHandler}>
                       Delete Project
                     </MenuItem>
                   </Menu>
