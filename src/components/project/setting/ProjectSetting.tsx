@@ -12,13 +12,15 @@ import TextEditor from 'components/shared/TextEditor';
 import { useProject } from 'contexts/project-context';
 import { samplePeople } from 'dummyData/dummyData';
 import React, { FunctionComponent, useState } from 'react';
-import type { People, ProjectType } from 'types/types';
+import type { People, ProjectAvatarName, ProjectType } from 'types/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ProjectAvatar from './ProjectAvatar';
+import ProjectAvatarDialog from './ProjectAvatarDialog';
 
 const ProjectTypes: ProjectType[] = ['Software', 'Business'];
 
 const ProjectSetting: FunctionComponent = () => {
-  const { currentProject: project } = useProject();
+  const { currentProject: project, setCurrentProject } = useProject();
   const [name, setName] = useState(project!.name);
   const [url, setUrl] = useState(project!.URL);
   const [type, setType] = useState(project!.type);
@@ -41,8 +43,37 @@ const ProjectSetting: FunctionComponent = () => {
     setIsPrivate(e.target.checked);
   };
 
+  const hasError = !name.trim() || !lead;
+
+  const saveHandler = () => {
+    setCurrentProject((prev) => ({
+      ...prev!,
+      name,
+      url,
+      type,
+      description: description.text,
+      lead,
+      isPrivate,
+      avatar,
+    }));
+  };
+
+  const [avatarDialogOpen, setAvatarDialogOpen] = useState(false);
+  const closeAvatarDialogHandler = () => {
+    setAvatarDialogOpen(false);
+  };
+  const selectAvatarHanlder = (name: ProjectAvatarName) => {
+    setAvatar(name);
+    setAvatarDialogOpen(false);
+  };
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <ProjectAvatarDialog
+        open={avatarDialogOpen}
+        onClose={closeAvatarDialogHandler}
+        onSelect={selectAvatarHanlder}
+      />
       <Box
         sx={{ width: 600, display: 'flex', flexDirection: 'column', gap: 4 }}
       >
@@ -87,6 +118,23 @@ const ProjectSetting: FunctionComponent = () => {
           </TextField>
         </Box>
         <Box>
+          <Typography
+            sx={{
+              fontWeight: 500,
+              fontSize: 13,
+              mb: 0.2,
+            }}
+          >
+            Avatar *
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <ProjectAvatar name={avatar} size="large" />
+            <Button onClick={() => setAvatarDialogOpen(true)}>
+              select icon
+            </Button>
+          </Box>
+        </Box>
+        <Box>
           <TextEditor
             placeholder="description"
             editorState={description}
@@ -97,6 +145,7 @@ const ProjectSetting: FunctionComponent = () => {
           <PeopleSelector
             label="Project lead *"
             people={lead}
+            error={!lead}
             options={samplePeople.filter(
               (people) => people.name !== 'Unassigned'
             )}
@@ -113,7 +162,9 @@ const ProjectSetting: FunctionComponent = () => {
           </Tooltip>
         </Box>
         <Box>
-          <Button variant="contained">Save</Button>
+          <Button disabled={hasError} variant="contained" onClick={saveHandler}>
+            Save
+          </Button>
         </Box>
       </Box>
     </Box>

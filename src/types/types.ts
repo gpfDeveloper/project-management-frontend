@@ -59,12 +59,12 @@ export type History = {
 };
 
 export type ProjectType = 'Software' | 'Business';
-export type ProjectAvatar =
+export type ProjectAvatarName =
   | 'Rocket'
   | 'Snow'
   | 'Bug'
   | 'Airplane'
-  | 'Camara'
+  | 'Camera'
   | 'Castle'
   | 'Tower';
 export type ProjectProps = {
@@ -75,7 +75,7 @@ export type ProjectProps = {
   updatedAt: string;
   owner: People;
   URL?: string;
-  avatar: ProjectAvatar;
+  avatar: ProjectAvatarName;
   lead: People;
   description?: string;
   isPrivate: boolean;

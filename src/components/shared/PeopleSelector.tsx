@@ -11,6 +11,7 @@ type Props = {
     value: People | null
   ) => void;
   label: string;
+  error?: boolean;
 };
 
 const PeopleSelector: FunctionComponent<Props> = ({
@@ -18,10 +19,18 @@ const PeopleSelector: FunctionComponent<Props> = ({
   options,
   onSelect,
   label,
+  error,
 }) => {
   return (
     <Box sx={{ position: 'relative' }}>
-      <Typography sx={{ fontWeight: 500, fontSize: 13, mb: 0.2 }}>
+      <Typography
+        sx={{
+          fontWeight: 500,
+          fontSize: 13,
+          mb: 0.2,
+          color: error ? 'error.main' : 'inherit',
+        }}
+      >
         {label}
       </Typography>
       {people && (
@@ -53,6 +62,7 @@ const PeopleSelector: FunctionComponent<Props> = ({
         )}
         renderInput={(params) => (
           <TextField
+            error={error}
             variant="filled"
             {...params}
             inputProps={{

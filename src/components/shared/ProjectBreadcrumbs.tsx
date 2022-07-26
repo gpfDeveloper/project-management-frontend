@@ -39,7 +39,6 @@ const LinkRouter = (props: LinkRouterProps) => (
 const ProjectBreadcrumbs: FunctionComponent = () => {
   const { currentProject, currentIssue } = useProject();
   const location = useLocation();
-  console.log(location);
   //"/projects/65cc7df2-35a4-4342-b1ac-b72316a36a01/settings"
   const pathNames = location.pathname.split('/');
   let isSettingPage = false;

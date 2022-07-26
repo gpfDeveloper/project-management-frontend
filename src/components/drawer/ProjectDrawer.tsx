@@ -19,9 +19,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import TaskIcon from '@mui/icons-material/Task';
 import SettingsIcon from '@mui/icons-material/Settings';
-import RocketIcon from '@mui/icons-material/Rocket';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useProject } from 'contexts/project-context';
+import ProjectAvatar from 'components/project/setting/ProjectAvatar';
 
 const drawerWidth = 200;
 
@@ -117,7 +117,7 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
               <Box
                 sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 2 }}
               >
-                <RocketIcon color="primary" />
+                <ProjectAvatar name={currentProject?.avatar || 'Rocket'} />
                 <Box>
                   <Typography sx={{ fontWeight: 700 }}>
                     {currentProject?.name}
