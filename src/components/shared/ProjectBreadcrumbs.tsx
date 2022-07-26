@@ -1,18 +1,12 @@
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import {
-  Typography,
-  Link,
-  Breadcrumbs,
-  LinkProps,
-  Tooltip,
-  Box,
-} from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import { Typography, Breadcrumbs, Tooltip, Box } from '@mui/material';
 import { useProject } from 'contexts/project-context';
 import { FunctionComponent } from 'react';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import TaskIcon from '@mui/icons-material/Task';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import type { ProjectIssueType } from 'types/types';
+import LinkRouter from './LinkRouter';
 
 type IssueIconProps = {
   issueType: ProjectIssueType;
@@ -26,15 +20,6 @@ const IssueIcon: FunctionComponent<IssueIconProps> = ({ issueType }) => {
     icon = <BookmarkIcon fontSize="small" color="success" />;
   return <Tooltip title={issueType}>{icon}</Tooltip>;
 };
-
-interface LinkRouterProps extends LinkProps {
-  to: string;
-  replace?: boolean;
-}
-
-const LinkRouter = (props: LinkRouterProps) => (
-  <Link {...props} component={RouterLink as any} />
-);
 
 const ProjectBreadcrumbs: FunctionComponent = () => {
   const { currentProject, currentIssue } = useProject();
