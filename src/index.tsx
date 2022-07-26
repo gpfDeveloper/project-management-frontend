@@ -20,7 +20,6 @@ root.render(
         <ProjectProvider>
           <App />
         </ProjectProvider>
-        j
       </AuthProvider>
     </ThemeModeProvider>
   </BrowserRouter>

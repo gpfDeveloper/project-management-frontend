@@ -3,7 +3,7 @@ import { ProjectLayout } from 'components/layout/ProjectLayout';
 import IssueDetailWrapper from 'components/project/issue/IssueDetailWrapper';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { sampleIssues } from 'dummyData/dummyData';
+import { getIssue } from 'dummyData/dummyData';
 import { useProject } from 'contexts/project-context';
 
 const IssueDetailPage: FunctionComponent = () => {
@@ -16,7 +16,7 @@ const IssueDetailPage: FunctionComponent = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const issue = sampleIssues.find((item) => item.id === issueId)!;
+    const issue = getIssue(issueId);
     setCurrentIssue(issue);
     setLoading(false);
   }, [issueId, setCurrentIssue]);

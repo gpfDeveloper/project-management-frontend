@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Box, Modal } from '@mui/material';
 
-import { sampleIssues } from 'dummyData/dummyData';
+import { getIssue } from 'dummyData/dummyData';
 import EditIssueModalHeader from './EditIssueModalHeader';
 import IssueDetail from '../issue/IssueDetail';
 import { useProject } from 'contexts/project-context';
@@ -21,7 +21,7 @@ const EditIssueModal: FunctionComponent<Props> = ({
   const { setCurrentIssue } = useProject();
   useEffect(() => {
     if (open) {
-      const issue = sampleIssues.find((item) => item.id === issueId)!;
+      const issue = getIssue(issueId);
       setCurrentIssue(issue);
       setLoading(false);
     } else {

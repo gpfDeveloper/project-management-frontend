@@ -1,4 +1,4 @@
-import AllProjects from 'pages/AllProjects';
+import AllProjectsPage from 'pages/AllProjectsPage';
 import Home from 'pages/Home';
 import IssueDetailPage from 'pages/IssueDetailPage';
 import People from 'pages/People';
@@ -28,7 +28,7 @@ function App() {
         path="projects/:projectId/settings"
         element={<ProjectDetailSetting />}
       />
-      <Route path="/projects" element={<AllProjects />} />
+      <Route path="/projects" element={<AllProjectsPage />} />
       <Route path="/your-work" element={<YourWork />} />
       <Route path="/people" element={<People />} />
     </Routes>

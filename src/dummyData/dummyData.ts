@@ -195,11 +195,66 @@ export const sampleProjects: ProjectProps[] = [
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
     name: 'Sample Project 1',
     type: 'Software',
-    createdAt: '2022-06-01T20:21:07.5272333Z',
-    updatedAt: '2022-06-02T20:21:07.5272333Z',
+    createdAt: '2022-07-01T20:21:07.5272333Z',
+    updatedAt: '2022-07-02T20:21:07.5272333Z',
     owner: samplePeople[1],
     lead: samplePeople[1],
     avatar: 'Rocket',
+    isPrivate: false,
+  },
+  {
+    id: '65cc7df2-35a4-4342-b1ac-b72316a36a02',
+    name: 'Sample Project 2',
+    type: 'Software',
+    createdAt: '2022-06-02T20:21:07.5272333Z',
+    updatedAt: '2022-06-02T20:21:07.5272333Z',
+    owner: samplePeople[1],
+    lead: samplePeople[2],
+    avatar: 'Snow',
+    isPrivate: false,
+  },
+  {
+    id: '65cc7df2-35a4-4342-b1ac-b72316a36a03',
+    name: 'Sample Project 3',
+    type: 'Business',
+    createdAt: '2022-06-04T20:21:07.5272333Z',
+    updatedAt: '2022-06-04T20:21:07.5272333Z',
+    owner: samplePeople[1],
+    lead: samplePeople[3],
+    avatar: 'Castle',
+    isPrivate: false,
+  },
+  {
+    id: '65cc7df2-35a4-4342-b1ac-b72316a36a04',
+    name: 'Sample Project 4',
+    type: 'Software',
+    createdAt: '2022-06-05T20:21:07.5272333Z',
+    updatedAt: '2022-06-05T20:21:07.5272333Z',
+    owner: samplePeople[1],
+    lead: samplePeople[1],
+    avatar: 'Camera',
+    isPrivate: false,
+  },
+  {
+    id: '65cc7df2-35a4-4342-b1ac-b72316a36a05',
+    name: 'Sample Project 5',
+    type: 'Software',
+    createdAt: '2022-06-06T20:21:07.5272333Z',
+    updatedAt: '2022-06-06T20:21:07.5272333Z',
+    owner: samplePeople[1],
+    lead: samplePeople[1],
+    avatar: 'Bug',
+    isPrivate: false,
+  },
+  {
+    id: '65cc7df2-35a4-4342-b1ac-b72316a36a07',
+    name: 'Sample Project 6',
+    type: 'Software',
+    createdAt: '2022-06-07T20:21:07.5272333Z',
+    updatedAt: '2022-06-07T20:21:07.5272333Z',
+    owner: samplePeople[1],
+    lead: samplePeople[1],
+    avatar: 'Tower',
     isPrivate: false,
   },
 ];
@@ -211,3 +266,8 @@ export const queryIssues = (projectId: string) => {
 export const getProject = (projectId: string) => {
   return sampleProjects.filter((item) => item.id === projectId)[0];
 };
+
+export const getIssue = (issueId: string) =>
+  sampleIssues.find((item) => item.id === issueId);
+
+export const getAllMyProjects = () => sampleProjects;

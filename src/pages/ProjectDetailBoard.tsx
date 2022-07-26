@@ -24,7 +24,7 @@ const ProjectDetailBoard: FunctionComponent = () => {
     <ProjectLayout>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <ProjectBreadcrumbs />
-        <Typography variant="h4">Kanban Board</Typography>
+        <Typography variant="h5">Kanban Board</Typography>
         {!loading && <ProjectBoard />}
       </Box>
     </ProjectLayout>
