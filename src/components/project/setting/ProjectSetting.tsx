@@ -6,6 +6,8 @@ import {
   Checkbox,
   Button,
   Tooltip,
+  IconButton,
+  Menu,
 } from '@mui/material';
 import PeopleSelector from 'components/shared/PeopleSelector';
 import TextEditor from 'components/shared/TextEditor';
@@ -16,6 +18,7 @@ import type { People, ProjectAvatarName, ProjectType } from 'types/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ProjectAvatar from './ProjectAvatar';
 import ProjectAvatarDialog from './ProjectAvatarDialog';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const ProjectTypes: ProjectType[] = ['Software', 'Business'];
 
@@ -67,13 +70,46 @@ const ProjectSetting: FunctionComponent = () => {
     setAvatarDialogOpen(false);
   };
 
+  const [deleteProjectMenuAnchor, setDeleteProjectMenuAnchor] =
+    useState<null | HTMLElement>(null);
+  const deleteProjectMenuOpen = Boolean(deleteProjectMenuAnchor);
+  const deleteProjectMenuOpenHandler = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setDeleteProjectMenuAnchor(e.currentTarget);
+  };
+  const deleteProjectMenuCloseHandler = () => {
+    setDeleteProjectMenuAnchor(null);
+  };
+  const deleteProjectHandler = () => {
+    setDeleteProjectMenuAnchor(null);
+  };
+
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <ProjectAvatarDialog
         open={avatarDialogOpen}
         onClose={closeAvatarDialogHandler}
         onSelect={selectAvatarHanlder}
       />
+      <Box sx={{ alignSelf: 'flex-end', mt: -6, mb: 6 }}>
+        <IconButton onClick={deleteProjectMenuOpenHandler}>
+          <MoreHorizIcon />
+        </IconButton>
+        <Menu
+          anchorEl={deleteProjectMenuAnchor}
+          open={deleteProjectMenuOpen}
+          onClose={deleteProjectMenuCloseHandler}
+        >
+          <MenuItem onClick={deleteProjectHandler}>Delete Project</MenuItem>
+        </Menu>
+      </Box>
       <Box
         sx={{ width: 600, display: 'flex', flexDirection: 'column', gap: 4 }}
       >
