@@ -17,6 +17,7 @@ export const getTheme = (mode: 'light' | 'dark') => {
       MuiTypography: {
         styleOverrides: {
           h5: { fontWeight: 500 },
+          h6: { fontSize: 18 },
         },
       },
       MuiFilledInput: {

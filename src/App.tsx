@@ -5,7 +5,7 @@ import People from 'pages/People';
 import ProjectDetailBoard from 'pages/ProjectDetailBoard';
 import ProjectDetailIssues from 'pages/ProjectDetailIssues';
 import ProjectDetailSetting from 'pages/ProjectDetailSetting';
-import YourWork from 'pages/YourWork';
+import YourWorkPage from 'pages/YourWorkPage';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
         element={<ProjectDetailSetting />}
       />
       <Route path="/projects" element={<AllProjectsPage />} />
-      <Route path="/your-work" element={<YourWork />} />
+      <Route path="/your-work" element={<YourWorkPage />} />
       <Route path="/people" element={<People />} />
     </Routes>
   );

@@ -78,6 +78,7 @@ const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
               {...provided.dragHandleProps}
               ref={provided.innerRef}
               sx={{
+                width: '100%',
                 p: 2,
                 bgcolor: 'background.paper',
                 '&:hover': {
