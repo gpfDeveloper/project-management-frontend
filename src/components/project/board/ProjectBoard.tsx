@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
 import { ProjectIssueProps } from 'types/types';
@@ -15,20 +15,13 @@ type BoardType = {
 
 const ProjectBoard: FunctionComponent = () => {
   const { issuesPerProject: issues } = useProject();
-  const issueIds: string[] = [];
-
-  let _issues: { [k: string]: ProjectIssueProps } = {};
-  for (const issue of issues) {
-    _issues[issue.id] = issue;
-    issueIds.push(issue.id);
-  }
   const initialData: BoardType = {
-    issues: _issues,
+    issues: {},
     columns: {
       'column-1': {
         id: 'column-1',
         title: 'TO DO',
-        issueIds,
+        issueIds: [],
       },
       'column-2': {
         id: 'column-2',
@@ -44,7 +37,42 @@ const ProjectBoard: FunctionComponent = () => {
     // Facilitate reordering of the columns
     columnOrder: ['column-1', 'column-2', 'column-3'],
   };
-  const [state, setState] = useState(initialData);
+
+  const [state, setState] = useState<BoardType>(initialData);
+  useEffect(() => {
+    if (issues) {
+      const issueIds: string[] = [];
+
+      let _issues: { [k: string]: ProjectIssueProps } = {};
+      for (const issue of issues) {
+        _issues[issue.id] = issue;
+        issueIds.push(issue.id);
+      }
+      const _initialData: BoardType = {
+        issues: _issues,
+        columns: {
+          'column-1': {
+            id: 'column-1',
+            title: 'TO DO',
+            issueIds,
+          },
+          'column-2': {
+            id: 'column-2',
+            title: 'IN PROGRESS',
+            issueIds: [],
+          },
+          'column-3': {
+            id: 'column-3',
+            title: 'DONE',
+            issueIds: [],
+          },
+        },
+        // Facilitate reordering of the columns
+        columnOrder: ['column-1', 'column-2', 'column-3'],
+      };
+      setState(_initialData);
+    }
+  }, [issues]);
 
   const dragEndHandler = (result: DropResult) => {
     const { destination, source, draggableId } = result;
