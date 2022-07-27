@@ -8,8 +8,8 @@ import {
 import { ProjectIssueProps, ProjectProps } from 'types/types';
 
 type ProjectCtxProps = {
-  allMyProjects: ProjectProps[];
-  setAllMyProjects: React.Dispatch<React.SetStateAction<ProjectProps[]>>;
+  myProjects: ProjectProps[];
+  setMyProjects: React.Dispatch<React.SetStateAction<ProjectProps[]>>;
   currentProject: ProjectProps | undefined;
   setCurrentProject: React.Dispatch<
     React.SetStateAction<ProjectProps | undefined>
@@ -25,8 +25,8 @@ type ProjectCtxProps = {
 };
 
 const ProjectContext = createContext<ProjectCtxProps>({
-  allMyProjects: [],
-  setAllMyProjects: () => {},
+  myProjects: [],
+  setMyProjects: () => {},
   currentProject: undefined,
   setCurrentProject: () => {},
   issuesPerProject: [],
@@ -44,7 +44,7 @@ export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
   const [currentProject, setCurrentProject] = useState<
     ProjectProps | undefined
   >();
-  const [allMyProjects, setAllMyProjects] = useState<ProjectProps[]>([]);
+  const [myProjects, setMyProjects] = useState<ProjectProps[]>([]);
   const [issuesPerProject, setIssuesPerProject] = useState<ProjectIssueProps[]>(
     []
   );
@@ -55,8 +55,8 @@ export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
   return (
     <ProjectContext.Provider
       value={{
-        allMyProjects,
-        setAllMyProjects,
+        myProjects,
+        setMyProjects,
         currentProject,
         setCurrentProject,
         issuesPerProject,

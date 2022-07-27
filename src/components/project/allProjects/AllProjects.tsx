@@ -11,8 +11,8 @@ import { useProject } from 'contexts/project-context';
 import AllProjectsTable from './AllProjectsTable';
 
 const AllProjects: FunctionComponent = () => {
-  const { allMyProjects } = useProject();
-  const filteredProjects = allMyProjects;
+  const { myProjects } = useProject();
+  const filteredProjects = myProjects;
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

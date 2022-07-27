@@ -7,12 +7,12 @@ import { FunctionComponent, useEffect, useState } from 'react';
 
 const AllProjectsPage: FunctionComponent = () => {
   const [loading, setLoading] = useState(true);
-  const { setAllMyProjects } = useProject();
+  const { setMyProjects } = useProject();
   useEffect(() => {
     const projects = getAllMyProjects();
-    setAllMyProjects(projects);
+    setMyProjects(projects);
     setLoading(false);
-  }, [setAllMyProjects]);
+  }, [setMyProjects]);
   return (
     <Layout>
       <Box sx={{ mx: 4 }}>{!loading && <AllProjects />}</Box>
