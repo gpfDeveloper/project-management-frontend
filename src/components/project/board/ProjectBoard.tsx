@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
-import { ProjectIssueProps } from 'types/types';
+import { ProjectIssueProps, ProjectIssueStatus } from 'types/types';
 import ProjectBoardFilters from './ProjectBoardFilters';
 import { useProject } from 'contexts/project-context';
 
@@ -41,12 +41,19 @@ const ProjectBoard: FunctionComponent = () => {
   const [state, setState] = useState<BoardType>(initialData);
   useEffect(() => {
     if (issues) {
-      const issueIds: string[] = [];
+      type issueIdsType = {
+        [k in ProjectIssueStatus]: string[];
+      };
+      const issueIds: issueIdsType = {
+        'TO DO': [],
+        'IN PROGRESS': [],
+        DONE: [],
+      };
 
       let _issues: { [k: string]: ProjectIssueProps } = {};
       for (const issue of issues) {
         _issues[issue.id] = issue;
-        issueIds.push(issue.id);
+        issueIds[issue.status].push(issue.id);
       }
       const _initialData: BoardType = {
         issues: _issues,
@@ -54,17 +61,17 @@ const ProjectBoard: FunctionComponent = () => {
           'column-1': {
             id: 'column-1',
             title: 'TO DO',
-            issueIds,
+            issueIds: issueIds['TO DO'],
           },
           'column-2': {
             id: 'column-2',
             title: 'IN PROGRESS',
-            issueIds: [],
+            issueIds: issueIds['IN PROGRESS'],
           },
           'column-3': {
             id: 'column-3',
             title: 'DONE',
-            issueIds: [],
+            issueIds: issueIds['DONE'],
           },
         },
         // Facilitate reordering of the columns
