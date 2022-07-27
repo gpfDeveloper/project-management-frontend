@@ -1,20 +1,74 @@
-import { MenuItem, ListItemIcon, ListItemText, Button } from '@mui/material';
-import { FunctionComponent } from 'react';
+import {
+  MenuItem,
+  Box,
+  Button,
+  Menu,
+  Typography,
+  Divider,
+} from '@mui/material';
+import React, { FunctionComponent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import WorkIcon from '@mui/icons-material/Work';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ProjectAvatar from 'components/project/setting/ProjectAvatar';
+import type { ProjectProps } from 'types/types';
+import { getRecentProjects } from 'dummyData/dummyData';
+
+type ProjectMenuItemProps = {
+  project: ProjectProps;
+  onClick: () => void;
+};
+
+const ProjectMenuItem: FunctionComponent<ProjectMenuItemProps> = ({
+  project,
+  onClick,
+}) => {
+  return (
+    <MenuItem onClick={onClick}>
+      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <ProjectAvatar name={project.avatar} />
+        <Box>
+          <Typography variant="body2">{project.name}</Typography>
+          <Typography variant="caption" color="text.secondary">
+            {project.type}
+          </Typography>
+        </Box>
+      </Box>
+    </MenuItem>
+  );
+};
 
 const NavProjects: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const clickBtnHandler = () => {
+
+  const recentProjects = getRecentProjects();
+
+  const active = location.pathname.startsWith('/project');
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const openMenuHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const closeMenuHandler = () => {
+    setAnchorEl(null);
+  };
+
+  const viewAllProjectHandler = () => {
+    setAnchorEl(null);
     navigate('/projects');
   };
-  const active = location.pathname.startsWith('/project');
+
+  const clickProjectHandler = (projectId: string) => {
+    setAnchorEl(null);
+    navigate(`/projects/${projectId}/board`);
+  };
+
   let content = (
     <>
       <Button
-        onClick={clickBtnHandler}
+        onClick={openMenuHandler}
         sx={{
           borderBottomWidth: 3,
           borderBottomStyle: 'solid',
@@ -29,22 +83,41 @@ const NavProjects: FunctionComponent = () => {
         Projects
         <ExpandMoreIcon fontSize="small" />
       </Button>
+      <Menu
+        open={open}
+        onClose={closeMenuHandler}
+        anchorEl={anchorEl}
+        PaperProps={{ style: { minWidth: 200 } }}
+      >
+        {[
+          <Typography
+            key={1}
+            variant="caption"
+            color="text.secondary"
+            fontWeight={700}
+            ml={2}
+            pb={2}
+          >
+            RECENT
+          </Typography>,
+          recentProjects.map((project) => (
+            <ProjectMenuItem
+              key={project.id}
+              project={project}
+              onClick={clickProjectHandler.bind(null, project.id)}
+            />
+          )),
+          <Divider key={2} />,
+          <MenuItem key={3} onClick={viewAllProjectHandler}>
+            View all projects
+          </MenuItem>,
+          <MenuItem key={4}>Create project</MenuItem>,
+        ]}
+      </Menu>
     </>
   );
 
   return content;
 };
 
-export const ProjectsMenuItem: FunctionComponent = () => {
-  let content = (
-    <MenuItem>
-      <ListItemIcon>
-        <WorkIcon />
-      </ListItemIcon>
-      <ListItemText>Projects</ListItemText>
-    </MenuItem>
-  );
-
-  return content;
-};
 export default NavProjects;

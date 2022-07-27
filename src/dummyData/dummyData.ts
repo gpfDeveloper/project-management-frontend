@@ -271,3 +271,10 @@ export const getIssue = (issueId: string) =>
   sampleIssues.find((item) => item.id === issueId);
 
 export const getAllMyProjects = () => sampleProjects;
+
+export const getRecentProjects = () => {
+  const recentProjects = sampleProjects.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+  return recentProjects.slice(0, 5);
+};
