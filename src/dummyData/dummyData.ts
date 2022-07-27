@@ -98,6 +98,45 @@ export const sampleIssues: ProjectIssueProps[] = [
     createdAt: '2022-06-13T17:21:07.5272333Z',
     updatedAt: '2022-07-13T17:21:07.5272333Z',
   },
+  {
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a07',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
+    type: 'Task',
+    summary:
+      "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
+    assignee: samplePeople[1],
+    reporter: samplePeople[1],
+    priority: 'High',
+    status: 'IN PROGRESS',
+    createdAt: '2022-06-13T17:21:07.5272333Z',
+    updatedAt: '2022-07-13T17:21:07.5272333Z',
+  },
+  {
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a11',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a02',
+    type: 'Task',
+    summary:
+      'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
+    assignee: samplePeople[0],
+    reporter: samplePeople[1],
+    priority: 'Low',
+    status: 'TO DO',
+    createdAt: '2022-06-11T17:21:07.5272333Z',
+    updatedAt: '2022-07-01T17:21:07.5272333Z',
+  },
+  {
+    id: '95cc7df2-35a4-4342-b1ac-b72316a36a12',
+    projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a02',
+    type: 'Story',
+    summary: 'E-commerce project story',
+    assignee: samplePeople[1],
+    reporter: samplePeople[1],
+    priority: 'Lowest',
+    status: 'TO DO',
+    createdAt: '2022-06-12T17:21:07.5272333Z',
+    updatedAt: '2022-07-02T17:21:07.5272333Z',
+    dueAt: '2022-08-12T17:21:07.5272333Z',
+  },
 ];
 
 export const sampleComments: Comment[] = [
@@ -277,4 +316,9 @@ export const getRecentProjects = () => {
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
   return recentProjects.slice(0, 5);
+};
+
+export const getIssuesAssignedToMe = (people: People | null) => {
+  if (!people) return [];
+  return sampleIssues.filter((issue) => issue.assignee.email === people.email);
 };

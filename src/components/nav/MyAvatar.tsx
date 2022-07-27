@@ -17,7 +17,7 @@ import { LightDarkTogglerMenuItem } from './LightDarkToggler';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from 'contexts/auth-context';
-import { YourWorkMenuItem } from './NavYourWork';
+// import { YourWorkMenuItem } from './NavYourWork';
 import StringAvatar from 'components/shared/StringAvatar';
 
 const MyAvatar: FunctionComponent = () => {
@@ -42,7 +42,7 @@ const MyAvatar: FunctionComponent = () => {
     setAnchorEl(null);
   };
   const commonMobileMenuItems = <LightDarkTogglerMenuItem />;
-  const authMobileMenuItems = <YourWorkMenuItem />;
+  // const authMobileMenuItems = <YourWorkMenuItem />;
   let content = (
     <Box>
       <IconButton
@@ -96,7 +96,7 @@ const MyAvatar: FunctionComponent = () => {
             <>
               {commonMobileMenuItems}
               <Divider />
-              {authMobileMenuItems}
+              {/* {authMobileMenuItems} */}
               <Divider />
             </>
           )}
