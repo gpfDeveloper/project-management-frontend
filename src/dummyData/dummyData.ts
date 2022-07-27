@@ -193,7 +193,7 @@ export const sampleHistory: History[] = [
 export const sampleProjects: ProjectProps[] = [
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a01',
-    name: 'Sample Project 1',
+    name: 'Project management web app',
     type: 'Software',
     createdAt: '2022-07-01T20:21:07.5272333Z',
     updatedAt: '2022-07-02T20:21:07.5272333Z',
@@ -204,7 +204,7 @@ export const sampleProjects: ProjectProps[] = [
   },
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a02',
-    name: 'Sample Project 2',
+    name: 'E-commerce web app',
     type: 'Software',
     createdAt: '2022-06-02T20:21:07.5272333Z',
     updatedAt: '2022-06-02T20:21:07.5272333Z',
@@ -215,7 +215,7 @@ export const sampleProjects: ProjectProps[] = [
   },
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a03',
-    name: 'Sample Project 3',
+    name: 'Track my business',
     type: 'Business',
     createdAt: '2022-06-04T20:21:07.5272333Z',
     updatedAt: '2022-06-04T20:21:07.5272333Z',
@@ -226,7 +226,7 @@ export const sampleProjects: ProjectProps[] = [
   },
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a04',
-    name: 'Sample Project 4',
+    name: 'Social media web app',
     type: 'Software',
     createdAt: '2022-06-05T20:21:07.5272333Z',
     updatedAt: '2022-06-05T20:21:07.5272333Z',
@@ -237,7 +237,7 @@ export const sampleProjects: ProjectProps[] = [
   },
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a05',
-    name: 'Sample Project 5',
+    name: 'Track my bugs',
     type: 'Software',
     createdAt: '2022-06-06T20:21:07.5272333Z',
     updatedAt: '2022-06-06T20:21:07.5272333Z',
@@ -248,7 +248,7 @@ export const sampleProjects: ProjectProps[] = [
   },
   {
     id: '65cc7df2-35a4-4342-b1ac-b72316a36a07',
-    name: 'Sample Project 6',
+    name: 'Real estate invest app',
     type: 'Software',
     createdAt: '2022-06-07T20:21:07.5272333Z',
     updatedAt: '2022-06-07T20:21:07.5272333Z',

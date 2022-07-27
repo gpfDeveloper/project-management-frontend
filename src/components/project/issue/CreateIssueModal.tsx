@@ -1,11 +1,10 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import {
   Box,
   Typography,
   useTheme,
   useMediaQuery,
   TextField,
-  MenuItem,
   Modal,
   Divider,
   AppBar,
@@ -14,27 +13,18 @@ import {
 } from '@mui/material';
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
-import { ProjectIssuePriority, ProjectIssueType } from 'types/types';
+import {
+  ProjectIssuePriority,
+  ProjectIssueType,
+  ProjectProps,
+} from 'types/types';
 import IssueTypeSelector from './IssueTypeSelector';
 import IssuePrioritySelector from './IssuePrioritySelector';
-import { samplePeople } from 'dummyData/dummyData';
+import { getAllMyProjects, samplePeople } from 'dummyData/dummyData';
 import type { People } from 'types/types';
 import PeopleSelector from 'components/shared/PeopleSelector';
-
-const projects = [
-  {
-    value: 'project1',
-    label: 'Sample Project',
-  },
-  {
-    value: 'project2',
-    label: 'Sample Project 2',
-  },
-  {
-    value: 'project3',
-    label: 'Sample Project 3',
-  },
-];
+import ProjectSelector from 'components/shared/ProjectSelector';
+import { useProject } from 'contexts/project-context';
 
 type Props = {
   open: boolean;
@@ -52,12 +42,24 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     target: scrollTarget,
   });
 
-  const [projectTitle, setProjectTitle] = useState('');
-  const projectTitleSelectorHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+  const { myProjects, currentProject, setMyProjects } = useProject();
+  useEffect(() => {
+    const myProjects = getAllMyProjects();
+    setMyProjects(myProjects);
+    setSelectedProject(currentProject || null);
+  }, [setMyProjects, currentProject]);
+
+  const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(
+    null
+  );
+  const selectProjectHandler = (
+    event: React.SyntheticEvent<Element, Event>,
+    project: ProjectProps | null
   ) => {
-    setProjectTitle(e.target.value);
+    setSelectedProject(project);
   };
+  const hasError = Boolean(!selectedProject);
+
   const [issueType, setIssueType] = useState<ProjectIssueType>('Story');
   const issueTypeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIssueType(e.target.value as ProjectIssueType);
@@ -137,21 +139,12 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
             }}
           >
             <Box>
-              <TextField
-                fullWidth
-                select
-                size="small"
-                label="Project *"
-                value={projectTitle}
-                variant="filled"
-                onChange={projectTitleSelectorHandler}
-              >
-                {projects.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+              <ProjectSelector
+                options={myProjects}
+                project={selectedProject}
+                onSelect={selectProjectHandler}
+                error={hasError}
+              />
             </Box>
             <IssueTypeSelector
               issueType={issueType}
@@ -224,7 +217,11 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
         >
           <Box sx={{ ml: 'auto', display: 'flex', gap: 2 }}>
             <Button onClick={cancelHandler}>Cancel</Button>
-            <Button variant="contained" onClick={createHandler}>
+            <Button
+              variant="contained"
+              onClick={createHandler}
+              disabled={hasError}
+            >
               Create
             </Button>
           </Box>

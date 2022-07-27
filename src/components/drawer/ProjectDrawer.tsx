@@ -89,6 +89,12 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  let projectName = currentProject?.name;
+  if (projectName) {
+    if (projectName.length > 15) {
+      projectName = projectName.slice(0, 12) + ' ...';
+    }
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -120,7 +126,7 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
                 <ProjectAvatar name={currentProject?.avatar || 'Rocket'} />
                 <Box>
                   <Typography sx={{ fontWeight: 700 }}>
-                    {currentProject?.name}
+                    {projectName}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {currentProject?.type} Project
