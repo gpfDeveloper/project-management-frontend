@@ -1,3 +1,6 @@
+import { useAuth } from 'contexts/auth-context';
+import { useProject } from 'contexts/project-context';
+import { getAllMyProjects, getIssuesAssignedToMe } from 'dummyData/dummyData';
 import AllProjectsPage from 'pages/AllProjectsPage';
 import Home from 'pages/Home';
 import IssueDetailPage from 'pages/IssueDetailPage';
@@ -6,9 +9,20 @@ import ProjectDetailBoard from 'pages/ProjectDetailBoard';
 import ProjectDetailIssues from 'pages/ProjectDetailIssues';
 import ProjectDetailSetting from 'pages/ProjectDetailSetting';
 import YourWorkPage from 'pages/YourWorkPage';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
+  const { user } = useAuth();
+  const { setMyProjects, setIssuesAssignedToMe } = useProject();
+  useEffect(() => {
+    if (user) {
+      const projects = getAllMyProjects();
+      setMyProjects(projects);
+      const issuesAssignedToMe = getIssuesAssignedToMe(user);
+      setIssuesAssignedToMe(issuesAssignedToMe);
+    }
+  }, [user, setMyProjects, setIssuesAssignedToMe]);
   let route = (
     <Routes>
       <Route path="/" element={<Home />} />

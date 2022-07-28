@@ -311,13 +311,6 @@ export const getIssue = (issueId: string) =>
 
 export const getAllMyProjects = () => sampleProjects;
 
-export const getRecentProjects = () => {
-  const recentProjects = sampleProjects.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
-  return recentProjects.slice(0, 5);
-};
-
 export const getIssuesAssignedToMe = (people: People | null) => {
   if (!people) return [];
   return sampleIssues.filter((issue) => issue.assignee.email === people.email);

@@ -10,9 +10,8 @@ import React, { FunctionComponent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { ProjectIssueProps } from 'types/types';
-import { getAllMyProjects, getIssuesAssignedToMe } from 'dummyData/dummyData';
-import { useAuth } from 'contexts/auth-context';
 import IssueTypeIcon from 'components/project/issue/IssueTypeIcon';
+import { useProject } from 'contexts/project-context';
 
 type ProjectIdNameMapType = { [k: string]: string };
 
@@ -49,18 +48,17 @@ const IssueMenuItem: FunctionComponent<IssueMenuItemProps> = ({
 const NavYourWork: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { user } = useAuth();
-  const myIssues = getIssuesAssignedToMe(user);
-  const projects = getAllMyProjects();
+  const { myProjects: projects, issuesAssignedToMe } = useProject();
   const projectIdNameMap: ProjectIdNameMapType = {};
   for (const project of projects) {
     projectIdNameMap[project.id] = project.name;
   }
-  const issuesInProgress = myIssues.filter(
+  const issuesInProgress = issuesAssignedToMe.filter(
     (issue) => issue.status === 'IN PROGRESS'
   );
-  const issuesTodo = myIssues.filter((issue) => issue.status === 'TO DO');
+  const issuesTodo = issuesAssignedToMe.filter(
+    (issue) => issue.status === 'TO DO'
+  );
 
   const active = location.pathname.startsWith('/your-work');
 

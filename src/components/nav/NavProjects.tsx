@@ -11,7 +11,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProjectAvatar from 'components/project/setting/ProjectAvatar';
 import type { ProjectProps } from 'types/types';
-import { getRecentProjects } from 'dummyData/dummyData';
+import { getRecentProjects } from 'utils/utils';
+import { useProject } from 'contexts/project-context';
 
 type ProjectMenuItemProps = {
   project: ProjectProps;
@@ -40,8 +41,9 @@ const ProjectMenuItem: FunctionComponent<ProjectMenuItemProps> = ({
 const NavProjects: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { myProjects } = useProject();
 
-  const recentProjects = getRecentProjects();
+  const recentProjects = getRecentProjects(myProjects);
 
   const active = location.pathname.startsWith('/project');
 
