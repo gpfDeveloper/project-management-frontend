@@ -9,7 +9,7 @@ const NavPeople: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const active = location.pathname.startsWith('/project');
+  const active = location.pathname === '/people';
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

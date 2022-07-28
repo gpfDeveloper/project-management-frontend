@@ -182,7 +182,7 @@ const YourWork: FunctionComponent = () => {
             ))}
           </Box>
           <Typography
-            key={1}
+            key={2}
             variant="caption"
             color="text.secondary"
             fontWeight={700}

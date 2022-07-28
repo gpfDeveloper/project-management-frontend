@@ -14,7 +14,7 @@ import ProjectDetailIssues from 'pages/ProjectDetailIssues';
 import ProjectDetailSetting from 'pages/ProjectDetailSetting';
 import YourWorkPage from 'pages/YourWorkPage';
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const { user } = useAuth();
@@ -48,11 +48,35 @@ function App() {
         path="projects/:projectId/settings"
         element={<ProjectDetailSetting />}
       />
-      <Route path="/projects" element={<AllProjectsPage />} />
-      <Route path="/your-work" element={<YourWorkPage />} />
-      <Route path="/people" element={<PeoplePage />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
     </Routes>
   );
+  if (user) {
+    route = (
+      <Routes>
+        <Route
+          path="/projects/:projectId/board"
+          element={<ProjectDetailBoard />}
+        />
+        <Route
+          path="/projects/:projectId/issues"
+          element={<ProjectDetailIssues />}
+        />
+        <Route
+          path="/projects/:projectId/issues/:issueId"
+          element={<IssueDetailPage />}
+        />
+        <Route
+          path="projects/:projectId/settings"
+          element={<ProjectDetailSetting />}
+        />
+        <Route path="/projects" element={<AllProjectsPage />} />
+        <Route path="/your-work" element={<YourWorkPage />} />
+        <Route path="/people" element={<PeoplePage />} />
+        <Route path="*" element={<Navigate replace to="/your-work" />} />
+      </Routes>
+    );
+  }
   return route;
 }
 
