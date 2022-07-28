@@ -5,7 +5,7 @@ import {
   useState,
   useContext,
 } from 'react';
-import { ProjectIssueProps, ProjectProps } from 'types/types';
+import { ProjectIssueProps, ProjectProps, TeamMember } from 'types/types';
 
 type ProjectCtxProps = {
   myProjects: ProjectProps[];
@@ -26,6 +26,8 @@ type ProjectCtxProps = {
   setCurrentIssue: React.Dispatch<
     React.SetStateAction<ProjectIssueProps | undefined>
   >;
+  teamMembers: TeamMember[];
+  setTeamMembers: React.Dispatch<React.SetStateAction<TeamMember[]>>;
 };
 
 const ProjectContext = createContext<ProjectCtxProps>({
@@ -39,6 +41,8 @@ const ProjectContext = createContext<ProjectCtxProps>({
   setIssuesAssignedToMe: () => {},
   currentIssue: undefined,
   setCurrentIssue: () => {},
+  teamMembers: [],
+  setTeamMembers: () => {},
 });
 export default ProjectContext;
 
@@ -60,6 +64,7 @@ export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
   const [currentIssue, setCurrentIssue] = useState<
     ProjectIssueProps | undefined
   >();
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   return (
     <ProjectContext.Provider
       value={{
@@ -73,6 +78,8 @@ export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
         setIssuesAssignedToMe,
         currentIssue,
         setCurrentIssue,
+        teamMembers,
+        setTeamMembers,
       }}
     >
       {children}

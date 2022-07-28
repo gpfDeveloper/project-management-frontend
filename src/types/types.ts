@@ -28,6 +28,13 @@ export type People = {
   img?: string;
 };
 
+type TeamMemberRole = 'Admin' | 'User';
+type TeamMemberStatus = 'Invited' | 'Active' | 'Suspended';
+export interface TeamMember extends People {
+  role: TeamMemberRole;
+  status: TeamMemberStatus;
+}
+
 export type Comment = {
   id: string;
   issueId: string;

@@ -1,6 +1,7 @@
 import {
   Comment,
   People,
+  TeamMember,
   ProjectIssueProps,
   History,
   ProjectProps,
@@ -11,6 +12,35 @@ export const samplePeople: People[] = [
   { email: 'pengfei@pengfeidevelopment.com', name: 'Pengfei Gao' },
   { email: 'terry@gmail.com', name: 'Terry Smith' },
   { email: 'john@gmail.com', name: 'John Doe' },
+];
+
+const sampleTeamMembers: TeamMember[] = [
+  { email: '', name: 'Unassigned', status: 'Active', role: 'User' },
+  {
+    email: 'pengfei@pengfeidevelopment.com',
+    name: 'Pengfei Gao',
+    status: 'Active',
+    role: 'Admin',
+  },
+  {
+    email: 'terry@gmail.com',
+    name: 'Terry Smith',
+    status: 'Active',
+    role: 'User',
+  },
+  { email: 'john@gmail.com', name: 'John Doe', status: 'Active', role: 'User' },
+  {
+    email: 'james@gmail.com',
+    name: 'James Johnson',
+    status: 'Invited',
+    role: 'User',
+  },
+  {
+    email: 'robert@gmail.com',
+    name: 'Robert Williams',
+    status: 'Suspended',
+    role: 'User',
+  },
 ];
 
 export const sampleIssues: ProjectIssueProps[] = [
@@ -315,3 +345,5 @@ export const getIssuesAssignedToMe = (people: People | null) => {
   if (!people) return [];
   return sampleIssues.filter((issue) => issue.assignee.email === people.email);
 };
+
+export const getTeamMembers = () => sampleTeamMembers;

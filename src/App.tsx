@@ -1,10 +1,14 @@
 import { useAuth } from 'contexts/auth-context';
 import { useProject } from 'contexts/project-context';
-import { getAllMyProjects, getIssuesAssignedToMe } from 'dummyData/dummyData';
+import {
+  getAllMyProjects,
+  getIssuesAssignedToMe,
+  getTeamMembers,
+} from 'dummyData/dummyData';
 import AllProjectsPage from 'pages/AllProjectsPage';
 import Home from 'pages/Home';
 import IssueDetailPage from 'pages/IssueDetailPage';
-import People from 'pages/People';
+import PeoplePage from 'pages/PeoplePage';
 import ProjectDetailBoard from 'pages/ProjectDetailBoard';
 import ProjectDetailIssues from 'pages/ProjectDetailIssues';
 import ProjectDetailSetting from 'pages/ProjectDetailSetting';
@@ -14,15 +18,17 @@ import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const { user } = useAuth();
-  const { setMyProjects, setIssuesAssignedToMe } = useProject();
+  const { setMyProjects, setIssuesAssignedToMe, setTeamMembers } = useProject();
   useEffect(() => {
     if (user) {
       const projects = getAllMyProjects();
       setMyProjects(projects);
       const issuesAssignedToMe = getIssuesAssignedToMe(user);
       setIssuesAssignedToMe(issuesAssignedToMe);
+      const teamMembers = getTeamMembers();
+      setTeamMembers(teamMembers);
     }
-  }, [user, setMyProjects, setIssuesAssignedToMe]);
+  }, [user, setMyProjects, setIssuesAssignedToMe, setTeamMembers]);
   let route = (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -44,7 +50,7 @@ function App() {
       />
       <Route path="/projects" element={<AllProjectsPage />} />
       <Route path="/your-work" element={<YourWorkPage />} />
-      <Route path="/people" element={<People />} />
+      <Route path="/people" element={<PeoplePage />} />
     </Routes>
   );
   return route;
