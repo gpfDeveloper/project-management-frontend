@@ -20,8 +20,12 @@ const AddPeopleDialog: FunctionComponent<Props> = ({ open, onClose }) => {
   const [email, setEmail] = useState('');
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    setEmail('');
     let _email = email.trim().toLowerCase();
+    setEmail('');
+    if (!_email) {
+      onClose();
+      return;
+    }
     for (const _member of teamMembers) {
       if (_member.email === _email) {
         onClose();
