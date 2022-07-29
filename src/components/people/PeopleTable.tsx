@@ -14,16 +14,43 @@ import {
 import { TeamMember } from 'types/types';
 import { FunctionComponent } from 'react';
 import StringAvatar from 'components/shared/StringAvatar';
+import { useProject } from 'contexts/project-context';
 
 type Props = {
-  teamMember: TeamMember[];
+  teamMembers: TeamMember[];
 };
 
-const PeopleTable: FunctionComponent<Props> = ({ teamMember }) => {
+const PeopleTable: FunctionComponent<Props> = ({ teamMembers }) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
   const grey =
     mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900];
+
+  const { setTeamMembers } = useProject();
+  const suspendAccessHandler = (email: string) => {
+    setTeamMembers((pre) => {
+      const ret: TeamMember[] = pre.map((item) => {
+        if (item.email === email) {
+          return { ...item, status: 'Suspended' };
+        } else {
+          return { ...item };
+        }
+      });
+      return ret;
+    });
+  };
+  const restoreAccessHandler = (email: string) => {
+    setTeamMembers((pre) => {
+      const ret: TeamMember[] = pre.map((item) => {
+        if (item.email === email) {
+          return { ...item, status: 'Active' };
+        } else {
+          return { ...item };
+        }
+      });
+      return ret;
+    });
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -43,14 +70,26 @@ const PeopleTable: FunctionComponent<Props> = ({ teamMember }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {teamMember.map((member) => {
+          {teamMembers.map((member) => {
             let action = <></>;
             if (member.role !== 'Admin') {
-              if (member.status === 'Active' || member.status === 'Invited') {
-                action = <Button>Suspend access</Button>;
+              if (member.status === 'Active') {
+                action = (
+                  <Button
+                    onClick={suspendAccessHandler.bind(null, member.email)}
+                  >
+                    Suspend access
+                  </Button>
+                );
               }
               if (member.status === 'Suspended') {
-                action = <Button>Restore access</Button>;
+                action = (
+                  <Button
+                    onClick={restoreAccessHandler.bind(null, member.email)}
+                  >
+                    Restore access
+                  </Button>
+                );
               }
             }
             return (
