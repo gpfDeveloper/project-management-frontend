@@ -13,7 +13,7 @@ import AddPeopleDialog from './AddPeopleDialog';
 import { TeamMember } from 'types/types';
 
 const People: FunctionComponent = () => {
-  const { teamMembers, setTeamMembers } = useProject();
+  const { teamMembers } = useProject();
   const [searchStr, setSearchStr] = useState('');
   // Remove unassigned
   let initialPeople = useMemo(
@@ -46,20 +46,11 @@ const People: FunctionComponent = () => {
   const closeAddPeopleDialogHandler = () => {
     setAddPeopleDialogOpen(false);
   };
-  const addPeopleHandler = (email: string) => {
-    const member: TeamMember = {
-      name: email.split('@')[0],
-      email,
-      role: 'User',
-      status: 'Invited',
-    };
-    setTeamMembers((pre) => [member, ...pre]);
-  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <AddPeopleDialog
         open={addPeopleDialogOpen}
-        onAdd={addPeopleHandler}
         onClose={closeAddPeopleDialogHandler}
       />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

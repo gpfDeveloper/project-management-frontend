@@ -7,22 +7,34 @@ import {
   TextField,
   Box,
 } from '@mui/material';
+import { useProject } from 'contexts/project-context';
 import React, { FunctionComponent, useState } from 'react';
+import type { TeamMember } from 'types/types';
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onAdd: (email: string) => void;
 };
-const AddPeopleDialog: FunctionComponent<Props> = ({
-  open,
-  onClose,
-  onAdd,
-}) => {
+const AddPeopleDialog: FunctionComponent<Props> = ({ open, onClose }) => {
+  const { setTeamMembers, teamMembers } = useProject();
   const [email, setEmail] = useState('');
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    onAdd(email);
+    setEmail('');
+    let _email = email.trim().toLowerCase();
+    for (const _member of teamMembers) {
+      if (_member.email === _email) {
+        onClose();
+        return;
+      }
+    }
+    const member: TeamMember = {
+      name: _email.split('@')[0],
+      email: _email,
+      role: 'User',
+      status: 'Invited',
+    };
+    setTeamMembers((pre) => [member, ...pre]);
     onClose();
   };
   return (

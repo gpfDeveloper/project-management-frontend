@@ -31,9 +31,6 @@ const NavPeople: FunctionComponent = () => {
   const closeAddPeopleDialogHandler = () => {
     setAddPeopleDialogOpen(false);
   };
-  const addPeopleHandler = (email: string) => {
-    console.log(email);
-  };
 
   const inviteTeammateHandler = () => {
     setAnchorEl(null);
@@ -44,7 +41,6 @@ const NavPeople: FunctionComponent = () => {
     <>
       <AddPeopleDialog
         open={addPeopleDialogOpen}
-        onAdd={addPeopleHandler}
         onClose={closeAddPeopleDialogHandler}
       />
       <Button
