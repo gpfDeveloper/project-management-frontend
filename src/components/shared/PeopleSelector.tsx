@@ -1,14 +1,14 @@
 import { Box, TextField, Autocomplete, Typography } from '@mui/material';
 import { FunctionComponent } from 'react';
-import { People } from 'types/types';
+import { TeamMember } from 'types/types';
 import StringAvatar from './StringAvatar';
 
 type Props = {
-  people: People | null;
-  options: People[];
+  people: TeamMember | null;
+  options: TeamMember[];
   onSelect: (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => void;
   label: string;
   error?: boolean;

@@ -41,9 +41,9 @@ const ProjectMenuItem: FunctionComponent<ProjectMenuItemProps> = ({
 const NavProjects: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { myProjects } = useProject();
+  const { allProjects } = useProject();
 
-  const recentProjects = getRecentProjects(myProjects);
+  const recentProjects = getRecentProjects(allProjects);
 
   const active = location.pathname.startsWith('/project');
 

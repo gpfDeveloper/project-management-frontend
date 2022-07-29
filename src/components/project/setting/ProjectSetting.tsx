@@ -12,9 +12,8 @@ import {
 import PeopleSelector from 'components/shared/PeopleSelector';
 import TextEditor from 'components/shared/TextEditor';
 import { useProject } from 'contexts/project-context';
-import { samplePeople } from 'dummyData/dummyData';
 import React, { FunctionComponent, useState } from 'react';
-import type { People, ProjectAvatarName, ProjectType } from 'types/types';
+import type { TeamMember, ProjectAvatarName, ProjectType } from 'types/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ProjectAvatar from './ProjectAvatar';
 import ProjectAvatarDialog from './ProjectAvatarDialog';
@@ -23,7 +22,11 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 const ProjectTypes: ProjectType[] = ['Software', 'Business'];
 
 const ProjectSetting: FunctionComponent = () => {
-  const { currentProject: project, setCurrentProject } = useProject();
+  const {
+    currentProject: project,
+    setCurrentProject,
+    teamMembers,
+  } = useProject();
   const [name, setName] = useState(project!.name);
   const [url, setUrl] = useState(project!.URL);
   const [type, setType] = useState(project!.type);
@@ -37,7 +40,7 @@ const ProjectSetting: FunctionComponent = () => {
   const [lead, setLead] = useState(project!.lead);
   const selectLeadHandler = (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => {
     setLead(value!);
   };
@@ -182,7 +185,7 @@ const ProjectSetting: FunctionComponent = () => {
             label="Project lead *"
             people={lead}
             error={!lead}
-            options={samplePeople.filter(
+            options={teamMembers.filter(
               (people) => people.name !== 'Unassigned'
             )}
             onSelect={selectLeadHandler}

@@ -13,8 +13,8 @@ export type ProjectIssueProps = {
   type: ProjectIssueType;
   summary: string;
   description?: string;
-  assignee: People;
-  reporter: People;
+  assignee: TeamMember;
+  reporter: TeamMember;
   priority: ProjectIssuePriority;
   status: ProjectIssueStatus;
   createdAt: string;
@@ -22,15 +22,12 @@ export type ProjectIssueProps = {
   dueAt?: string;
 };
 
-export type People = {
+type TeamMemberRole = 'Admin' | 'User';
+type TeamMemberStatus = 'Invited' | 'Active' | 'Suspended';
+export interface TeamMember {
   email: string;
   name: string;
   img?: string;
-};
-
-type TeamMemberRole = 'Admin' | 'User';
-type TeamMemberStatus = 'Invited' | 'Active' | 'Suspended';
-export interface TeamMember extends People {
   role: TeamMemberRole;
   status: TeamMemberStatus;
 }
@@ -38,7 +35,7 @@ export interface TeamMember extends People {
 export type Comment = {
   id: string;
   issueId: string;
-  createdBy: People;
+  createdBy: TeamMember;
   createdAt: string;
   updatedAt: string;
   content: string;
@@ -60,7 +57,7 @@ export type History = {
   issueId: string;
   createdAt: string;
   field: HistoryField;
-  updatedBy: People;
+  updatedBy: TeamMember;
   from?: string;
   to?: string;
 };
@@ -80,10 +77,10 @@ export type ProjectProps = {
   type: ProjectType;
   createdAt: string;
   updatedAt: string;
-  owner: People;
+  owner: TeamMember;
   URL?: string;
   avatar: ProjectAvatarName;
-  lead: People;
+  lead: TeamMember;
   description?: string;
   isPrivate: boolean;
 };

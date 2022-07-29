@@ -95,9 +95,9 @@ const YourWork: FunctionComponent = () => {
   const theme = useTheme();
   const mode = theme.palette.mode;
   const grey = mode === 'light' ? theme.palette.grey[50] : 'inherit';
-  const { myProjects, issuesAssignedToMe } = useProject();
+  const { allProjects, issuesAssignedToMe } = useProject();
   const navigate = useNavigate();
-  const recentProjects = getRecentProjects(myProjects);
+  const recentProjects = getRecentProjects(allProjects);
   const issuesInProgress = issuesAssignedToMe.filter(
     (issue) => issue.status === 'IN PROGRESS'
   );
@@ -115,7 +115,7 @@ const YourWork: FunctionComponent = () => {
     }
   }
   const projectIdNameMap: ProjectIdNameMapType = {};
-  for (const project of myProjects) {
+  for (const project of allProjects) {
     projectIdNameMap[project.id] = project.name;
   }
 

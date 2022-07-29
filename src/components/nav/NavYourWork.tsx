@@ -48,7 +48,7 @@ const IssueMenuItem: FunctionComponent<IssueMenuItemProps> = ({
 const NavYourWork: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { myProjects: projects, issuesAssignedToMe } = useProject();
+  const { allProjects: projects, issuesAssignedToMe } = useProject();
   const projectIdNameMap: ProjectIdNameMapType = {};
   for (const project of projects) {
     projectIdNameMap[project.id] = project.name;

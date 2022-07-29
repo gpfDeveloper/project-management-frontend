@@ -1,12 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
-import { People, ProjectIssuePriority, ProjectIssueStatus } from 'types/types';
-import { samplePeople } from 'dummyData/dummyData';
+import {
+  TeamMember,
+  ProjectIssuePriority,
+  ProjectIssueStatus,
+} from 'types/types';
 import IssueDetailLeft from './IssueDetailLeft';
 import IssueDetailRight from './IssueDetailRight';
 import { useProject } from 'contexts/project-context';
 
 const IssueDetail: FunctionComponent = () => {
-  const { currentIssue: issue } = useProject();
+  const { currentIssue: issue, teamMembers } = useProject();
   const [summary, setSummary] = useState(issue!.summary);
   const saveSummaryHandler = () => {
     console.log(summary);
@@ -28,20 +31,20 @@ const IssueDetail: FunctionComponent = () => {
   const issueStatusSelectorHandler = (status: ProjectIssueStatus) => {
     setIssueStatus(status);
   };
-  const [reporter, setReporter] = useState<People | null>(issue!.reporter);
+  const [reporter, setReporter] = useState<TeamMember | null>(issue!.reporter);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => {
-    if (!value) setReporter(samplePeople[0]);
+    if (!value) setReporter(teamMembers[0]);
     else setReporter(value);
   };
-  const [assignee, setAssignee] = useState<People | null>(issue!.assignee);
+  const [assignee, setAssignee] = useState<TeamMember | null>(issue!.assignee);
   const assigneeSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => {
-    if (!value) setAssignee(samplePeople[0]);
+    if (!value) setAssignee(teamMembers[0]);
     else setAssignee(value);
   };
   const [priority, setPriority] = useState<ProjectIssuePriority>('Medium');
@@ -65,7 +68,7 @@ const IssueDetail: FunctionComponent = () => {
         onSaveDescription={saveDescriptionHandler}
       />
       <IssueDetailRight
-        allPeople={samplePeople}
+        allPeople={teamMembers}
         assignee={assignee}
         onChangeAssignee={assigneeSelectorHandler}
         reporter={reporter}

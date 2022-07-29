@@ -1,20 +1,12 @@
 import {
   Comment,
-  People,
   TeamMember,
   ProjectIssueProps,
   History,
   ProjectProps,
 } from 'types/types';
 
-export const samplePeople: People[] = [
-  { email: '', name: 'Unassigned' },
-  { email: 'pengfei@pengfeidevelopment.com', name: 'Pengfei Gao' },
-  { email: 'terry@gmail.com', name: 'Terry Smith' },
-  { email: 'john@gmail.com', name: 'John Doe' },
-];
-
-const sampleTeamMembers: TeamMember[] = [
+export const sampleTeamMembers: TeamMember[] = [
   { email: '', name: 'Unassigned', status: 'Active', role: 'User' },
   {
     email: 'pengfei@pengfeidevelopment.com',
@@ -52,8 +44,8 @@ export const sampleIssues: ProjectIssueProps[] = [
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
     description:
       '<p>An issue\'s status indicates its current place in the project\'s workflow.</p><h3>Issue statuses:</h3><p></p><h2><strong style="background-color: rgb(187, 187, 187);"> To do </strong></h2><p>The issue is open and ready for the assignee to start work on it.</p><p></p><h2><strong style="background-color: rgb(0, 102, 204); color: rgb(255, 255, 255);"> In Progress </strong></h2><p>This issue is being actively worked on at the moment by the assignee.</p><p></p><h2><strong style="background-color: rgb(0, 138, 0); color: rgb(255, 255, 255);"> Done </strong></h2><p>Work has finished on the issue.</p>',
-    assignee: samplePeople[1],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[1],
+    reporter: sampleTeamMembers[1],
     priority: 'Highest',
     status: 'DONE',
     createdAt: '2022-06-14T17:21:07.5272333Z',
@@ -66,8 +58,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
-    assignee: samplePeople[2],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[2],
+    reporter: sampleTeamMembers[1],
     priority: 'Medium',
     status: 'TO DO',
     createdAt: '2022-06-15T17:21:07.5272333Z',
@@ -80,8 +72,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
-    assignee: samplePeople[3],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[3],
+    reporter: sampleTeamMembers[1],
     priority: 'Low',
     status: 'TO DO',
     createdAt: '2022-06-16T17:21:07.5272333Z',
@@ -94,8 +86,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
-    assignee: samplePeople[0],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[0],
+    reporter: sampleTeamMembers[1],
     priority: 'Low',
     status: 'TO DO',
     createdAt: '2022-06-11T17:21:07.5272333Z',
@@ -107,8 +99,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Bug',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
-    assignee: samplePeople[1],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[1],
+    reporter: sampleTeamMembers[1],
     priority: 'Lowest',
     status: 'TO DO',
     createdAt: '2022-06-12T17:21:07.5272333Z',
@@ -121,8 +113,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Story',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
-    assignee: samplePeople[1],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[1],
+    reporter: sampleTeamMembers[1],
     priority: 'High',
     status: 'IN PROGRESS',
     createdAt: '2022-06-13T17:21:07.5272333Z',
@@ -134,8 +126,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Task',
     summary:
       "Detail: As a developer, I'd like to update story status during the sprint >> Click the Active sprints link at the top right of the screen to go to the Active sprints where the current Sprint's items can be updated.",
-    assignee: samplePeople[1],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[1],
+    reporter: sampleTeamMembers[1],
     priority: 'High',
     status: 'IN PROGRESS',
     createdAt: '2022-06-13T17:21:07.5272333Z',
@@ -147,8 +139,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     type: 'Task',
     summary:
       'When the last task is done, the story can be automatically closed >> Drag this task to "Done" too',
-    assignee: samplePeople[0],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[0],
+    reporter: sampleTeamMembers[1],
     priority: 'Low',
     status: 'TO DO',
     createdAt: '2022-06-11T17:21:07.5272333Z',
@@ -159,8 +151,8 @@ export const sampleIssues: ProjectIssueProps[] = [
     projectId: '65cc7df2-35a4-4342-b1ac-b72316a36a02',
     type: 'Story',
     summary: 'E-commerce project story',
-    assignee: samplePeople[1],
-    reporter: samplePeople[1],
+    assignee: sampleTeamMembers[1],
+    reporter: sampleTeamMembers[1],
     priority: 'Lowest',
     status: 'TO DO',
     createdAt: '2022-06-12T17:21:07.5272333Z',
@@ -173,7 +165,7 @@ export const sampleComments: Comment[] = [
   {
     id: '85cc7df2-35a4-4342-b1ac-b72316a36a01',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
-    createdBy: samplePeople[1],
+    createdBy: sampleTeamMembers[1],
     createdAt: '2022-08-13T17:21:07.5272333Z',
     updatedAt: '2022-08-14T17:21:07.5272333Z',
     content: 'A test comment.',
@@ -181,7 +173,7 @@ export const sampleComments: Comment[] = [
   {
     id: '85cc7df2-35a4-4342-b1ac-b72316a36a02',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
-    createdBy: samplePeople[2],
+    createdBy: sampleTeamMembers[2],
     createdAt: '2022-08-14T17:21:07.5272333Z',
     updatedAt: '2022-08-14T17:21:07.5272333Z',
     content: 'Another test comment.',
@@ -194,14 +186,14 @@ export const sampleHistory: History[] = [
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T17:21:07.5272333Z',
     field: 'Issue',
-    updatedBy: samplePeople[1],
+    updatedBy: sampleTeamMembers[1],
   },
   {
     id: '75cc7df2-35a4-4342-b1ac-b72316a36a02',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:21:07.5272333Z',
     field: 'Priority',
-    updatedBy: samplePeople[1],
+    updatedBy: sampleTeamMembers[1],
     from: 'Medium',
     to: 'Highest',
   },
@@ -210,7 +202,7 @@ export const sampleHistory: History[] = [
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:22:07.5272333Z',
     field: 'Due',
-    updatedBy: samplePeople[1],
+    updatedBy: sampleTeamMembers[1],
     from: undefined,
     to: '2022-06-15T20:21:07.5272333Z',
   },
@@ -219,32 +211,32 @@ export const sampleHistory: History[] = [
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:23:07.5272333Z',
     field: 'Assignee',
-    updatedBy: samplePeople[1],
-    from: JSON.stringify(samplePeople[0]),
-    to: JSON.stringify(samplePeople[2]),
+    updatedBy: sampleTeamMembers[1],
+    from: JSON.stringify(sampleTeamMembers[0]),
+    to: JSON.stringify(sampleTeamMembers[2]),
   },
   {
     id: '75cc7df2-35a4-4342-b1ac-b72316a36a05',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T18:24:07.5272333Z',
     field: 'Reporter',
-    updatedBy: samplePeople[1],
-    from: JSON.stringify(samplePeople[1]),
-    to: JSON.stringify(samplePeople[3]),
+    updatedBy: sampleTeamMembers[1],
+    from: JSON.stringify(sampleTeamMembers[1]),
+    to: JSON.stringify(sampleTeamMembers[3]),
   },
   {
     id: '75cc7df2-35a4-4342-b1ac-b72316a36a06',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T19:21:07.5272333Z',
     field: 'Comment',
-    updatedBy: samplePeople[3],
+    updatedBy: sampleTeamMembers[3],
   },
   {
     id: '75cc7df2-35a4-4342-b1ac-b72316a36a07',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-14T20:21:07.5272333Z',
     field: 'Status',
-    updatedBy: samplePeople[2],
+    updatedBy: sampleTeamMembers[2],
     from: 'TO DO',
     to: 'IN PROGRESS',
   },
@@ -252,7 +244,7 @@ export const sampleHistory: History[] = [
     id: '75cc7df2-35a4-4342-b1ac-b72316a36a08',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdAt: '2022-06-15T20:21:07.5272333Z',
-    updatedBy: samplePeople[2],
+    updatedBy: sampleTeamMembers[2],
     field: 'Status',
     from: 'IN PROGRESS',
     to: 'DONE',
@@ -266,8 +258,8 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Software',
     createdAt: '2022-07-01T20:21:07.5272333Z',
     updatedAt: '2022-07-02T20:21:07.5272333Z',
-    owner: samplePeople[1],
-    lead: samplePeople[1],
+    owner: sampleTeamMembers[1],
+    lead: sampleTeamMembers[1],
     avatar: 'Rocket',
     isPrivate: false,
   },
@@ -277,8 +269,8 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Software',
     createdAt: '2022-06-12T20:21:07.5272333Z',
     updatedAt: '2022-06-12T20:21:07.5272333Z',
-    owner: samplePeople[1],
-    lead: samplePeople[2],
+    owner: sampleTeamMembers[1],
+    lead: sampleTeamMembers[2],
     avatar: 'Snow',
     isPrivate: false,
   },
@@ -288,8 +280,8 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Business',
     createdAt: '2022-06-04T20:21:07.5272333Z',
     updatedAt: '2022-06-04T20:21:07.5272333Z',
-    owner: samplePeople[1],
-    lead: samplePeople[3],
+    owner: sampleTeamMembers[1],
+    lead: sampleTeamMembers[3],
     avatar: 'Castle',
     isPrivate: false,
   },
@@ -299,8 +291,8 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Software',
     createdAt: '2022-06-05T20:21:07.5272333Z',
     updatedAt: '2022-06-05T20:21:07.5272333Z',
-    owner: samplePeople[1],
-    lead: samplePeople[1],
+    owner: sampleTeamMembers[1],
+    lead: sampleTeamMembers[1],
     avatar: 'Camera',
     isPrivate: false,
   },
@@ -310,8 +302,8 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Software',
     createdAt: '2022-06-06T20:21:07.5272333Z',
     updatedAt: '2022-06-06T20:21:07.5272333Z',
-    owner: samplePeople[1],
-    lead: samplePeople[1],
+    owner: sampleTeamMembers[1],
+    lead: sampleTeamMembers[1],
     avatar: 'Bug',
     isPrivate: false,
   },
@@ -321,8 +313,8 @@ export const sampleProjects: ProjectProps[] = [
     type: 'Software',
     createdAt: '2022-06-07T20:21:07.5272333Z',
     updatedAt: '2022-06-07T20:21:07.5272333Z',
-    owner: samplePeople[1],
-    lead: samplePeople[1],
+    owner: sampleTeamMembers[1],
+    lead: sampleTeamMembers[1],
     avatar: 'Tower',
     isPrivate: false,
   },
@@ -341,9 +333,11 @@ export const getIssue = (issueId: string) =>
 
 export const getAllMyProjects = () => sampleProjects;
 
-export const getIssuesAssignedToMe = (people: People | null) => {
-  if (!people) return [];
-  return sampleIssues.filter((issue) => issue.assignee.email === people.email);
+export const getIssuesAssignedToMe = (teamMember: TeamMember | null) => {
+  if (!teamMember) return [];
+  return sampleIssues.filter(
+    (issue) => issue.assignee.email === teamMember.email
+  );
 };
 
 export const getTeamMembers = () => sampleTeamMembers;

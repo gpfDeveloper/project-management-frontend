@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 import type {
   History,
-  People,
+  TeamMember,
   ProjectIssuePriority,
   ProjectIssueStatus,
 } from 'types/types';
@@ -83,10 +83,10 @@ const PriorityHistory: FunctionComponent<{
   );
 };
 
-const PeopleHistory: FunctionComponent<{ from: People; to: People }> = ({
-  from,
-  to,
-}) => {
+const PeopleHistory: FunctionComponent<{
+  from: TeamMember;
+  to: TeamMember;
+}> = ({ from, to }) => {
   return (
     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -172,8 +172,8 @@ const ActivityHistoryItem: FunctionComponent<Props> = ({ item }) => {
       break;
     case 'Assignee':
     case 'Reporter':
-      const pFrom = JSON.parse(item.from!) as People;
-      const pTo = JSON.parse(item.to!) as People;
+      const pFrom = JSON.parse(item.from!) as TeamMember;
+      const pTo = JSON.parse(item.to!) as TeamMember;
       content = <PeopleHistory from={pFrom} to={pTo} />;
       break;
   }

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import {
   Box,
   Typography,
@@ -20,8 +20,7 @@ import {
 } from 'types/types';
 import IssueTypeSelector from './IssueTypeSelector';
 import IssuePrioritySelector from './IssuePrioritySelector';
-import { getAllMyProjects, samplePeople } from 'dummyData/dummyData';
-import type { People } from 'types/types';
+import type { TeamMember } from 'types/types';
 import PeopleSelector from 'components/shared/PeopleSelector';
 import ProjectSelector from 'components/shared/ProjectSelector';
 import { useProject } from 'contexts/project-context';
@@ -42,15 +41,10 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     target: scrollTarget,
   });
 
-  const { myProjects, currentProject, setMyProjects } = useProject();
-  useEffect(() => {
-    const myProjects = getAllMyProjects();
-    setMyProjects(myProjects);
-    setSelectedProject(currentProject || null);
-  }, [setMyProjects, currentProject]);
+  const { allProjects, currentProject, teamMembers } = useProject();
 
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(
-    null
+    currentProject || null
   );
   const selectProjectHandler = (
     event: React.SyntheticEvent<Element, Event>,
@@ -71,20 +65,20 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const changeDescriptionHandler = (content: string) => {
     setDescription({ text: content });
   };
-  const [reporter, setReporter] = useState<People | null>(samplePeople[1]);
+  const [reporter, setReporter] = useState<TeamMember | null>(teamMembers[1]);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => {
-    if (!value) setReporter(samplePeople[0]);
+    if (!value) setReporter(teamMembers[0]);
     else setReporter(value);
   };
-  const [assignee, setAssignee] = useState<People | null>(samplePeople[0]);
+  const [assignee, setAssignee] = useState<TeamMember | null>(teamMembers[0]);
   const assigneeSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => {
-    if (!value) setAssignee(samplePeople[0]);
+    if (!value) setAssignee(teamMembers[0]);
     else setAssignee(value);
   };
   const [priority, setPriority] = useState<ProjectIssuePriority>('Medium');
@@ -140,7 +134,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
           >
             <Box>
               <ProjectSelector
-                options={myProjects}
+                options={allProjects}
                 project={selectedProject}
                 onSelect={selectProjectHandler}
                 error={hasError}
@@ -184,13 +178,13 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
             <PeopleSelector
               people={reporter}
               onSelect={reporterSelectorHandler}
-              options={samplePeople}
+              options={teamMembers}
               label="Reporter"
             />
             <PeopleSelector
               people={assignee}
               onSelect={assigneeSelectorHandler}
-              options={samplePeople}
+              options={teamMembers}
               label="Assignee"
             />
             <IssuePrioritySelector

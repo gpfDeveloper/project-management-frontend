@@ -18,17 +18,18 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const { user } = useAuth();
-  const { setMyProjects, setIssuesAssignedToMe, setTeamMembers } = useProject();
+  const { setAllProjects, setIssuesAssignedToMe, setTeamMembers } =
+    useProject();
   useEffect(() => {
     if (user) {
       const projects = getAllMyProjects();
-      setMyProjects(projects);
+      setAllProjects(projects);
       const issuesAssignedToMe = getIssuesAssignedToMe(user);
       setIssuesAssignedToMe(issuesAssignedToMe);
       const teamMembers = getTeamMembers();
       setTeamMembers(teamMembers);
     }
-  }, [user, setMyProjects, setIssuesAssignedToMe, setTeamMembers]);
+  }, [user, setAllProjects, setIssuesAssignedToMe, setTeamMembers]);
   let route = (
     <Routes>
       <Route path="/" element={<Home />} />

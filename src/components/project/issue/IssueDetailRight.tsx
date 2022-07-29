@@ -6,15 +6,15 @@ import DateSelector from 'components/shared/DateSelector';
 import PeopleSelector from 'components/shared/PeopleSelector';
 import type {
   ProjectIssuePriority,
-  People,
+  TeamMember,
   ProjectIssueStatus,
 } from 'types/types';
 import IssueStatusSelector from 'components/project/issue/IssueStatusSelector';
 
 type Props = {
-  allPeople: People[];
-  reporter: People | null;
-  assignee: People | null;
+  allPeople: TeamMember[];
+  reporter: TeamMember | null;
+  assignee: TeamMember | null;
   priority: ProjectIssuePriority;
   issueStatus: ProjectIssueStatus;
   dueDate: Date | null;
@@ -22,11 +22,11 @@ type Props = {
   updatedAt: string;
   onChangeReporter: (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => void;
   onChangeAssignee: (
     event: React.SyntheticEvent<Element, Event>,
-    value: People | null
+    value: TeamMember | null
   ) => void;
   onChangePriority: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeIssueStatus: (status: ProjectIssueStatus) => void;
