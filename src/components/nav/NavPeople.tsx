@@ -4,6 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import AddPeopleDialog from 'components/people/AddPeopleDialog';
 
 const NavPeople: FunctionComponent = () => {
   const navigate = useNavigate();
@@ -26,8 +27,26 @@ const NavPeople: FunctionComponent = () => {
     navigate('/people');
   };
 
+  const [addPeopleDialogOpen, setAddPeopleDialogOpen] = useState(false);
+  const closeAddPeopleDialogHandler = () => {
+    setAddPeopleDialogOpen(false);
+  };
+  const addPeopleHandler = (email: string) => {
+    console.log(email);
+  };
+
+  const inviteTeammateHandler = () => {
+    setAnchorEl(null);
+    setAddPeopleDialogOpen(true);
+  };
+
   let content = (
     <>
+      <AddPeopleDialog
+        open={addPeopleDialogOpen}
+        onAdd={addPeopleHandler}
+        onClose={closeAddPeopleDialogHandler}
+      />
       <Button
         onClick={openMenuHandler}
         sx={{
@@ -46,7 +65,7 @@ const NavPeople: FunctionComponent = () => {
       </Button>
       <Menu open={open} onClose={closeMenuHandler} anchorEl={anchorEl}>
         {[
-          <MenuItem key={2}>
+          <MenuItem key={2} onClick={inviteTeammateHandler}>
             <AddIcon />
             <Typography variant="body2" sx={{ ml: 1 }}>
               Invite a teammate
