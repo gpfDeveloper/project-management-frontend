@@ -324,6 +324,10 @@ export const queryIssues = (projectId: string) => {
   return sampleIssues.filter((item) => item.projectId === projectId);
 };
 
+export const createIssue = (issue: ProjectIssueProps) => {
+  sampleIssues.push(issue);
+};
+
 export const getProject = (projectId: string) => {
   return sampleProjects.filter((item) => item.id === projectId)[0];
 };

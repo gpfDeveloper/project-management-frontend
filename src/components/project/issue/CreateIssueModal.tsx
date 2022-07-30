@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import {
   Box,
   Typography,
@@ -15,6 +15,7 @@ import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
 import {
   ProjectIssuePriority,
+  ProjectIssueProps,
   ProjectIssueType,
   ProjectProps,
 } from 'types/types';
@@ -24,6 +25,10 @@ import type { TeamMember } from 'types/types';
 import PeopleSelector from 'components/shared/PeopleSelector';
 import ProjectSelector from 'components/shared/ProjectSelector';
 import { useProject } from 'contexts/project-context';
+import { v4 as uuid } from 'uuid';
+import { createIssue } from 'dummyData/dummyData';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'contexts/auth-context';
 
 type Props = {
   open: boolean;
@@ -33,6 +38,7 @@ type Props = {
 const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
   const theme = useTheme();
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
   const [scrollTarget, setScrollTarget] = useState<Node | Window | undefined>();
   const isScroll = useScrollTrigger({
@@ -41,31 +47,57 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     target: scrollTarget,
   });
 
-  const { allProjects, currentProject, teamMembers } = useProject();
+  const {
+    allProjects,
+    currentProject,
+    teamMembers,
+    issuesPerProject,
+    setIssuesPerProject,
+    setIssuesAssignedToMe,
+  } = useProject();
+
+  const { user } = useAuth();
 
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(
-    currentProject || null
+    null
   );
+  useEffect(() => {
+    if (currentProject) {
+      setSelectedProject(currentProject);
+      setReporter(currentProject.lead);
+      setAssignee(currentProject.lead);
+    }
+  }, [currentProject]);
   const selectProjectHandler = (
     event: React.SyntheticEvent<Element, Event>,
     project: ProjectProps | null
   ) => {
     setSelectedProject(project);
   };
-  const hasError = Boolean(!selectedProject);
+  const errorProjectSelector = Boolean(!selectedProject);
 
   const [issueType, setIssueType] = useState<ProjectIssueType>('Story');
   const issueTypeSelectorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIssueType(e.target.value as ProjectIssueType);
   };
   const [summary, setSummary] = useState('');
+  const [isSummaryTouched, setIsSummaryTouched] = useState(false);
+  const changeSummaryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSummaryTouched(true);
+    setSummary(e.target.value);
+  };
+  const summaryError = summary.length === 0 || summary.length > 255;
+
   const [description, setDescription] = useState({
     text: '',
   });
   const changeDescriptionHandler = (content: string) => {
     setDescription({ text: content });
   };
-  const [reporter, setReporter] = useState<TeamMember | null>(teamMembers[1]);
+
+  const hasError = errorProjectSelector || summaryError;
+
+  const [reporter, setReporter] = useState<TeamMember | null>(null);
   const reporterSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
     value: TeamMember | null
@@ -73,7 +105,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     if (!value) setReporter(teamMembers[0]);
     else setReporter(value);
   };
-  const [assignee, setAssignee] = useState<TeamMember | null>(teamMembers[0]);
+  const [assignee, setAssignee] = useState<TeamMember | null>(null);
   const assigneeSelectorHandler = (
     event: React.SyntheticEvent<Element, Event>,
     value: TeamMember | null
@@ -90,6 +122,31 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     onClose();
   };
   const createHandler = () => {
+    const now = new Date().toISOString();
+    const issue: ProjectIssueProps = {
+      id: uuid(),
+      projectId: selectedProject!.id,
+      type: issueType,
+      summary,
+      description: description.text,
+      assignee: assignee!,
+      reporter: reporter!,
+      priority,
+      status: 'TO DO',
+      createdAt: now,
+      updatedAt: now,
+    };
+    if (dueDate) {
+      issue.dueAt = dueDate.toISOString();
+    }
+    if (issuesPerProject) {
+      setIssuesPerProject([...issuesPerProject, issue]);
+    }
+    if (user!.email === assignee!.email) {
+      setIssuesAssignedToMe((prev) => [issue, ...prev]);
+    }
+    createIssue(issue);
+    navigate(`/projects/${selectedProject!.id}/board`);
     onClose();
   };
   return (
@@ -137,7 +194,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
                 options={allProjects}
                 project={selectedProject}
                 onSelect={selectProjectHandler}
-                error={hasError}
+                error={errorProjectSelector}
               />
             </Box>
             <IssueTypeSelector
@@ -153,7 +210,13 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
               size="small"
               variant="filled"
               value={summary}
-              onChange={(e) => setSummary(e.target.value)}
+              onChange={changeSummaryHandler}
+              error={summaryError && isSummaryTouched}
+              helperText={
+                summaryError &&
+                isSummaryTouched &&
+                'Summary should have 1~255 characters.'
+              }
             />
             <Box>
               <Typography variant="body2" color="text.secondary" mb={0.6}>
