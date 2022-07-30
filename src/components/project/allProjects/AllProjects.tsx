@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -14,11 +14,31 @@ import CreateProjectDialog from './CreateProjectDialog';
 
 const AllProjects: FunctionComponent = () => {
   const { allProjects } = useProject();
-  const filteredProjects = allProjects;
   const [createProjectDialogOpen, setCreateProjectDialogOpen] = useState(false);
   const closeCreateProjectDialogHandler = () => {
     setCreateProjectDialogOpen(false);
   };
+
+  const [searchStr, setSearchStr] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState(allProjects);
+
+  useEffect(() => {
+    const filterProject = () => {
+      let res = [];
+      let _str = searchStr.trim().toLowerCase();
+      if (_str) {
+        for (const project of allProjects) {
+          if (project.name.toLowerCase().indexOf(_str) !== -1) {
+            res.push({ ...project });
+          }
+        }
+      } else {
+        res = allProjects.slice();
+      }
+      setFilteredProjects(res);
+    };
+    filterProject();
+  }, [searchStr, allProjects]);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -38,6 +58,8 @@ const AllProjects: FunctionComponent = () => {
       <Box>
         <TextField
           size="small"
+          value={searchStr}
+          onChange={(e) => setSearchStr(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
