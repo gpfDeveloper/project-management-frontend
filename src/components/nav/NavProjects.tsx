@@ -13,6 +13,7 @@ import ProjectAvatar from 'components/project/setting/ProjectAvatar';
 import type { ProjectProps } from 'types/types';
 import { getRecentProjects } from 'utils/utils';
 import { useProject } from 'contexts/project-context';
+import CreateProjectDialog from 'components/project/allProjects/CreateProjectDialog';
 
 type ProjectMenuItemProps = {
   project: ProjectProps;
@@ -67,8 +68,17 @@ const NavProjects: FunctionComponent = () => {
     navigate(`/projects/${projectId}/board`);
   };
 
+  const [createProjectDialogOpen, setCreateProjectDialogOpen] = useState(false);
+  const closeCreateProjectDialogHandler = () => {
+    setCreateProjectDialogOpen(false);
+  };
+
   let content = (
     <>
+      <CreateProjectDialog
+        open={createProjectDialogOpen}
+        onClose={closeCreateProjectDialogHandler}
+      />
       <Button
         onClick={openMenuHandler}
         sx={{
@@ -113,7 +123,9 @@ const NavProjects: FunctionComponent = () => {
           <MenuItem key={3} onClick={viewAllProjectHandler}>
             View all projects
           </MenuItem>,
-          <MenuItem key={4}>Create project</MenuItem>,
+          <MenuItem key={4} onClick={() => setCreateProjectDialogOpen(true)}>
+            Create project
+          </MenuItem>,
         ]}
       </Menu>
     </>

@@ -328,6 +328,31 @@ export const getProject = (projectId: string) => {
   return sampleProjects.filter((item) => item.id === projectId)[0];
 };
 
+export const addProject = (project: ProjectProps) => {
+  sampleProjects.unshift(project);
+};
+
+export const updateProject = (project: ProjectProps) => {
+  const idx = sampleProjects.findIndex((item) => project.id === item.id);
+  if (idx !== -1) {
+    sampleProjects[idx] = project;
+  }
+};
+
+export const deleteProject = (projectId: string) => {
+  const idx = sampleProjects.findIndex((item) => item.id === projectId);
+  if (idx !== -1) {
+    sampleProjects.splice(idx, 1);
+    let issueIdx = sampleIssues.findIndex(
+      (item) => item.projectId === projectId
+    );
+    while (issueIdx !== -1) {
+      sampleIssues.splice(issueIdx, 1);
+      issueIdx = sampleIssues.findIndex((item) => item.projectId === projectId);
+    }
+  }
+};
+
 export const getIssue = (issueId: string) =>
   sampleIssues.find((item) => item.id === issueId);
 

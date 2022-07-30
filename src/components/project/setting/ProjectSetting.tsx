@@ -13,11 +13,18 @@ import PeopleSelector from 'components/shared/PeopleSelector';
 import TextEditor from 'components/shared/TextEditor';
 import { useProject } from 'contexts/project-context';
 import React, { FunctionComponent, useState } from 'react';
-import type { TeamMember, ProjectAvatarName, ProjectType } from 'types/types';
+import type {
+  TeamMember,
+  ProjectAvatarName,
+  ProjectType,
+  ProjectProps,
+} from 'types/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ProjectAvatar from './ProjectAvatar';
 import ProjectAvatarDialog from './ProjectAvatarDialog';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { updateProject } from 'dummyData/dummyData';
+import DeleteProjectDialog from './DeleteProjectDialog';
 
 const ProjectTypes: ProjectType[] = ['Software', 'Business'];
 
@@ -52,8 +59,8 @@ const ProjectSetting: FunctionComponent = () => {
   const hasError = !name.trim() || !lead;
 
   const saveHandler = () => {
-    setCurrentProject((prev) => ({
-      ...prev!,
+    const _project = {
+      ...project,
       name,
       url,
       type,
@@ -61,7 +68,9 @@ const ProjectSetting: FunctionComponent = () => {
       lead,
       isPrivate,
       avatar,
-    }));
+    } as ProjectProps;
+    setCurrentProject(_project);
+    updateProject(_project);
   };
 
   const [avatarDialogOpen, setAvatarDialogOpen] = useState(false);
@@ -86,6 +95,12 @@ const ProjectSetting: FunctionComponent = () => {
   };
   const deleteProjectHandler = () => {
     setDeleteProjectMenuAnchor(null);
+    setDeleteProjectDialogOpen(true);
+  };
+
+  const [deleteProjectDialogOpen, setDeleteProjectDialogOpen] = useState(false);
+  const closeDeleteProjectDialogHandler = () => {
+    setDeleteProjectDialogOpen(false);
   };
 
   return (
@@ -96,6 +111,11 @@ const ProjectSetting: FunctionComponent = () => {
         alignItems: 'center',
       }}
     >
+      <DeleteProjectDialog
+        open={deleteProjectDialogOpen}
+        onClose={closeDeleteProjectDialogHandler}
+        projectId={project!.id}
+      />
       <ProjectAvatarDialog
         open={avatarDialogOpen}
         onClose={closeAvatarDialogHandler}

@@ -21,6 +21,7 @@ import ProjectAvatar from '../setting/ProjectAvatar';
 import LinkRouter from 'components/shared/LinkRouter';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useNavigate } from 'react-router-dom';
+import DeleteProjectDialog from '../setting/DeleteProjectDialog';
 
 type Props = {
   projects: ProjectProps[];
@@ -48,86 +49,101 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
   };
   const deleteProjectHandler = () => {
     setAnchor(null);
+    setDeleteProjectDialogOpen(true);
   };
   const projectSettingHandler = () => {
     setAnchor(null);
     navigate(`/projects/${currentProjectId}/settings`);
   };
 
+  const [deleteProjectDialogOpen, setDeleteProjectDialogOpen] = useState(false);
+  const closeDeleteProjectDialogHandler = () => {
+    setDeleteProjectDialogOpen(false);
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{
-          '& td': {
-            borderColor: 'transparent',
-          },
-        }}
-      >
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Type</TableCell>
-            <TableCell align="left">Lead</TableCell>
-            <TableCell align="center"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {projects.map((project) => (
-            <TableRow
-              key={project.id}
-              sx={{
-                backgroundColor: 'transparent',
-                '&: hover': { backgroundColor: grey },
-              }}
-            >
-              <TableCell align="left">
-                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                  <ProjectAvatar name={project.avatar} />
-                  <LinkRouter underline="hover" to={`${project.id}/board`}>
-                    <Typography variant="body2">{project.name}</Typography>
-                  </LinkRouter>
-                </Box>
-              </TableCell>
-              <TableCell align="left">{project.type}</TableCell>
-              <TableCell align="left">
-                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                  <StringAvatar
-                    height={30}
-                    width={30}
-                    name={project.lead.name}
-                  />
-                  <Typography variant="body2">{project.lead.name}</Typography>
-                </Box>
-              </TableCell>
-              <TableCell align="center">
-                <Box>
-                  <IconButton onClick={menuOpenHandler.bind(null, project.id)}>
-                    <MoreHorizIcon />
-                  </IconButton>
-                  <Menu
-                    elevation={1}
-                    anchorEl={anchor}
-                    open={menuOpen}
-                    onClose={menuCloseHandler}
-                    transformOrigin={{
-                      vertical: 'center',
-                      horizontal: 'right',
-                    }}
-                  >
-                    <MenuItem onClick={projectSettingHandler}>
-                      Project Settings
-                    </MenuItem>
-                    <MenuItem onClick={deleteProjectHandler}>
-                      Delete Project
-                    </MenuItem>
-                  </Menu>
-                </Box>
-              </TableCell>
+    <>
+      <DeleteProjectDialog
+        open={deleteProjectDialogOpen}
+        onClose={closeDeleteProjectDialogHandler}
+        projectId={currentProjectId}
+      />
+      <TableContainer component={Paper}>
+        <Table
+          sx={{
+            '& td': {
+              borderColor: 'transparent',
+            },
+          }}
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Type</TableCell>
+              <TableCell align="left">Lead</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {projects.map((project) => (
+              <TableRow
+                key={project.id}
+                sx={{
+                  backgroundColor: 'transparent',
+                  '&: hover': { backgroundColor: grey },
+                }}
+              >
+                <TableCell align="left">
+                  <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                    <ProjectAvatar name={project.avatar} />
+                    <LinkRouter underline="hover" to={`${project.id}/board`}>
+                      <Typography variant="body2">{project.name}</Typography>
+                    </LinkRouter>
+                  </Box>
+                </TableCell>
+                <TableCell align="left">{project.type}</TableCell>
+                <TableCell align="left">
+                  <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                    <StringAvatar
+                      height={30}
+                      width={30}
+                      name={project.lead.name}
+                    />
+                    <Typography variant="body2">{project.lead.name}</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell align="center">
+                  <Box>
+                    <IconButton
+                      onClick={menuOpenHandler.bind(null, project.id)}
+                    >
+                      <MoreHorizIcon />
+                    </IconButton>
+                    <Menu
+                      elevation={1}
+                      anchorEl={anchor}
+                      open={menuOpen}
+                      onClose={menuCloseHandler}
+                      transformOrigin={{
+                        vertical: 'center',
+                        horizontal: 'right',
+                      }}
+                    >
+                      <MenuItem onClick={projectSettingHandler}>
+                        Project Settings
+                      </MenuItem>
+                      <MenuItem onClick={deleteProjectHandler}>
+                        Delete Project
+                      </MenuItem>
+                    </Menu>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

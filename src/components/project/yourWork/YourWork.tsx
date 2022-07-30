@@ -163,42 +163,54 @@ const YourWork: FunctionComponent = () => {
         </Typography>
         <Divider />
         <Box>
-          <Typography
-            key={1}
-            variant="caption"
-            color="text.secondary"
-            fontWeight={700}
-          >
-            IN PROGRESS
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
-            {issuesInProgress.map((issue) => (
-              <IssueMenuItem
-                key={issue.id}
-                issue={issue}
-                projectIdNameMap={projectIdNameMap}
-                onClick={clickIssueHandler.bind(null, issue)}
-              />
-            ))}
-          </Box>
-          <Typography
-            key={2}
-            variant="caption"
-            color="text.secondary"
-            fontWeight={700}
-          >
-            TO DO
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
-            {issuesToDo.map((issue) => (
-              <IssueMenuItem
-                key={issue.id}
-                issue={issue}
-                projectIdNameMap={projectIdNameMap}
-                onClick={clickIssueHandler.bind(null, issue)}
-              />
-            ))}
-          </Box>
+          {issuesInProgress.length > 0 && (
+            <>
+              <Typography
+                key={1}
+                variant="caption"
+                color="text.secondary"
+                fontWeight={700}
+              >
+                IN PROGRESS
+              </Typography>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}
+              >
+                {issuesInProgress.map((issue) => (
+                  <IssueMenuItem
+                    key={issue.id}
+                    issue={issue}
+                    projectIdNameMap={projectIdNameMap}
+                    onClick={clickIssueHandler.bind(null, issue)}
+                  />
+                ))}
+              </Box>
+            </>
+          )}
+          {issuesToDo.length > 0 && (
+            <>
+              <Typography
+                key={2}
+                variant="caption"
+                color="text.secondary"
+                fontWeight={700}
+              >
+                TO DO
+              </Typography>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}
+              >
+                {issuesToDo.map((issue) => (
+                  <IssueMenuItem
+                    key={issue.id}
+                    issue={issue}
+                    projectIdNameMap={projectIdNameMap}
+                    onClick={clickIssueHandler.bind(null, issue)}
+                  />
+                ))}
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
     </Box>

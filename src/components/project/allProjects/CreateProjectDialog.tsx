@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useAuth } from 'contexts/auth-context';
 import { useProject } from 'contexts/project-context';
+import { addProject } from 'dummyData/dummyData';
 import React, { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProjectProps, ProjectType } from 'types/types';
@@ -43,6 +44,7 @@ const CreateProjectDialog: FunctionComponent<Props> = ({ open, onClose }) => {
       isPrivate: false,
     };
     setAllProjects((pre) => [project, ...pre]);
+    addProject(project);
     onClose();
     navigate(`/projects/${projectId}/board`);
   };

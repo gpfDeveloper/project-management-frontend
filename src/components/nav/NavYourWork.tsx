@@ -82,6 +82,38 @@ const NavYourWork: FunctionComponent = () => {
     navigate(`/projects/${issue.projectId}/issues/${issue.id}`);
   };
 
+  let InProgressMenuItem = (
+    <Typography
+      key={1}
+      variant="caption"
+      color="text.secondary"
+      fontWeight={700}
+      ml={2}
+    >
+      IN PROGRESS
+    </Typography>
+  );
+
+  if (issuesInProgress.length === 0) {
+    InProgressMenuItem = <Box key={1}></Box>;
+  }
+
+  let ToDoMenuItem = (
+    <Typography
+      key={2}
+      variant="caption"
+      color="text.secondary"
+      fontWeight={700}
+      ml={2}
+    >
+      TO DO
+    </Typography>
+  );
+
+  if (issuesTodo.length === 0) {
+    ToDoMenuItem = <Box key={2}></Box>;
+  }
+
   let content = (
     <>
       <Button
@@ -107,16 +139,7 @@ const NavYourWork: FunctionComponent = () => {
         PaperProps={{ style: { maxWidth: 800 } }}
       >
         {[
-          <Typography
-            key={1}
-            variant="caption"
-            color="text.secondary"
-            fontWeight={700}
-            ml={2}
-            pb={2}
-          >
-            IN PROGRESS
-          </Typography>,
+          InProgressMenuItem,
           issuesInProgress.map((issue) => (
             <IssueMenuItem
               key={issue.id}
@@ -125,16 +148,7 @@ const NavYourWork: FunctionComponent = () => {
               onClick={clickIssueHandler.bind(null, issue)}
             />
           )),
-          <Typography
-            key={2}
-            variant="caption"
-            color="text.secondary"
-            fontWeight={700}
-            ml={2}
-            pb={2}
-          >
-            TO DO
-          </Typography>,
+          ToDoMenuItem,
           issuesTodo.map((issue) => (
             <IssueMenuItem
               key={issue.id}
