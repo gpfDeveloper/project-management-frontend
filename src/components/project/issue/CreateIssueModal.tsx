@@ -26,7 +26,7 @@ import PeopleSelector from 'components/shared/PeopleSelector';
 import ProjectSelector from 'components/shared/ProjectSelector';
 import { useProject } from 'contexts/project-context';
 import { v4 as uuid } from 'uuid';
-import { createIssue } from 'dummyData/dummyData';
+import { createIssue, sampleTeamMembers } from 'dummyData/dummyData';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth-context';
 
@@ -66,6 +66,9 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
       setSelectedProject(currentProject);
       setReporter(currentProject.lead);
       setAssignee(currentProject.lead);
+    } else {
+      setReporter(sampleTeamMembers[0]);
+      setAssignee(sampleTeamMembers[0]);
     }
   }, [currentProject]);
   const selectProjectHandler = (
@@ -147,6 +150,9 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     }
     createIssue(issue);
     navigate(`/projects/${selectedProject!.id}/board`);
+    setSummary('');
+    setDueDate(null);
+    setIsSummaryTouched(false);
     onClose();
   };
   return (
