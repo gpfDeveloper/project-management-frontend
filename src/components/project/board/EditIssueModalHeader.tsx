@@ -7,12 +7,13 @@ import {
   Button,
   IconButton,
 } from '@mui/material';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CloseIcon from '@mui/icons-material/Close';
 import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
+import DeleteIssueDialog from '../issue/DeleteIssueDialog';
 
 type Props = {
   scrollTarget: Node | Window | undefined;
@@ -28,6 +29,10 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
     threshold: 0,
     target: scrollTarget,
   });
+  const [deleteIssueDialogOpen, setDeleteIssueDialogOpen] = useState(false);
+  const closeDeleteIssueDialogHandler = () => {
+    setDeleteIssueDialogOpen(false);
+  };
   return (
     <AppBar
       elevation={isScroll ? 1 : 0}
@@ -37,6 +42,10 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
         color: 'text.primary',
       }}
     >
+      <DeleteIssueDialog
+        open={deleteIssueDialogOpen}
+        onClose={closeDeleteIssueDialogHandler}
+      />
       <Toolbar
         sx={{
           display: 'flex',
@@ -55,7 +64,7 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
             Copy link
           </Button>
           <Tooltip title="Delete this issue">
-            <IconButton>
+            <IconButton onClick={() => setDeleteIssueDialogOpen(true)}>
               <DeleteForeverIcon />
             </IconButton>
           </Tooltip>
