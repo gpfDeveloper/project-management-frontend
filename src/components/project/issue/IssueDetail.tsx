@@ -31,8 +31,11 @@ const IssueDetail: FunctionComponent = () => {
   };
 
   const [summary, setSummary] = useState(issue!.summary);
+  const summaryError = summary.length === 0 || summary.length > 255;
   const saveSummaryHandler = () => {
-    console.log(summary);
+    if (summaryError) return;
+    const _issue: ProjectIssueProps = { ...issue!, summary };
+    _updateIssue(_issue);
   };
   const [description, setDescription] = useState({
     text: issue!.description || '',
@@ -103,6 +106,7 @@ const IssueDetail: FunctionComponent = () => {
         summary={summary}
         onChangeSummary={(e) => setSummary(e.target.value)}
         onSaveSummary={saveSummaryHandler}
+        summaryError={summaryError}
         description={description}
         onChangeDescription={changeDescriptionHandler}
         onSaveDescription={saveDescriptionHandler}

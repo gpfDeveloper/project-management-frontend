@@ -16,6 +16,7 @@ type Props = {
   summary: string;
   onChangeSummary: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSaveSummary: () => void;
+  summaryError: boolean;
   description: { text: string };
   onChangeDescription: (content: string) => void;
   onSaveDescription: () => void;
@@ -25,6 +26,7 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
   summary,
   onChangeSummary,
   onSaveSummary,
+  summaryError,
   description,
   onChangeDescription,
   onSaveDescription,
@@ -60,14 +62,17 @@ const IssueDetailLeft: FunctionComponent<Props> = ({
           onBlur={() => setTimeout(() => setIsFocusSummary(false), 300)}
           onChange={onChangeSummary}
           multiline
+          error={summaryError}
           value={summary}
           label="Summary *"
           size="small"
           variant="filled"
+          helperText={summaryError && 'Summary should have 1~255 characters.'}
         />
         {isFocusSummary && (
           <Box sx={{ alignSelf: 'flex-end', display: 'flex', gap: 1 }}>
             <IconButton
+              disabled={summaryError}
               sx={{ boxShadow: 1, borderRadius: '4px' }}
               size="small"
               onClick={onSaveSummary}
