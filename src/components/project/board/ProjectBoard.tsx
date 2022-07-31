@@ -5,6 +5,7 @@ import ProjectBoardColumn from './ProjectBoardColumn';
 import { ProjectIssueProps, ProjectIssueStatus } from 'types/types';
 import ProjectBoardFilters from './ProjectBoardFilters';
 import { useProject } from 'contexts/project-context';
+import { updateIssue } from 'dummyData/dummyData';
 
 export type ColumnType = { id: string; title: string; issueIds: string[] };
 type BoardType = {
@@ -14,28 +15,40 @@ type BoardType = {
 };
 
 const ProjectBoard: FunctionComponent = () => {
-  const { issuesPerProject: issues } = useProject();
+  const { issuesPerProject: issues, setIssuesPerProject } = useProject();
+
+  const _updateIssue = (_issue: ProjectIssueProps) => {
+    const idx = issues.findIndex((item) => item.id === _issue.id);
+    if (idx !== -1) {
+      const _issues = issues.slice();
+      _issue.updatedAt = new Date().toISOString();
+      _issues[idx] = _issue;
+      setIssuesPerProject(_issues);
+      updateIssue(_issue);
+    }
+  };
+
   const initialData: BoardType = {
     issues: {},
     columns: {
-      'column-1': {
-        id: 'column-1',
+      'TO DO': {
+        id: 'TO DO',
         title: 'TO DO',
         issueIds: [],
       },
-      'column-2': {
-        id: 'column-2',
+      'IN PROGRESS': {
+        id: 'IN PROGRESS',
         title: 'IN PROGRESS',
         issueIds: [],
       },
-      'column-3': {
-        id: 'column-3',
+      DONE: {
+        id: 'DONE',
         title: 'DONE',
         issueIds: [],
       },
     },
     // Facilitate reordering of the columns
-    columnOrder: ['column-1', 'column-2', 'column-3'],
+    columnOrder: ['TO DO', 'IN PROGRESS', 'DONE'],
   };
 
   const [state, setState] = useState<BoardType>(initialData);
@@ -58,24 +71,24 @@ const ProjectBoard: FunctionComponent = () => {
       const _initialData: BoardType = {
         issues: _issues,
         columns: {
-          'column-1': {
-            id: 'column-1',
+          'TO DO': {
+            id: 'TO DO',
             title: 'TO DO',
             issueIds: issueIds['TO DO'],
           },
-          'column-2': {
-            id: 'column-2',
+          'IN PROGRESS': {
+            id: 'IN PROGRESS',
             title: 'IN PROGRESS',
             issueIds: issueIds['IN PROGRESS'],
           },
-          'column-3': {
-            id: 'column-3',
+          DONE: {
+            id: 'DONE',
             title: 'DONE',
             issueIds: issueIds['DONE'],
           },
         },
         // Facilitate reordering of the columns
-        columnOrder: ['column-1', 'column-2', 'column-3'],
+        columnOrder: ['TO DO', 'IN PROGRESS', 'DONE'],
       };
       setState(_initialData);
     }
@@ -121,6 +134,13 @@ const ProjectBoard: FunctionComponent = () => {
     }
 
     // Moving from one list to another
+    const issueId = draggableId;
+    const newStatus = destination.droppableId as ProjectIssueStatus;
+    const issue = issues.find((item) => item.id === issueId);
+    if (issue) {
+      const _issue = { ...issue, status: newStatus } as ProjectIssueProps;
+      _updateIssue(_issue);
+    }
     const startIssueIds = Array.from(start.issueIds);
     startIssueIds.splice(source.index, 1);
     const newStart = {

@@ -20,6 +20,7 @@ const IssueDetail: FunctionComponent = () => {
   } = useProject();
 
   const _updateIssue = (_issue: ProjectIssueProps) => {
+    _issue.updatedAt = new Date().toISOString();
     setCurrentIssue(_issue);
     const idx = issuesPerProject.findIndex((item) => item.id === _issue.id);
     if (idx !== -1) {
