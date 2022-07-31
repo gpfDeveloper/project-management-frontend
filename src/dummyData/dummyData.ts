@@ -328,6 +328,13 @@ export const createIssue = (issue: ProjectIssueProps) => {
   sampleIssues.push(issue);
 };
 
+export const updateIssue = (issue: ProjectIssueProps) => {
+  const idx = sampleIssues.findIndex((item) => item.id === issue.id);
+  if (idx !== -1) {
+    sampleIssues[idx] = issue;
+  }
+};
+
 export const getProject = (projectId: string) => {
   return sampleProjects.filter((item) => item.id === projectId)[0];
 };
