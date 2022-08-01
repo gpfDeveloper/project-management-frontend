@@ -10,9 +10,14 @@ import DeleteCommentDialog from './DeleteCommentDialog';
 type Props = {
   item: Comment;
   onDelete: (id: string) => void;
+  onEdit: (id: string, content: string) => void;
 };
 
-const ActivityCommentItem: FunctionComponent<Props> = ({ item, onDelete }) => {
+const ActivityCommentItem: FunctionComponent<Props> = ({
+  item,
+  onDelete,
+  onEdit,
+}) => {
   const { user } = useAuth();
   const isCommentByMe = user?.email === item.createdBy.email;
   const isEdited = item.updatedAt !== item.createdAt;
@@ -25,6 +30,10 @@ const ActivityCommentItem: FunctionComponent<Props> = ({ item, onDelete }) => {
   };
   const clickEditHandler = () => {
     setIsEditing(true);
+  };
+  const saveEditHandler = () => {
+    onEdit(item.id, comment.text);
+    setIsEditing(false);
   };
   useEffect(() => {
     if (isEditing) {
@@ -104,7 +113,9 @@ const ActivityCommentItem: FunctionComponent<Props> = ({ item, onDelete }) => {
               onChange={onChangeComment}
             />
             <Box sx={{ mt: 1, display: 'flex', gap: 1, alignItems: 'center' }}>
-              <Button variant="contained">Save</Button>
+              <Button variant="contained" onClick={saveEditHandler}>
+                Save
+              </Button>
               <Button color="inherit" onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>

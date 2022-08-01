@@ -6,11 +6,13 @@ import type { Comment } from 'types/types';
 type Props = {
   items: Comment[];
   onDeleteComment: (id: string) => void;
+  onEditComment: (id: string, content: string) => void;
 };
 
 const ActivityCommentItems: FunctionComponent<Props> = ({
   items,
   onDeleteComment,
+  onEditComment,
 }) => {
   return (
     <Box>
@@ -19,6 +21,7 @@ const ActivityCommentItems: FunctionComponent<Props> = ({
           key={item.id}
           item={item}
           onDelete={onDeleteComment}
+          onEdit={onEditComment}
         />
       ))}
     </Box>

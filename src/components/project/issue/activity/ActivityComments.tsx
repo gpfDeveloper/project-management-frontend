@@ -4,7 +4,12 @@ import { useAuth } from 'contexts/auth-context';
 import StringAvatar from 'components/shared/StringAvatar';
 import TextEditor from 'components/shared/TextEditor';
 import { Comment } from 'types/types';
-import { queryComments, addComment, deleteComment } from 'dummyData/dummyData';
+import {
+  queryComments,
+  addComment,
+  deleteComment,
+  editComment,
+} from 'dummyData/dummyData';
 import ActivityCommentItems from './ActivityCommentItems';
 import { useProject } from 'contexts/project-context';
 import { v4 as uuid } from 'uuid';
@@ -54,6 +59,19 @@ const ActivityComments: FunctionComponent = () => {
     const _comments = comments.filter((item) => item.id !== id);
     setComments(_comments);
     deleteComment(id);
+  };
+
+  const editCommentHandler = (id: string, content: string) => {
+    if (content.trim() === '') return;
+    const idx = comments.findIndex((item) => item.id === id);
+    if (idx !== -1) {
+      const now = new Date().toISOString();
+      const _comment: Comment = { ...comments[idx], content, updatedAt: now };
+      const _comments = comments.slice();
+      _comments[idx] = _comment;
+      editComment(_comment);
+      setComments(_comments);
+    }
   };
 
   useEffect(() => {
@@ -133,6 +151,7 @@ const ActivityComments: FunctionComponent = () => {
       <ActivityCommentItems
         items={comments}
         onDeleteComment={deleteCommentHandler}
+        onEditComment={editCommentHandler}
       />
     </Box>
   );
