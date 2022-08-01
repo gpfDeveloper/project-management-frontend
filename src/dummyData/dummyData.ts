@@ -166,16 +166,16 @@ export const sampleComments: Comment[] = [
     id: '85cc7df2-35a4-4342-b1ac-b72316a36a01',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdBy: sampleTeamMembers[1],
-    createdAt: '2022-08-13T17:21:07.5272333Z',
-    updatedAt: '2022-08-14T17:21:07.5272333Z',
+    createdAt: '2022-07-13T17:21:07.5272333Z',
+    updatedAt: '2022-07-14T17:21:07.5272333Z',
     content: 'A test comment.',
   },
   {
     id: '85cc7df2-35a4-4342-b1ac-b72316a36a02',
     issueId: '95cc7df2-35a4-4342-b1ac-b72316a36a01',
     createdBy: sampleTeamMembers[2],
-    createdAt: '2022-08-14T17:21:07.5272333Z',
-    updatedAt: '2022-08-14T17:21:07.5272333Z',
+    createdAt: '2022-07-14T17:21:07.5272333Z',
+    updatedAt: '2022-07-14T17:21:07.5272333Z',
     content: 'Another test comment.',
   },
 ];
@@ -384,3 +384,25 @@ export const getIssuesAssignedToMe = (teamMember: TeamMember | null) => {
 };
 
 export const getTeamMembers = () => sampleTeamMembers;
+
+export const addComment = (comment: Comment) => {
+  sampleComments.push(comment);
+};
+
+export const deleteComment = (commentId: string) => {
+  const idx = sampleComments.findIndex((item) => item.id === commentId);
+  if (idx !== -1) {
+    sampleComments.splice(idx, 1);
+  }
+};
+
+export const editComment = (comment: Comment) => {
+  const idx = sampleComments.findIndex((item) => item.id === comment.id);
+  if (idx !== -1) {
+    sampleComments[idx] = comment;
+  }
+};
+
+export const queryComments = (issueId: string) => {
+  return sampleComments.filter((item) => item.issueId === issueId);
+};

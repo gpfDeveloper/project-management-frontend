@@ -4,9 +4,10 @@ import { useAuth } from 'contexts/auth-context';
 import StringAvatar from 'components/shared/StringAvatar';
 import TextEditor from 'components/shared/TextEditor';
 import { Comment } from 'types/types';
-import { sampleComments } from 'dummyData/dummyData';
+import { queryComments, addComment, deleteComment } from 'dummyData/dummyData';
 import ActivityCommentItems from './ActivityCommentItems';
 import { useProject } from 'contexts/project-context';
+import { v4 as uuid } from 'uuid';
 
 const ActivityComments: FunctionComponent = () => {
   const { user } = useAuth();
@@ -18,6 +19,11 @@ const ActivityComments: FunctionComponent = () => {
   const commentRef = useRef<HTMLInputElement>();
   const [focus, setFocus] = useState(false);
   const [comment, setComment] = useState({ text: '' });
+  const { currentIssue } = useProject();
+  const initComments = queryComments(currentIssue!.id).sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+  const [comments, setComments] = useState<Comment[]>(initComments);
   const focusHandler = () => {
     setFocus(true);
     setTimeout(() => commentDivRef!.current!.scrollIntoView(), 300);
@@ -28,7 +34,26 @@ const ActivityComments: FunctionComponent = () => {
   };
   const saveCommentHandler = () => {
     setFocus(false);
-    console.log(comment);
+    const now = new Date().toISOString();
+    const _comment: Comment = {
+      id: uuid(),
+      createdAt: now,
+      updatedAt: now,
+      content: comment.text,
+      issueId: currentIssue!.id,
+      createdBy: user!,
+    };
+    setComment({ text: '' });
+    addComment(_comment);
+    let _comments = comments.slice();
+    _comments.unshift(_comment);
+    setComments(_comments);
+  };
+
+  const deleteCommentHandler = (id: string) => {
+    const _comments = comments.filter((item) => item.id !== id);
+    setComments(_comments);
+    deleteComment(id);
   };
 
   useEffect(() => {
@@ -45,15 +70,6 @@ const ActivityComments: FunctionComponent = () => {
       document.removeEventListener('keydown', keydownHandler);
     };
   }, [focus]);
-
-  const { currentIssue } = useProject();
-  const initComments = sampleComments
-    .filter((item) => item.issueId === currentIssue!.id)
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  const [comments, setComments] = useState<Comment[]>(initComments);
 
   return (
     <Box sx={{ mt: 2 }}>
@@ -114,7 +130,10 @@ const ActivityComments: FunctionComponent = () => {
           </Box>
         </Box>
       )}
-      <ActivityCommentItems items={comments} />
+      <ActivityCommentItems
+        items={comments}
+        onDeleteComment={deleteCommentHandler}
+      />
     </Box>
   );
 };

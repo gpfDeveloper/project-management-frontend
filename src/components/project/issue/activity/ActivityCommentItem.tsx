@@ -5,12 +5,14 @@ import moment from 'moment';
 import StringAvatar from 'components/shared/StringAvatar';
 import { useAuth } from 'contexts/auth-context';
 import TextEditor from 'components/shared/TextEditor';
+import DeleteCommentDialog from './DeleteCommentDialog';
 
 type Props = {
   item: Comment;
+  onDelete: (id: string) => void;
 };
 
-const ActivityCommentItem: FunctionComponent<Props> = ({ item }) => {
+const ActivityCommentItem: FunctionComponent<Props> = ({ item, onDelete }) => {
   const { user } = useAuth();
   const isCommentByMe = user?.email === item.createdBy.email;
   const isEdited = item.updatedAt !== item.createdAt;
@@ -31,8 +33,21 @@ const ActivityCommentItem: FunctionComponent<Props> = ({ item }) => {
     }
   }, [isEditing]);
 
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const closeDeleteDialogHandler = () => {
+    setIsDeleteDialogOpen(false);
+  };
+  const deleteCommentHandler = () => {
+    onDelete(item.id);
+  };
+
   return (
     <Box sx={{ display: 'flex', gap: 2, my: 4 }}>
+      <DeleteCommentDialog
+        open={isDeleteDialogOpen}
+        onClose={closeDeleteDialogHandler}
+        onDelete={deleteCommentHandler}
+      />
       <StringAvatar name={item.createdBy.name} />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
@@ -70,7 +85,12 @@ const ActivityCommentItem: FunctionComponent<Props> = ({ item }) => {
                 <Button color="inherit" onClick={clickEditHandler}>
                   Edit
                 </Button>
-                <Button color="inherit">Delete</Button>
+                <Button
+                  color="inherit"
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                >
+                  Delete
+                </Button>
               </Box>
             )}
           </>
