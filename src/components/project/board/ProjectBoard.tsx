@@ -31,6 +31,23 @@ const ProjectBoard: FunctionComponent = () => {
     }
   };
 
+  const [filteredIssues, setFilteredIssues] = useState(issues);
+  const [filterStr, setFilterStr] = useState('');
+  useEffect(() => {
+    const _str = filterStr.trim().toLowerCase();
+    if (_str) {
+      const res: ProjectIssueProps[] = [];
+      for (const issue of issues) {
+        if (issue.summary.toLowerCase().indexOf(_str) !== -1) {
+          res.push(issue);
+        }
+      }
+      setFilteredIssues(res);
+    } else {
+      setFilteredIssues(issues);
+    }
+  }, [filterStr, issues]);
+
   const initialData: BoardType = {
     issues: {},
     columns: {
@@ -56,7 +73,7 @@ const ProjectBoard: FunctionComponent = () => {
 
   const [state, setState] = useState<BoardType>(initialData);
   useEffect(() => {
-    if (issues) {
+    if (filteredIssues) {
       type issueIdsType = {
         [k in ProjectIssueStatus]: string[];
       };
@@ -67,7 +84,7 @@ const ProjectBoard: FunctionComponent = () => {
       };
 
       let _issues: { [k: string]: ProjectIssueProps } = {};
-      for (const issue of issues) {
+      for (const issue of filteredIssues) {
         _issues[issue.id] = issue;
         issueIds[issue.status].push(issue.id);
       }
@@ -95,7 +112,7 @@ const ProjectBoard: FunctionComponent = () => {
       };
       setState(_initialData);
     }
-  }, [issues]);
+  }, [filteredIssues]);
 
   const dragEndHandler = (result: DropResult) => {
     const { destination, source, draggableId } = result;
@@ -189,7 +206,10 @@ const ProjectBoard: FunctionComponent = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <ProjectBoardFilters />
+      <ProjectBoardFilters
+        filterStr={filterStr}
+        onChangeFilterStr={(e) => setFilterStr(e.target.value)}
+      />
       <Box sx={{ display: 'flex', gap: 2 }}>
         <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>
       </Box>

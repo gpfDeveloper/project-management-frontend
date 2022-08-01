@@ -7,15 +7,25 @@ import {
   Chip,
   Button,
 } from '@mui/material';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import StringAvatar from 'components/shared/StringAvatar';
 
-const ProjectBoardFilters: FunctionComponent = () => {
+type Props = {
+  filterStr: string;
+  onChangeFilterStr: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const ProjectBoardFilters: FunctionComponent<Props> = ({
+  filterStr,
+  onChangeFilterStr,
+}) => {
   return (
     <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
       <TextField
         size="small"
+        value={filterStr}
+        onChange={onChangeFilterStr}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
