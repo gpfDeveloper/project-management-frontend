@@ -33,20 +33,39 @@ const ProjectBoard: FunctionComponent = () => {
 
   const [filteredIssues, setFilteredIssues] = useState(issues);
   const [filterStr, setFilterStr] = useState('');
+  const [isOnlyMyIssues, setIsOnlyMyIssues] = useState(false);
+  const [isRecentUpdated, setIsRecentUpdated] = useState(false);
+
+  const clickOnlyMyIssueHandler = () => {
+    setIsOnlyMyIssues((pre) => !pre);
+  };
+  const clickRecentUpdatedHandler = () => {
+    setIsRecentUpdated((pre) => !pre);
+  };
   useEffect(() => {
     const _str = filterStr.trim().toLowerCase();
+    let res: ProjectIssueProps[] = [];
     if (_str) {
-      const res: ProjectIssueProps[] = [];
       for (const issue of issues) {
         if (issue.summary.toLowerCase().indexOf(_str) !== -1) {
           res.push(issue);
         }
       }
-      setFilteredIssues(res);
     } else {
-      setFilteredIssues(issues);
+      res = issues.slice();
     }
-  }, [filterStr, issues]);
+    if (isOnlyMyIssues) {
+      res = res.filter((item) => item.assignee === user);
+    }
+    if (isRecentUpdated) {
+      const now = new Date();
+      res = res.filter((item) => {
+        const offset = now.getTime() - new Date(item.updatedAt).getTime();
+        return offset < 24 * 60 * 60 * 1000;
+      });
+    }
+    setFilteredIssues(res);
+  }, [filterStr, issues, user, isOnlyMyIssues, isRecentUpdated]);
 
   const initialData: BoardType = {
     issues: {},
@@ -209,6 +228,10 @@ const ProjectBoard: FunctionComponent = () => {
       <ProjectBoardFilters
         filterStr={filterStr}
         onChangeFilterStr={(e) => setFilterStr(e.target.value)}
+        isOnlyMyIssue={isOnlyMyIssues}
+        onClickOnlyMyIssue={clickOnlyMyIssueHandler}
+        isRecentUpdated={isRecentUpdated}
+        onClickRecentUpdated={clickRecentUpdatedHandler}
       />
       <Box sx={{ display: 'flex', gap: 2 }}>
         <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>

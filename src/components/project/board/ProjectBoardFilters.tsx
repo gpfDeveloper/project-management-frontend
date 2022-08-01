@@ -14,11 +14,19 @@ import StringAvatar from 'components/shared/StringAvatar';
 type Props = {
   filterStr: string;
   onChangeFilterStr: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isOnlyMyIssue: boolean;
+  onClickOnlyMyIssue: () => void;
+  isRecentUpdated: boolean;
+  onClickRecentUpdated: () => void;
 };
 
 const ProjectBoardFilters: FunctionComponent<Props> = ({
   filterStr,
   onChangeFilterStr,
+  isOnlyMyIssue,
+  onClickOnlyMyIssue,
+  isRecentUpdated,
+  onClickRecentUpdated,
 }) => {
   return (
     <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
@@ -62,8 +70,16 @@ const ProjectBoardFilters: FunctionComponent<Props> = ({
         </AvatarGroup>
       </Box>
       <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
-        <Chip label="Only My Issues" />
-        <Chip label="Recently Updated" />
+        <Chip
+          label="Only My Issues"
+          variant={isOnlyMyIssue ? 'filled' : 'outlined'}
+          onClick={onClickOnlyMyIssue}
+        />
+        <Chip
+          label="Recently Updated"
+          variant={isRecentUpdated ? 'filled' : 'outlined'}
+          onClick={onClickRecentUpdated}
+        />
         <Button color="inherit">Clear all</Button>
       </Box>
     </Box>
