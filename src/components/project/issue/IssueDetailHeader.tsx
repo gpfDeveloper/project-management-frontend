@@ -1,10 +1,10 @@
 import { Box, Tooltip, Button, IconButton } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import CampaignIcon from '@mui/icons-material/Campaign';
-import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
 import DeleteIssueDialog from './DeleteIssueDialog';
+import CopyLinkBtn from 'components/shared/CopyLinkBtn';
 
 const IssueDetailHeader: FunctionComponent = () => {
   const [deleteIssueDialogOpen, setDeleteIssueDialogOpen] = useState(false);
@@ -34,10 +34,7 @@ const IssueDetailHeader: FunctionComponent = () => {
           <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />
           Give feedback
         </Button>
-        <Button color="inherit">
-          <LinkIcon sx={{ mr: 0.2 }} />
-          Copy link
-        </Button>
+        <CopyLinkBtn />
         <Tooltip title="Delete this issue">
           <IconButton onClick={() => setDeleteIssueDialogOpen(true)}>
             <DeleteForeverIcon />

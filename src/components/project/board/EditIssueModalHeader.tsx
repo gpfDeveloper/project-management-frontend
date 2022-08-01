@@ -9,11 +9,11 @@ import {
 } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import CampaignIcon from '@mui/icons-material/Campaign';
-import LinkIcon from '@mui/icons-material/Link';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CloseIcon from '@mui/icons-material/Close';
 import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
 import DeleteIssueDialog from '../issue/DeleteIssueDialog';
+import CopyLinkBtn from 'components/shared/CopyLinkBtn';
 
 type Props = {
   scrollTarget: Node | Window | undefined;
@@ -59,10 +59,7 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
             <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />
             Give feedback
           </Button>
-          <Button color="inherit">
-            <LinkIcon sx={{ mr: 0.2 }} />
-            Copy link
-          </Button>
+          <CopyLinkBtn />
           <Tooltip title="Delete this issue">
             <IconButton onClick={() => setDeleteIssueDialogOpen(true)}>
               <DeleteForeverIcon />
