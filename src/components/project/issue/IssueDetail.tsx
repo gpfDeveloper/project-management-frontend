@@ -8,7 +8,10 @@ import {
 import IssueDetailLeft from './IssueDetailLeft';
 import IssueDetailRight from './IssueDetailRight';
 import { useProject } from 'contexts/project-context';
-import { updateIssue } from 'dummyData/dummyData';
+import { addHistory, updateIssue } from 'dummyData/dummyData';
+import { v4 as uuid } from 'uuid';
+import { useAuth } from 'contexts/auth-context';
+import type { History } from 'types/types';
 
 const IssueDetail: FunctionComponent = () => {
   const {
@@ -18,6 +21,7 @@ const IssueDetail: FunctionComponent = () => {
     setIssuesPerProject,
     issuesPerProject,
   } = useProject();
+  const { user } = useAuth();
 
   const _updateIssue = (_issue: ProjectIssueProps) => {
     _issue.updatedAt = new Date().toISOString();
@@ -36,6 +40,14 @@ const IssueDetail: FunctionComponent = () => {
   const saveSummaryHandler = () => {
     if (summaryError) return;
     const _issue: ProjectIssueProps = { ...issue!, summary };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Summary',
+      updatedBy: user!,
+      issueId: _issue.id,
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
   const [description, setDescription] = useState({
@@ -49,6 +61,14 @@ const IssueDetail: FunctionComponent = () => {
       ...issue!,
       description: description.text,
     };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Description',
+      updatedBy: user!,
+      issueId: _issue.id,
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
 
@@ -58,6 +78,16 @@ const IssueDetail: FunctionComponent = () => {
   const issueStatusSelectorHandler = (status: ProjectIssueStatus) => {
     setIssueStatus(status);
     const _issue: ProjectIssueProps = { ...issue!, status };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Status',
+      updatedBy: user!,
+      issueId: _issue.id,
+      from: issue!.status,
+      to: status,
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
   const [reporter, setReporter] = useState<TeamMember | null>(issue!.reporter);
@@ -69,6 +99,16 @@ const IssueDetail: FunctionComponent = () => {
     if (!value) _reporter = teamMembers[0];
     setReporter(_reporter);
     const _issue: ProjectIssueProps = { ...issue!, reporter: _reporter! };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Reporter',
+      updatedBy: user!,
+      issueId: _issue.id,
+      from: JSON.stringify(issue!.reporter),
+      to: JSON.stringify(_issue!.reporter),
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
   const [assignee, setAssignee] = useState<TeamMember | null>(issue!.assignee);
@@ -80,6 +120,16 @@ const IssueDetail: FunctionComponent = () => {
     if (!value) _assignee = teamMembers[0];
     setAssignee(_assignee);
     const _issue: ProjectIssueProps = { ...issue!, assignee: _assignee! };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Assignee',
+      updatedBy: user!,
+      issueId: _issue.id,
+      from: JSON.stringify(issue!.assignee),
+      to: JSON.stringify(_issue!.assignee),
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
   const [priority, setPriority] = useState<ProjectIssuePriority>(
@@ -89,6 +139,16 @@ const IssueDetail: FunctionComponent = () => {
     const _priority = e.target.value as ProjectIssuePriority;
     setPriority(_priority);
     const _issue: ProjectIssueProps = { ...issue!, priority: _priority };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Priority',
+      updatedBy: user!,
+      issueId: _issue.id,
+      from: issue!.priority,
+      to: _issue.priority,
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
   let _due = null;
@@ -99,6 +159,16 @@ const IssueDetail: FunctionComponent = () => {
     let _date;
     if (date) _date = date.toISOString();
     const _issue: ProjectIssueProps = { ...issue!, dueAt: _date };
+    const history: History = {
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      field: 'Due',
+      updatedBy: user!,
+      issueId: _issue.id,
+      from: issue!.dueAt,
+      to: _issue.dueAt,
+    };
+    addHistory(history);
     _updateIssue(_issue);
   };
   return (

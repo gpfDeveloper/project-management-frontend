@@ -406,3 +406,11 @@ export const editComment = (comment: Comment) => {
 export const queryComments = (issueId: string) => {
   return sampleComments.filter((item) => item.issueId === issueId);
 };
+
+export const queryHistory = (issueId: string) => {
+  return sampleHistory.filter((item) => item.issueId === issueId);
+};
+
+export const addHistory = (history: History) => {
+  sampleHistory.push(history);
+};

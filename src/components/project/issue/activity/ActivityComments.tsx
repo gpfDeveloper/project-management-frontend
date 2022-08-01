@@ -9,10 +9,12 @@ import {
   addComment,
   deleteComment,
   editComment,
+  addHistory,
 } from 'dummyData/dummyData';
 import ActivityCommentItems from './ActivityCommentItems';
 import { useProject } from 'contexts/project-context';
 import { v4 as uuid } from 'uuid';
+import type { History } from 'types/types';
 
 const ActivityComments: FunctionComponent = () => {
   const { user } = useAuth();
@@ -59,6 +61,14 @@ const ActivityComments: FunctionComponent = () => {
     const _comments = comments.filter((item) => item.id !== id);
     setComments(_comments);
     deleteComment(id);
+    const history: History = {
+      id: uuid(),
+      issueId: currentIssue!.id,
+      field: 'Comment',
+      updatedBy: user!,
+      createdAt: new Date().toISOString(),
+    };
+    addHistory(history);
   };
 
   const editCommentHandler = (id: string, content: string) => {

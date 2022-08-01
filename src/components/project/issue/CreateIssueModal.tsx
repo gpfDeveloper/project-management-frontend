@@ -14,6 +14,7 @@ import {
 import TextEditor from 'components/shared/TextEditor';
 import DateSelector from 'components/shared/DateSelector';
 import {
+  History,
   ProjectIssuePriority,
   ProjectIssueProps,
   ProjectIssueType,
@@ -26,7 +27,11 @@ import PeopleSelector from 'components/shared/PeopleSelector';
 import ProjectSelector from 'components/shared/ProjectSelector';
 import { useProject } from 'contexts/project-context';
 import { v4 as uuid } from 'uuid';
-import { createIssue, sampleTeamMembers } from 'dummyData/dummyData';
+import {
+  addHistory,
+  createIssue,
+  sampleTeamMembers,
+} from 'dummyData/dummyData';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth-context';
 
@@ -153,6 +158,14 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     setSummary('');
     setDueDate(null);
     setIsSummaryTouched(false);
+    const history: History = {
+      id: uuid(),
+      issueId: issue.id,
+      createdAt: now,
+      field: 'Issue',
+      updatedBy: user!,
+    };
+    addHistory(history);
     onClose();
   };
   return (

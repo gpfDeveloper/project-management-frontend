@@ -2,10 +2,12 @@ import { Box } from '@mui/material';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
-import { ProjectIssueProps, ProjectIssueStatus } from 'types/types';
+import { History, ProjectIssueProps, ProjectIssueStatus } from 'types/types';
 import ProjectBoardFilters from './ProjectBoardFilters';
 import { useProject } from 'contexts/project-context';
-import { updateIssue } from 'dummyData/dummyData';
+import { addHistory, updateIssue } from 'dummyData/dummyData';
+import { v4 as uuid } from 'uuid';
+import { useAuth } from 'contexts/auth-context';
 
 export type ColumnType = { id: string; title: string; issueIds: string[] };
 type BoardType = {
@@ -15,6 +17,7 @@ type BoardType = {
 };
 
 const ProjectBoard: FunctionComponent = () => {
+  const { user } = useAuth();
   const { issuesPerProject: issues, setIssuesPerProject } = useProject();
 
   const _updateIssue = (_issue: ProjectIssueProps) => {
@@ -138,6 +141,16 @@ const ProjectBoard: FunctionComponent = () => {
     const newStatus = destination.droppableId as ProjectIssueStatus;
     const issue = issues.find((item) => item.id === issueId);
     if (issue) {
+      const history: History = {
+        id: uuid(),
+        createdAt: new Date().toISOString(),
+        field: 'Status',
+        updatedBy: user!,
+        issueId,
+        from: issue.status,
+        to: newStatus,
+      };
+      addHistory(history);
       const _issue = { ...issue, status: newStatus } as ProjectIssueProps;
       _updateIssue(_issue);
     }
