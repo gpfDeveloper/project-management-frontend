@@ -14,6 +14,7 @@ import DragHandleIcon from '@mui/icons-material/DragHandle';
 import type { ProjectIssueType, ProjectIssuePriority } from 'types/types';
 import StringAvatar from 'components/shared/StringAvatar';
 import EditIssueModal from './EditIssueModal';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type IssueProps = {
   issue: ProjectIssueProps;
@@ -53,11 +54,17 @@ const IssuePriority: FunctionComponent<{
 };
 
 const ProjectBoardTask: FunctionComponent<IssueProps> = ({ issue, index }) => {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+  const issueId = urlParams.get('issueId');
+  const [open, setOpen] = useState(Boolean(issueId));
   const closeModalHandler = () => {
     setOpen(false);
+    navigate(`/projects/${issue.projectId}/board`);
   };
   const openModalHandler = () => {
+    navigate(`/projects/${issue.projectId}/board?issueId=${issue.id}`);
     setOpen(true);
   };
   const dueDate = issue.dueAt
