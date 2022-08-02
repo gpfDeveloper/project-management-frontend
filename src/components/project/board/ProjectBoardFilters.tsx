@@ -21,6 +21,8 @@ type Props = {
   onClickRecentUpdated: () => void;
   assignees: AssigneeAvatarType[];
   onClickAssignee: (email: string) => void;
+  onClearAll: () => void;
+  showClearAll: boolean;
 };
 
 type AssigneeAvatarProps = {
@@ -68,6 +70,8 @@ const ProjectBoardFilters: FunctionComponent<Props> = ({
   onClickRecentUpdated,
   assignees,
   onClickAssignee,
+  onClearAll,
+  showClearAll,
 }) => {
   return (
     <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
@@ -107,7 +111,11 @@ const ProjectBoardFilters: FunctionComponent<Props> = ({
           variant={isRecentUpdated ? 'filled' : 'outlined'}
           onClick={onClickRecentUpdated}
         />
-        <Button color="inherit">Clear all</Button>
+        {showClearAll && (
+          <Button color="inherit" onClick={onClearAll}>
+            Clear all
+          </Button>
+        )}
       </Box>
     </Box>
   );

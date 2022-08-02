@@ -90,6 +90,13 @@ const ProjectBoard: FunctionComponent = () => {
   const clickRecentUpdatedHandler = () => {
     setIsRecentUpdated((pre) => !pre);
   };
+  const clickClearAllHandler = () => {
+    setIsOnlyMyIssues(false);
+    setIsRecentUpdated(false);
+    setFilterStr('');
+    let _assignees = assignees.map((item) => ({ ...item, isSelected: false }));
+    setAssignees(_assignees);
+  };
   useEffect(() => {
     const _str = filterStr.trim().toLowerCase();
     let res: ProjectIssueProps[] = [];
@@ -289,6 +296,19 @@ const ProjectBoard: FunctionComponent = () => {
     );
   });
 
+  let showClearAll = false;
+  if (filterStr || isOnlyMyIssues || isRecentUpdated) {
+    showClearAll = true;
+  }
+  if (!showClearAll) {
+    for (const assignee of assignees) {
+      if (assignee.isSelected) {
+        showClearAll = true;
+        break;
+      }
+    }
+  }
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <ProjectBoardFilters
@@ -300,6 +320,8 @@ const ProjectBoard: FunctionComponent = () => {
         onClickRecentUpdated={clickRecentUpdatedHandler}
         assignees={assignees}
         onClickAssignee={clickAssigneeHandler}
+        onClearAll={clickClearAllHandler}
+        showClearAll={showClearAll}
       />
       <Box sx={{ display: 'flex', gap: 2 }}>
         <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>
