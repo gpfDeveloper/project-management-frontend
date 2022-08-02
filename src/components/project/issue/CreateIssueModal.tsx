@@ -27,11 +27,7 @@ import PeopleSelector from 'components/shared/PeopleSelector';
 import ProjectSelector from 'components/shared/ProjectSelector';
 import { useProject } from 'contexts/project-context';
 import { v4 as uuid } from 'uuid';
-import {
-  addHistory,
-  createIssue,
-  sampleTeamMembers,
-} from 'dummyData/dummyData';
+import { addHistory, createIssue } from 'dummyData/dummyData';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth-context';
 
@@ -72,10 +68,10 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
       setReporter(currentProject.lead);
       setAssignee(currentProject.lead);
     } else {
-      setReporter(sampleTeamMembers[0]);
-      setAssignee(sampleTeamMembers[0]);
+      setReporter(teamMembers[0]);
+      setAssignee(teamMembers[0]);
     }
-  }, [currentProject]);
+  }, [currentProject, teamMembers]);
   const selectProjectHandler = (
     event: React.SyntheticEvent<Element, Event>,
     project: ProjectProps | null
@@ -260,13 +256,13 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
             <PeopleSelector
               people={reporter}
               onSelect={reporterSelectorHandler}
-              options={teamMembers}
+              options={teamMembers.filter((item) => item.status === 'Active')}
               label="Reporter"
             />
             <PeopleSelector
               people={assignee}
               onSelect={assigneeSelectorHandler}
-              options={teamMembers}
+              options={teamMembers.filter((item) => item.status === 'Active')}
               label="Assignee"
             />
             <IssuePrioritySelector

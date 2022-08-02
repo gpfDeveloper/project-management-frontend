@@ -206,7 +206,8 @@ const ProjectSetting: FunctionComponent = () => {
             people={lead}
             error={!lead}
             options={teamMembers.filter(
-              (people) => people.name !== 'Unassigned'
+              (people) =>
+                people.name !== 'Unassigned' && people.status === 'Active'
             )}
             onSelect={selectLeadHandler}
           />

@@ -183,7 +183,7 @@ const IssueDetail: FunctionComponent = () => {
         onSaveDescription={saveDescriptionHandler}
       />
       <IssueDetailRight
-        allPeople={teamMembers}
+        allPeople={teamMembers.filter((people) => people.status === 'Active')}
         assignee={assignee}
         onChangeAssignee={assigneeSelectorHandler}
         reporter={reporter}
