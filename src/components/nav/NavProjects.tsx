@@ -72,6 +72,10 @@ const NavProjects: FunctionComponent = () => {
   };
 
   const [createProjectDialogOpen, setCreateProjectDialogOpen] = useState(false);
+  const clickCreateProjectHandler = () => {
+    setAnchorEl(null);
+    setCreateProjectDialogOpen(true);
+  };
   const closeCreateProjectDialogHandler = () => {
     setCreateProjectDialogOpen(false);
   };
@@ -126,7 +130,7 @@ const NavProjects: FunctionComponent = () => {
           <MenuItem key={3} onClick={viewAllProjectHandler}>
             View all projects
           </MenuItem>,
-          <MenuItem key={4} onClick={() => setCreateProjectDialogOpen(true)}>
+          <MenuItem key={4} onClick={clickCreateProjectHandler}>
             Create project
           </MenuItem>,
         ]}
