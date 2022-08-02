@@ -1,4 +1,12 @@
-import { MenuItem, Button, Menu, Typography, Divider } from '@mui/material';
+import {
+  MenuItem,
+  Button,
+  Menu,
+  Typography,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import React, { FunctionComponent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -83,3 +91,15 @@ const NavPeople: FunctionComponent = () => {
 };
 
 export default NavPeople;
+
+export const PeopleMenuItem: FunctionComponent = () => {
+  const navigate = useNavigate();
+  return (
+    <MenuItem onClick={() => navigate('/people')}>
+      <ListItemIcon>
+        <PeopleAltIcon />
+      </ListItemIcon>
+      <ListItemText>People</ListItemText>
+    </MenuItem>
+  );
+};

@@ -17,8 +17,10 @@ import { LightDarkTogglerMenuItem } from './LightDarkToggler';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from 'contexts/auth-context';
-// import { YourWorkMenuItem } from './NavYourWork';
 import StringAvatar from 'components/shared/StringAvatar';
+import { YourWorkMenuItem } from './NavYourWork';
+import { ProjectsMenuItem } from './NavProjects';
+import { PeopleMenuItem } from './NavPeople';
 
 const MyAvatar: FunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -41,8 +43,13 @@ const MyAvatar: FunctionComponent = () => {
     logout();
     setAnchorEl(null);
   };
-  const commonMobileMenuItems = <LightDarkTogglerMenuItem />;
-  // const authMobileMenuItems = <YourWorkMenuItem />;
+
+  const commonMobileMenuItems = [<LightDarkTogglerMenuItem key={11} />];
+  const authMobileMenuItems = [
+    <YourWorkMenuItem key={21} />,
+    <ProjectsMenuItem key={22} />,
+    <PeopleMenuItem key={23} />,
+  ];
   let content = (
     <Box>
       <IconButton
@@ -62,12 +69,7 @@ const MyAvatar: FunctionComponent = () => {
           horizontal: 'right',
         }}
       >
-        {isBelowMd && (
-          <>
-            {commonMobileMenuItems}
-            <Divider />
-          </>
-        )}
+        {isBelowMd && [commonMobileMenuItems, <Divider key={20} />]}
         <MenuItem onClick={loginHandler}>
           <ListItemIcon>
             <LoginIcon />
@@ -92,14 +94,12 @@ const MyAvatar: FunctionComponent = () => {
             horizontal: 'right',
           }}
         >
-          {isBelowMd && (
-            <>
-              {commonMobileMenuItems}
-              <Divider />
-              {/* {authMobileMenuItems} */}
-              <Divider />
-            </>
-          )}
+          {isBelowMd && [
+            commonMobileMenuItems,
+            <Divider key={20} />,
+            authMobileMenuItems,
+            <Divider key={30} />,
+          ]}
           <MenuItem onClick={logoutHandler}>
             <ListItemIcon>
               <LogoutIcon />

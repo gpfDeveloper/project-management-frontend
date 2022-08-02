@@ -5,6 +5,8 @@ import {
   Menu,
   Typography,
   Divider,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import React, { FunctionComponent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,6 +16,7 @@ import type { ProjectProps } from 'types/types';
 import { getRecentProjects } from 'utils/utils';
 import { useProject } from 'contexts/project-context';
 import CreateProjectDialog from 'components/project/allProjects/CreateProjectDialog';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 type ProjectMenuItemProps = {
   project: ProjectProps;
@@ -135,3 +138,15 @@ const NavProjects: FunctionComponent = () => {
 };
 
 export default NavProjects;
+
+export const ProjectsMenuItem: FunctionComponent = () => {
+  const navigate = useNavigate();
+  return (
+    <MenuItem onClick={() => navigate('/projects')}>
+      <ListItemIcon>
+        <DashboardCustomizeIcon />
+      </ListItemIcon>
+      <ListItemText>Projects</ListItemText>
+    </MenuItem>
+  );
+};

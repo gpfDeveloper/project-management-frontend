@@ -5,6 +5,8 @@ import {
   Menu,
   Typography,
   Divider,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import React, { FunctionComponent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -12,6 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import type { ProjectIssueProps } from 'types/types';
 import IssueTypeIcon from 'components/project/issue/IssueTypeIcon';
 import { useProject } from 'contexts/project-context';
+import WorkIcon from '@mui/icons-material/Work';
 
 type ProjectIdNameMapType = { [k: string]: string };
 
@@ -170,3 +173,15 @@ const NavYourWork: FunctionComponent = () => {
 };
 
 export default NavYourWork;
+
+export const YourWorkMenuItem: FunctionComponent = () => {
+  const navigate = useNavigate();
+  return (
+    <MenuItem onClick={() => navigate('/your-work')}>
+      <ListItemIcon>
+        <WorkIcon />
+      </ListItemIcon>
+      <ListItemText>Your work</ListItemText>
+    </MenuItem>
+  );
+};
