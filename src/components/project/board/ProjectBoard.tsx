@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import ProjectBoardColumn from './ProjectBoardColumn';
 import { History, ProjectIssueProps, ProjectIssueStatus } from 'types/types';
@@ -8,6 +8,12 @@ import { useProject } from 'contexts/project-context';
 import { addHistory, updateIssue } from 'dummyData/dummyData';
 import { v4 as uuid } from 'uuid';
 import { useAuth } from 'contexts/auth-context';
+
+export type AssigneeAvatarType = {
+  name: string;
+  email: string;
+  isSelected: boolean;
+};
 
 export type ColumnType = { id: string; title: string; issueIds: string[] };
 type BoardType = {
@@ -18,7 +24,49 @@ type BoardType = {
 
 const ProjectBoard: FunctionComponent = () => {
   const { user } = useAuth();
-  const { issuesPerProject: issues, setIssuesPerProject } = useProject();
+  const {
+    issuesPerProject: issues,
+    setIssuesPerProject,
+    currentProject,
+  } = useProject();
+
+  const initAssginees = useMemo<AssigneeAvatarType[]>(
+    () => [
+      {
+        name: currentProject!.lead.name,
+        email: currentProject!.lead.email,
+        isSelected: false,
+      },
+    ],
+    [currentProject]
+  );
+  const [assignees, setAssignees] = useState(initAssginees);
+  const clickAssigneeHandler = (email: string) => {
+    const _assignees = assignees.map((item) => {
+      if (item.email === email) {
+        return { ...item, isSelected: !item.isSelected };
+      } else {
+        return { ...item };
+      }
+    });
+    setAssignees(_assignees);
+  };
+
+  useEffect(() => {
+    if (issues) {
+      let _assignees = initAssginees;
+      for (const issue of issues) {
+        if (
+          _assignees.findIndex(
+            (item) => item.email === issue.assignee.email
+          ) === -1
+        ) {
+          _assignees.push({ ...issue.assignee, isSelected: false });
+        }
+      }
+      setAssignees(_assignees);
+    }
+  }, [issues, currentProject, initAssginees]);
 
   const _updateIssue = (_issue: ProjectIssueProps) => {
     const idx = issues.findIndex((item) => item.id === _issue.id);
@@ -64,8 +112,26 @@ const ProjectBoard: FunctionComponent = () => {
         return offset < 24 * 60 * 60 * 1000;
       });
     }
-    setFilteredIssues(res);
-  }, [filterStr, issues, user, isOnlyMyIssues, isRecentUpdated]);
+    //filter selected assignee
+    let numOfUnselected = 0;
+    let numOfSelected = 0;
+    for (const assignee of assignees) {
+      if (assignee.isSelected) numOfSelected += 1;
+      else numOfUnselected += 1;
+    }
+    //Do not filter if all assignees unselected, or all assignee selected
+    if (numOfSelected === 0 || numOfUnselected === 0) {
+      setFilteredIssues(res);
+    } else {
+      const selectedEmails = assignees
+        .filter((item) => item.isSelected)
+        .map((item) => item.email);
+      res = res.filter(
+        (item) => selectedEmails.indexOf(item.assignee.email) !== -1
+      );
+      setFilteredIssues(res);
+    }
+  }, [filterStr, issues, user, isOnlyMyIssues, isRecentUpdated, assignees]);
 
   const initialData: BoardType = {
     issues: {},
@@ -232,6 +298,8 @@ const ProjectBoard: FunctionComponent = () => {
         onClickOnlyMyIssue={clickOnlyMyIssueHandler}
         isRecentUpdated={isRecentUpdated}
         onClickRecentUpdated={clickRecentUpdatedHandler}
+        assignees={assignees}
+        onClickAssignee={clickAssigneeHandler}
       />
       <Box sx={{ display: 'flex', gap: 2 }}>
         <DragDropContext onDragEnd={dragEndHandler}>{boards}</DragDropContext>

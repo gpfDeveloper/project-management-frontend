@@ -10,6 +10,7 @@ import {
 import React, { FunctionComponent } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import StringAvatar from 'components/shared/StringAvatar';
+import { AssigneeAvatarType } from './ProjectBoard';
 
 type Props = {
   filterStr: string;
@@ -18,6 +19,44 @@ type Props = {
   onClickOnlyMyIssue: () => void;
   isRecentUpdated: boolean;
   onClickRecentUpdated: () => void;
+  assignees: AssigneeAvatarType[];
+  onClickAssignee: (email: string) => void;
+};
+
+type AssigneeAvatarProps = {
+  isSelected: boolean;
+  name: string;
+  email: string;
+  onClick: (email: string) => void;
+};
+const AssigneeAvatar: FunctionComponent<AssigneeAvatarProps> = ({
+  isSelected,
+  name,
+  email,
+  onClick,
+}) => {
+  return (
+    <Tooltip title={name}>
+      <Box
+        onClick={onClick.bind(null, email)}
+        sx={{
+          mr: -1,
+          '&: hover': {
+            transform: 'translateY(-4px)',
+            cursor: 'pointer',
+          },
+          ...(isSelected && {
+            borderColor: 'primary.main',
+            borderStyle: 'solid',
+            borderWidth: 3,
+            borderRadius: '100%',
+          }),
+        }}
+      >
+        <StringAvatar name={name} />
+      </Box>
+    </Tooltip>
+  );
 };
 
 const ProjectBoardFilters: FunctionComponent<Props> = ({
@@ -27,6 +66,8 @@ const ProjectBoardFilters: FunctionComponent<Props> = ({
   onClickOnlyMyIssue,
   isRecentUpdated,
   onClickRecentUpdated,
+  assignees,
+  onClickAssignee,
 }) => {
   return (
     <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
@@ -44,29 +85,15 @@ const ProjectBoardFilters: FunctionComponent<Props> = ({
       />
       <Box>
         <AvatarGroup>
-          <Tooltip title={'Pengfei Gao'}>
-            <Box sx={{ mr: -1 }}>
-              <StringAvatar name={'Pengfei Gao'} />
-            </Box>
-          </Tooltip>
-          <Tooltip title={'John Doe'}>
-            <Box
-              sx={{
-                mr: -1,
-                borderColor: 'primary.main',
-                borderStyle: 'solid',
-                borderWidth: 3,
-                borderRadius: '100%',
-              }}
-            >
-              <StringAvatar name={'John Doe'} />
-            </Box>
-          </Tooltip>
-          <Tooltip title={'Terry Smith'}>
-            <Box>
-              <StringAvatar name={'Terry Smith'} />
-            </Box>
-          </Tooltip>
+          {assignees.map((item) => (
+            <AssigneeAvatar
+              key={item.email}
+              name={item.name}
+              email={item.email}
+              isSelected={item.isSelected}
+              onClick={onClickAssignee}
+            />
+          ))}
         </AvatarGroup>
       </Box>
       <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
