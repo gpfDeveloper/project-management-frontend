@@ -152,6 +152,7 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     createIssue(issue);
     navigate(`/projects/${selectedProject!.id}/board`);
     setSummary('');
+    setDescription({ text: '' });
     setDueDate(null);
     setIsSummaryTouched(false);
     const history: History = {

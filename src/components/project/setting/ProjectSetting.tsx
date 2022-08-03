@@ -32,6 +32,8 @@ const ProjectSetting: FunctionComponent = () => {
   const {
     currentProject: project,
     setCurrentProject,
+    allProjects,
+    setAllProjects,
     teamMembers,
   } = useProject();
   const [name, setName] = useState(project!.name);
@@ -70,6 +72,12 @@ const ProjectSetting: FunctionComponent = () => {
       avatar,
     } as ProjectProps;
     setCurrentProject(_project);
+    const _allProjects = allProjects.slice();
+    const idx = _allProjects.findIndex((item) => item.id === _project.id);
+    if (idx !== -1) {
+      _allProjects[idx] = _project;
+      setAllProjects(_allProjects);
+    }
     updateProject(_project);
   };
 
