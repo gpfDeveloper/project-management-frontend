@@ -1,10 +1,6 @@
 import { useAuth } from 'contexts/auth-context';
 import { useProject } from 'contexts/project-context';
-import {
-  getAllMyProjects,
-  getIssuesAssignedToMe,
-  getTeamMembers,
-} from 'dummyData/dummyData';
+import { getAllMyProjects, getTeamMembers } from 'dummyData/dummyData';
 import AllProjectsPage from 'pages/AllProjectsPage';
 import Home from 'pages/Home';
 import IssueDetailPage from 'pages/IssueDetailPage';
@@ -18,18 +14,15 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const { user } = useAuth();
-  const { setAllProjects, setIssuesAssignedToMe, setTeamMembers } =
-    useProject();
+  const { setAllProjects, setTeamMembers } = useProject();
   useEffect(() => {
     if (user) {
       const projects = getAllMyProjects();
       setAllProjects(projects);
-      const issuesAssignedToMe = getIssuesAssignedToMe(user);
-      setIssuesAssignedToMe(issuesAssignedToMe);
       const teamMembers = getTeamMembers();
       setTeamMembers(teamMembers);
     }
-  }, [user, setAllProjects, setIssuesAssignedToMe, setTeamMembers]);
+  }, [user, setAllProjects, setTeamMembers]);
   let route = (
     <Routes>
       <Route path="/" element={<Home />} />

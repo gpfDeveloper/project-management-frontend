@@ -15,6 +15,8 @@ import type { ProjectIssueProps } from 'types/types';
 import IssueTypeIcon from 'components/project/issue/IssueTypeIcon';
 import { useProject } from 'contexts/project-context';
 import WorkIcon from '@mui/icons-material/Work';
+import { getIssuesAssignedToMe } from 'dummyData/dummyData';
+import { useAuth } from 'contexts/auth-context';
 
 type ProjectIdNameMapType = { [k: string]: string };
 
@@ -51,7 +53,9 @@ const IssueMenuItem: FunctionComponent<IssueMenuItemProps> = ({
 const NavYourWork: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { allProjects: projects, issuesAssignedToMe } = useProject();
+  const { allProjects: projects } = useProject();
+  const { user } = useAuth();
+  const issuesAssignedToMe = getIssuesAssignedToMe(user);
   const projectIdNameMap: ProjectIdNameMapType = {};
   for (const project of projects) {
     projectIdNameMap[project.id] = project.name;

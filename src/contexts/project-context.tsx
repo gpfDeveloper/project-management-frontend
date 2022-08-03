@@ -18,10 +18,6 @@ type ProjectCtxProps = {
   setIssuesPerProject: React.Dispatch<
     React.SetStateAction<ProjectIssueProps[]>
   >;
-  issuesAssignedToMe: ProjectIssueProps[];
-  setIssuesAssignedToMe: React.Dispatch<
-    React.SetStateAction<ProjectIssueProps[]>
-  >;
   currentIssue: ProjectIssueProps | undefined;
   setCurrentIssue: React.Dispatch<
     React.SetStateAction<ProjectIssueProps | undefined>
@@ -37,8 +33,6 @@ const ProjectContext = createContext<ProjectCtxProps>({
   setCurrentProject: () => {},
   issuesPerProject: [],
   setIssuesPerProject: () => {},
-  issuesAssignedToMe: [],
-  setIssuesAssignedToMe: () => {},
   currentIssue: undefined,
   setCurrentIssue: () => {},
   teamMembers: [],
@@ -58,9 +52,6 @@ export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
   const [issuesPerProject, setIssuesPerProject] = useState<ProjectIssueProps[]>(
     []
   );
-  const [issuesAssignedToMe, setIssuesAssignedToMe] = useState<
-    ProjectIssueProps[]
-  >([]);
   const [currentIssue, setCurrentIssue] = useState<
     ProjectIssueProps | undefined
   >();
@@ -74,8 +65,6 @@ export const ProjectProvider: FunctionComponent<Props> = ({ children }) => {
         setCurrentProject,
         issuesPerProject,
         setIssuesPerProject,
-        issuesAssignedToMe,
-        setIssuesAssignedToMe,
         currentIssue,
         setCurrentIssue,
         teamMembers,

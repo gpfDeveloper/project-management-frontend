@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import IssueTypeIcon from '../issue/IssueTypeIcon';
 import { useProject } from 'contexts/project-context';
 import { getRecentProjects } from 'utils/utils';
+import { getIssuesAssignedToMe } from 'dummyData/dummyData';
+import { useAuth } from 'contexts/auth-context';
 
 type IssueCountMapType = { [k: string]: number };
 
@@ -95,7 +97,9 @@ const YourWork: FunctionComponent = () => {
   const theme = useTheme();
   const mode = theme.palette.mode;
   const grey = mode === 'light' ? theme.palette.grey[50] : 'inherit';
-  const { allProjects, issuesAssignedToMe } = useProject();
+  const { allProjects } = useProject();
+  const { user } = useAuth();
+  const issuesAssignedToMe = getIssuesAssignedToMe(user);
   const navigate = useNavigate();
   const recentProjects = getRecentProjects(allProjects);
   const issuesInProgress = issuesAssignedToMe.filter(

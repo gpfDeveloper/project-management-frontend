@@ -21,8 +21,6 @@ const DeleteIssueDialog: FunctionComponent<Props> = ({ open, onClose }) => {
   const {
     currentIssue,
     setCurrentIssue,
-    issuesAssignedToMe,
-    setIssuesAssignedToMe,
     issuesPerProject,
     setIssuesPerProject,
   } = useProject();
@@ -36,10 +34,6 @@ const DeleteIssueDialog: FunctionComponent<Props> = ({ open, onClose }) => {
       (item) => item.id !== issueId
     );
     setIssuesPerProject(_issuesPerProject);
-    const _issuesAssignedToMe = issuesAssignedToMe.filter(
-      (item) => item.id !== issueId
-    );
-    setIssuesAssignedToMe(_issuesAssignedToMe);
     navigate(`/projects/${projectId}/issues`);
     onClose();
   };

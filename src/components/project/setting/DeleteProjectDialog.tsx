@@ -23,23 +23,13 @@ const DeleteProjectDialog: FunctionComponent<Props> = ({
   projectId,
 }) => {
   const navigate = useNavigate();
-  const {
-    setAllProjects,
-    setCurrentProject,
-    allProjects,
-    issuesAssignedToMe,
-    setIssuesAssignedToMe,
-  } = useProject();
+  const { setAllProjects, setCurrentProject, allProjects } = useProject();
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     deleteProject(projectId);
     setCurrentProject(undefined);
     const _allProjects = allProjects.filter((item) => item.id !== projectId);
     setAllProjects(_allProjects);
-    const _issuesAssignedToMe = issuesAssignedToMe.filter(
-      (item) => item.projectId !== projectId
-    );
-    setIssuesAssignedToMe(_issuesAssignedToMe);
     navigate(`/projects`);
     onClose();
   };

@@ -54,7 +54,6 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     teamMembers,
     issuesPerProject,
     setIssuesPerProject,
-    setIssuesAssignedToMe,
   } = useProject();
 
   const { user } = useAuth();
@@ -145,9 +144,6 @@ const CreateIssueModal: FunctionComponent<Props> = ({ open, onClose }) => {
     }
     if (issuesPerProject) {
       setIssuesPerProject([...issuesPerProject, issue]);
-    }
-    if (user!.email === assignee!.email) {
-      setIssuesAssignedToMe((prev) => [issue, ...prev]);
     }
     createIssue(issue);
     navigate(`/projects/${selectedProject!.id}/board`);
