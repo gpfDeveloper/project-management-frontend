@@ -70,6 +70,7 @@ const ProjectSetting: FunctionComponent = () => {
       lead,
       isPrivate,
       avatar,
+      updatedAt: new Date().toISOString(),
     } as ProjectProps;
     setCurrentProject(_project);
     const _allProjects = allProjects.slice();
