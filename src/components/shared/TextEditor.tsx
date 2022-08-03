@@ -40,7 +40,14 @@ const TextEditor: FunctionComponent<Props> = forwardRef(
       return { focus };
     });
     return (
-      <Box sx={{ '& .ql-editor': { minHeight: 120 } }}>
+      <Box
+        sx={{
+          '& .ql-editor': {
+            minHeight: 120,
+            whiteSpace: 'normal',
+          },
+        }}
+      >
         <ReactQuill
           placeholder={placeholder}
           ref={inputRef}
