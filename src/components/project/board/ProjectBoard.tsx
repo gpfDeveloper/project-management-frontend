@@ -110,7 +110,7 @@ const ProjectBoard: FunctionComponent = () => {
       res = issues.slice();
     }
     if (isOnlyMyIssues) {
-      res = res.filter((item) => item.assignee === user);
+      res = res.filter((item) => item.assignee.email === user!.email);
     }
     if (isRecentUpdated) {
       const now = new Date();
