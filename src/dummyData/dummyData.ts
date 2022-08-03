@@ -357,6 +357,31 @@ export const sampleIssues: ProjectIssueProps[] = [
     updatedAt: '2022-08-03T02:19:29.259Z',
     dueAt: '2022-08-02T16:00:00.000Z',
   },
+  {
+    id: 'd6910560-2766-4c59-8c81-10677ef21c2e',
+    projectId: '8037cd16-0c74-451e-8b2d-67f7e39563f7',
+    type: 'Bug',
+    summary:
+      'Only my issues button not working properly. Actual result: all the issues been filtered, expected result: my issues should show in kanban board',
+    description: '',
+    assignee: {
+      email: 'pengfei@pengfeidevelopment.com',
+      name: 'Pengfei Gao',
+      status: 'Active',
+      role: 'Admin',
+    },
+    reporter: {
+      email: 'pengfei@pengfeidevelopment.com',
+      name: 'Pengfei Gao',
+      status: 'Active',
+      role: 'Admin',
+    },
+    priority: 'Highest',
+    status: 'IN PROGRESS',
+    createdAt: '2022-08-03T03:41:18.831Z',
+    updatedAt: '2022-08-03T03:41:23.821Z',
+    dueAt: '2022-08-02T16:00:00.000Z',
+  },
 ];
 
 export const sampleComments: Comment[] = [
@@ -536,6 +561,19 @@ export const sampleComments: Comment[] = [
     updatedAt: '2022-08-03T02:44:09.655Z',
     content: '<p>Working on it</p>',
     issueId: '7e41efc2-03b1-4d5e-a5dc-905f84c69fb1',
+    createdBy: {
+      email: 'pengfei@pengfeidevelopment.com',
+      name: 'Pengfei Gao',
+      status: 'Active',
+      role: 'Admin',
+    },
+  },
+  {
+    id: 'c5caf7e0-a859-43c2-bb3f-79e23a16fa5b',
+    createdAt: '2022-08-03T03:41:39.927Z',
+    updatedAt: '2022-08-03T03:41:39.927Z',
+    content: '<p>Working on it.</p>',
+    issueId: 'd6910560-2766-4c59-8c81-10677ef21c2e',
     createdBy: {
       email: 'pengfei@pengfeidevelopment.com',
       name: 'Pengfei Gao',
@@ -1150,6 +1188,32 @@ export const sampleHistory: History[] = [
     issueId: '7e41efc2-03b1-4d5e-a5dc-905f84c69fb1',
     from: 'TO DO',
     to: 'IN PROGRESS',
+  },
+  {
+    id: '85f5a3be-7e0a-4110-9662-6fb23f37dc81',
+    createdAt: '2022-08-03T03:41:23.821Z',
+    field: 'Status',
+    updatedBy: {
+      email: 'pengfei@pengfeidevelopment.com',
+      name: 'Pengfei Gao',
+      status: 'Active',
+      role: 'Admin',
+    },
+    issueId: 'd6910560-2766-4c59-8c81-10677ef21c2e',
+    from: 'TO DO',
+    to: 'IN PROGRESS',
+  },
+  {
+    id: '80ffc87b-6000-4e2d-8068-e387aa5bf1d8',
+    issueId: 'd6910560-2766-4c59-8c81-10677ef21c2e',
+    createdAt: '2022-08-03T03:41:18.831Z',
+    field: 'Issue',
+    updatedBy: {
+      email: 'pengfei@pengfeidevelopment.com',
+      name: 'Pengfei Gao',
+      status: 'Active',
+      role: 'Admin',
+    },
   },
 ];
 
