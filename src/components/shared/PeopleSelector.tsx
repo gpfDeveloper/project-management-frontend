@@ -49,6 +49,7 @@ const PeopleSelector: FunctionComponent<Props> = ({
         options={options}
         size="small"
         getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) => option.email === value.email}
         renderOption={(props, option) => (
           <Box component="li" {...props}>
             <StringAvatar name={option.name} />
