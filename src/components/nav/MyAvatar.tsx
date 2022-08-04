@@ -21,13 +21,15 @@ import StringAvatar from 'components/shared/StringAvatar';
 import { YourWorkMenuItem } from './NavYourWork';
 import { ProjectsMenuItem } from './NavProjects';
 import { PeopleMenuItem } from './NavPeople';
+import { useNavigate } from 'react-router-dom';
 
 const MyAvatar: FunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { user, login, logout } = useAuth();
+  const { user, logout } = useAuth();
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
   const openMenuHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -36,7 +38,7 @@ const MyAvatar: FunctionComponent = () => {
     setAnchorEl(null);
   };
   const loginHandler = () => {
-    login('user', '123');
+    navigate('/signin');
     setAnchorEl(null);
   };
   const logoutHandler = () => {

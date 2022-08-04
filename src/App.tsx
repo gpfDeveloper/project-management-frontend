@@ -8,6 +8,7 @@ import PeoplePage from 'pages/PeoplePage';
 import ProjectDetailBoard from 'pages/ProjectDetailBoard';
 import ProjectDetailIssues from 'pages/ProjectDetailIssues';
 import ProjectDetailSetting from 'pages/ProjectDetailSetting';
+import SignIn from 'pages/SignIn';
 import YourWorkPage from 'pages/YourWorkPage';
 import { useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -26,6 +27,7 @@ function App() {
   let route = (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/signin" element={<SignIn />} />
       <Route
         path="/projects/:projectId/board"
         element={<ProjectDetailBoard />}

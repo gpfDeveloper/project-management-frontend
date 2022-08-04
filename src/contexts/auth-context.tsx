@@ -17,8 +17,6 @@ type AuthProps = {
   logout: () => void;
   forgotPassword: (username: string) => void;
   resetPassword: (username: string, authCode: string, password: string) => void;
-  loginWithGoogle: () => void;
-  loginWithFacebook: () => void;
 };
 
 const initialAuth: AuthProps = {
@@ -29,8 +27,6 @@ const initialAuth: AuthProps = {
   confirmSignUp: Function,
   forgotPassword: Function,
   resetPassword: Function,
-  loginWithGoogle: Function,
-  loginWithFacebook: Function,
 };
 
 const AuthContext = createContext<AuthProps>(initialAuth);
@@ -84,24 +80,14 @@ export const AuthProvider: FunctionComponent<Props> = ({ children }) => {
     // await initiateUser();
   };
 
-  const login = async (username: string, password: string) => {
+  const login = async (email: string, password: string) => {
     // await AmpAuth.signIn(username, password);
     // await initiateUser();
-    setUser(sampleTeamMembers[1]);
-  };
-
-  const loginWithGoogle = async () => {
-    // await AmpAuth.federatedSignIn({
-    //   provider: CognitoHostedUIIdentityProvider.Google,
-    // });
-    // await initiateUser();
-  };
-
-  const loginWithFacebook = async () => {
-    // await AmpAuth.federatedSignIn({
-    //   provider: CognitoHostedUIIdentityProvider.Facebook,
-    // });
-    // await initiateUser();
+    const member = sampleTeamMembers.find((item) => item.email === email);
+    if (!member) throw Error('Incorrect email or password');
+    if (member.password !== password)
+      throw Error('Incorrect email or password');
+    setUser(member);
   };
 
   const logout = () => {
@@ -135,8 +121,6 @@ export const AuthProvider: FunctionComponent<Props> = ({ children }) => {
         confirmSignUp,
         forgotPassword,
         resetPassword,
-        loginWithGoogle,
-        loginWithFacebook,
       }}
     >
       {children}

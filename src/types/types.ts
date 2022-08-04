@@ -30,6 +30,7 @@ export interface TeamMember {
   img?: string;
   role: TeamMemberRole;
   status: TeamMemberStatus;
+  password?: string;
 }
 
 export type Comment = {

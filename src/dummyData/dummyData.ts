@@ -13,14 +13,22 @@ export const sampleTeamMembers: TeamMember[] = [
     name: 'Pengfei Gao',
     status: 'Active',
     role: 'Admin',
+    password: 'admin123',
   },
   {
     email: 'terry@gmail.com',
     name: 'Terry Smith',
     status: 'Active',
     role: 'User',
+    password: 'user123',
   },
-  { email: 'john@gmail.com', name: 'John Doe', status: 'Active', role: 'User' },
+  {
+    email: 'john@gmail.com',
+    name: 'John Doe',
+    status: 'Active',
+    role: 'User',
+    password: 'user456',
+  },
   {
     email: 'james@gmail.com',
     name: 'James Johnson',
