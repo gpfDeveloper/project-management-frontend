@@ -24,11 +24,15 @@ type BoardType = {
 
 const ProjectBoard: FunctionComponent = () => {
   const { user } = useAuth();
-  const {
+  let {
     issuesPerProject: issues,
     setIssuesPerProject,
     currentProject,
   } = useProject();
+
+  issues = issues.sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  );
 
   const initAssginees = useMemo<AssigneeAvatarType[]>(
     () => [
