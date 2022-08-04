@@ -3,9 +3,7 @@ import {
   MenuItem,
   TextField,
   Typography,
-  Checkbox,
   Button,
-  Tooltip,
   IconButton,
   Menu,
 } from '@mui/material';
@@ -19,7 +17,6 @@ import type {
   ProjectType,
   ProjectProps,
 } from 'types/types';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ProjectAvatar from './ProjectAvatar';
 import ProjectAvatarDialog from './ProjectAvatarDialog';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';

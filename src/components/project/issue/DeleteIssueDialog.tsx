@@ -15,8 +15,13 @@ import { deleteIssue } from 'dummyData/dummyData';
 type Props = {
   open: boolean;
   onClose: () => void;
+  isFromBoard?: boolean;
 };
-const DeleteIssueDialog: FunctionComponent<Props> = ({ open, onClose }) => {
+const DeleteIssueDialog: FunctionComponent<Props> = ({
+  open,
+  onClose,
+  isFromBoard,
+}) => {
   const navigate = useNavigate();
   const {
     currentIssue,
@@ -29,12 +34,16 @@ const DeleteIssueDialog: FunctionComponent<Props> = ({ open, onClose }) => {
     const issueId = currentIssue!.id;
     deleteIssue(issueId);
     const projectId = currentIssue!.projectId;
-    setCurrentIssue(undefined);
     const _issuesPerProject = issuesPerProject.filter(
       (item) => item.id !== issueId
     );
     setIssuesPerProject(_issuesPerProject);
-    navigate(`/projects/${projectId}/issues`);
+    if (isFromBoard) {
+      navigate(`/projects/${projectId}/board`);
+    } else {
+      navigate(`/projects/${projectId}/issues`);
+    }
+    setTimeout(() => setCurrentIssue(undefined), 300);
     onClose();
   };
   return (

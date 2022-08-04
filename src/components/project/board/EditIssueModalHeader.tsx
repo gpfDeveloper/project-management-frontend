@@ -45,6 +45,7 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
       <DeleteIssueDialog
         open={deleteIssueDialogOpen}
         onClose={closeDeleteIssueDialogHandler}
+        isFromBoard={true}
       />
       <Toolbar
         sx={{
