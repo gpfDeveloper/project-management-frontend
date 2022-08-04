@@ -47,11 +47,17 @@ const MyAvatar: FunctionComponent = () => {
   };
 
   const commonMobileMenuItems = [<LightDarkTogglerMenuItem key={11} />];
-  const authMobileMenuItems = [
+  let authMobileMenuItems = [
     <YourWorkMenuItem key={21} />,
     <ProjectsMenuItem key={22} />,
-    <PeopleMenuItem key={23} />,
   ];
+  if (user && user!.role === 'Admin') {
+    authMobileMenuItems = [
+      <YourWorkMenuItem key={21} />,
+      <ProjectsMenuItem key={22} />,
+      <PeopleMenuItem key={23} />,
+    ];
+  }
   let content = (
     <Box>
       <IconButton

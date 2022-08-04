@@ -53,10 +53,6 @@ const ProjectSetting: FunctionComponent = () => {
   ) => {
     setLead(value!);
   };
-  const [isPrivate, setIsPrivate] = useState(project!.isPrivate);
-  const changeIsPrivateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsPrivate(e.target.checked);
-  };
 
   const hasError = !name.trim() || !lead;
 
@@ -68,7 +64,6 @@ const ProjectSetting: FunctionComponent = () => {
       type,
       description: description.text,
       lead,
-      isPrivate,
       avatar,
       updatedAt: new Date().toISOString(),
     } as ProjectProps;
@@ -220,15 +215,6 @@ const ProjectSetting: FunctionComponent = () => {
             )}
             onSelect={selectLeadHandler}
           />
-        </Box>
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-          <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>
-            Private
-          </Typography>
-          <Checkbox checked={isPrivate} onChange={changeIsPrivateHandler} />
-          <Tooltip title={'If checked, only members can access the project.'}>
-            <InfoOutlinedIcon fontSize="small" />
-          </Tooltip>
         </Box>
         <Box>
           <Button disabled={hasError} variant="contained" onClick={saveHandler}>

@@ -1359,7 +1359,6 @@ export const sampleProjects: ProjectProps[] = [
       status: 'Active',
       role: 'Admin',
     },
-    isPrivate: false,
     description: '<p>Build a project management web app</p>',
   },
   {
@@ -1381,7 +1380,6 @@ export const sampleProjects: ProjectProps[] = [
       status: 'Active',
       role: 'User',
     },
-    isPrivate: false,
     description: '',
   },
   {
@@ -1403,7 +1401,6 @@ export const sampleProjects: ProjectProps[] = [
       status: 'Active',
       role: 'User',
     },
-    isPrivate: false,
     description: '',
   },
   {
@@ -1425,7 +1422,6 @@ export const sampleProjects: ProjectProps[] = [
       status: 'Active',
       role: 'User',
     },
-    isPrivate: false,
     description: '',
   },
   {
@@ -1447,7 +1443,6 @@ export const sampleProjects: ProjectProps[] = [
       status: 'Active',
       role: 'Admin',
     },
-    isPrivate: true,
     description: '',
   },
 ];

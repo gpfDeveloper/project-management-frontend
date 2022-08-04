@@ -83,5 +83,4 @@ export type ProjectProps = {
   avatar: ProjectAvatarName;
   lead: TeamMember;
   description?: string;
-  isPrivate: boolean;
 };

@@ -21,7 +21,7 @@ const Nav: FunctionComponent = () => {
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <NavYourWork />
             <NavProjects />
-            <NavPeople />
+            {user.role === 'Admin' && <NavPeople />}
           </Box>
         )}
         {user && <CreateIssue />}

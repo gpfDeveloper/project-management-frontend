@@ -41,7 +41,6 @@ const CreateProjectDialog: FunctionComponent<Props> = ({ open, onClose }) => {
       createdAt: now,
       updatedAt: now,
       lead: user!,
-      isPrivate: false,
     };
     setAllProjects((pre) => [project, ...pre]);
     addProject(project);

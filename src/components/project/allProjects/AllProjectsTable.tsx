@@ -22,6 +22,7 @@ import LinkRouter from 'components/shared/LinkRouter';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useNavigate } from 'react-router-dom';
 import DeleteProjectDialog from '../setting/DeleteProjectDialog';
+import { useAuth } from 'contexts/auth-context';
 
 type Props = {
   projects: ProjectProps[];
@@ -60,6 +61,9 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
   const closeDeleteProjectDialogHandler = () => {
     setDeleteProjectDialogOpen(false);
   };
+
+  const { user } = useAuth();
+  const canAction = user!.role === 'Admin';
 
   return (
     <>
@@ -112,32 +116,34 @@ const AllProjectsTable: FunctionComponent<Props> = ({ projects }) => {
                     <Typography variant="body2">{project.lead.name}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell align="center">
-                  <Box>
-                    <IconButton
-                      onClick={menuOpenHandler.bind(null, project.id)}
-                    >
-                      <MoreHorizIcon />
-                    </IconButton>
-                    <Menu
-                      elevation={1}
-                      anchorEl={anchor}
-                      open={menuOpen}
-                      onClose={menuCloseHandler}
-                      transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'right',
-                      }}
-                    >
-                      <MenuItem onClick={projectSettingHandler}>
-                        Project Settings
-                      </MenuItem>
-                      <MenuItem onClick={deleteProjectHandler}>
-                        Delete Project
-                      </MenuItem>
-                    </Menu>
-                  </Box>
-                </TableCell>
+                {canAction && (
+                  <TableCell align="center">
+                    <Box>
+                      <IconButton
+                        onClick={menuOpenHandler.bind(null, project.id)}
+                      >
+                        <MoreHorizIcon />
+                      </IconButton>
+                      <Menu
+                        elevation={1}
+                        anchorEl={anchor}
+                        open={menuOpen}
+                        onClose={menuCloseHandler}
+                        transformOrigin={{
+                          vertical: 'center',
+                          horizontal: 'right',
+                        }}
+                      >
+                        <MenuItem onClick={projectSettingHandler}>
+                          Project Settings
+                        </MenuItem>
+                        <MenuItem onClick={deleteProjectHandler}>
+                          Delete Project
+                        </MenuItem>
+                      </Menu>
+                    </Box>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

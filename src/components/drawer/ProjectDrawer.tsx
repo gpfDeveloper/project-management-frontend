@@ -22,6 +22,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useProject } from 'contexts/project-context';
 import ProjectAvatar from 'components/project/setting/ProjectAvatar';
+import { useAuth } from 'contexts/auth-context';
 
 const drawerWidth = 200;
 
@@ -81,6 +82,11 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
   const sideBarLoc = locations[3];
   const navigate = useNavigate();
   const { currentProject } = useProject();
+  const { user } = useAuth();
+  const canSeeSettings =
+    user!.role === 'Admin' ||
+    user!.email === currentProject!.owner.email ||
+    user!.email === currentProject!.lead.email;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -174,34 +180,43 @@ const ProjectDrawer: FunctionComponent<Props> = ({ children }) => {
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
-          {['Settings'].map((text) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                onClick={() =>
-                  navigate(`/projects/${projectId}/${text.toLocaleLowerCase()}`)
-                }
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 2 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {text === 'Settings' && <SettingsIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        {canSeeSettings && (
+          <>
+            <Divider />
+            <List>
+              {['Settings'].map((text) => (
+                <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                  <ListItemButton
+                    onClick={() =>
+                      navigate(
+                        `/projects/${projectId}/${text.toLocaleLowerCase()}`
+                      )
+                    }
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 2 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {text === 'Settings' && <SettingsIcon />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={text}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </>
+        )}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, pl: 2 }}>
         {children}
