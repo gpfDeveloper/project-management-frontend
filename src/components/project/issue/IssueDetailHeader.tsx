@@ -1,10 +1,10 @@
-import { Box, Tooltip, Button, IconButton } from '@mui/material';
+import { Box, Tooltip, IconButton } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
-import CampaignIcon from '@mui/icons-material/Campaign';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
 import DeleteIssueDialog from './DeleteIssueDialog';
 import CopyLinkBtn from 'components/shared/CopyLinkBtn';
+import FeedbackBtn from 'components/shared/FeedbackBtn';
 
 const IssueDetailHeader: FunctionComponent = () => {
   const [deleteIssueDialogOpen, setDeleteIssueDialogOpen] = useState(false);
@@ -30,10 +30,7 @@ const IssueDetailHeader: FunctionComponent = () => {
       />
       <ProjectBreadcrumbs />
       <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
-        <Button color="inherit">
-          <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />
-          Give feedback
-        </Button>
+        <FeedbackBtn />
         <CopyLinkBtn />
         <Tooltip title="Delete this issue">
           <IconButton onClick={() => setDeleteIssueDialogOpen(true)}>

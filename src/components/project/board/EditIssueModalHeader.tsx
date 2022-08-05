@@ -4,16 +4,15 @@ import {
   Box,
   useScrollTrigger,
   Tooltip,
-  Button,
   IconButton,
 } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
-import CampaignIcon from '@mui/icons-material/Campaign';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CloseIcon from '@mui/icons-material/Close';
 import ProjectBreadcrumbs from 'components/shared/ProjectBreadcrumbs';
 import DeleteIssueDialog from '../issue/DeleteIssueDialog';
 import CopyLinkBtn from 'components/shared/CopyLinkBtn';
+import FeedbackBtn from 'components/shared/FeedbackBtn';
 
 type Props = {
   scrollTarget: Node | Window | undefined;
@@ -56,10 +55,7 @@ const EditIssueModalHeader: FunctionComponent<Props> = ({
       >
         <ProjectBreadcrumbs />
         <Box sx={{ display: 'flex', gap: 1, color: 'text.secondary' }}>
-          <Button color="inherit">
-            <CampaignIcon sx={{ mr: 0.2, transform: 'rotate(-15deg)' }} />
-            Give feedback
-          </Button>
+          <FeedbackBtn />
           <CopyLinkBtn />
           <Tooltip title="Delete this issue">
             <IconButton onClick={() => setDeleteIssueDialogOpen(true)}>
