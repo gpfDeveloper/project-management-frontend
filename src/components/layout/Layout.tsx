@@ -3,6 +3,7 @@ import Nav from 'components/nav/Nav';
 import { FunctionComponent, ReactNode } from 'react';
 import { useThemeMode } from 'contexts/theme-mode-context';
 import { getTheme } from 'theme/theme';
+import AboutBtn from 'components/shared/AboutBtn';
 
 interface Props {
   children: ReactNode;
@@ -18,6 +19,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
         <Nav />
         {children}
       </Box>
+      <AboutBtn />
     </ThemeProvider>
   );
 };
