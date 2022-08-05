@@ -13,7 +13,7 @@ type AuthProps = {
   user: TeamMember | null;
   signUp: (username: string, email: string, password: string) => void;
   confirmSignUp: (username: string, authCode: string, password: string) => void;
-  login: (username: string, password: string) => void;
+  login: (email: string, password: string) => void;
   logout: () => void;
   forgotPassword: (username: string) => void;
   resetPassword: (username: string, authCode: string, password: string) => void;
