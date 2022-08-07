@@ -21,14 +21,38 @@ const IssueIcon: FunctionComponent<IssueIconProps> = ({ issueType }) => {
   return <Tooltip title={issueType}>{icon}</Tooltip>;
 };
 
+type PageType = 'Board' | 'Issue' | 'Settings';
+
 const ProjectBreadcrumbs: FunctionComponent = () => {
   const { currentProject, currentIssue } = useProject();
   const location = useLocation();
-  //"/projects/65cc7df2-35a4-4342-b1ac-b72316a36a01/settings"
+  /*
+  Routes:
+  /projects/65cc7df2-35a4-4342-b1ac-b72316a36a01/settings
+  /projects/8037cd16-0c74-451e-8b2d-67f7e39563f7/board
+  /projects/8037cd16-0c74-451e-8b2d-67f7e39563f7/issues
+  /projects/8037cd16-0c74-451e-8b2d-67f7e39563f7/board?issueId=39552749-ec37-4767-87e9-4a76ca621141 
+  /projects/8037cd16-0c74-451e-8b2d-67f7e39563f7/issues/ebc304c6-46f7-400e-a9fb-460d8731ff9b
+  */
   const pathNames = location.pathname.split('/');
-  let isSettingPage = false;
-  if (pathNames.length === 4 && pathNames[3] === 'settings') {
-    isSettingPage = true;
+  let pageType: PageType = 'Issue';
+  if (pathNames.length === 4) {
+    if (pathNames[3] === 'settings') {
+      pageType = 'Settings';
+    } else if (pathNames[3] === 'board') {
+      pageType = 'Board';
+    }
+  }
+  let isDetail = false;
+  if (pathNames.length === 5) {
+    isDetail = true;
+  }
+  if (pageType === 'Board') {
+    const urlParams = new URLSearchParams(location.search);
+    const hasIssueId = Boolean(urlParams.get('issueId'));
+    if (hasIssueId) {
+      isDetail = true;
+    }
   }
   return (
     <Breadcrumbs aria-label="breadcrumb">
@@ -42,7 +66,8 @@ const ProjectBreadcrumbs: FunctionComponent = () => {
       >
         {currentProject?.name}
       </LinkRouter>
-      {currentIssue && (
+      {pageType === 'Settings' && <Typography>Settings</Typography>}
+      {pageType !== 'Settings' && isDetail && currentIssue && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <IssueIcon issueType={currentIssue!.type} />
           <Typography variant="body2" color="text.secondary">
@@ -50,7 +75,6 @@ const ProjectBreadcrumbs: FunctionComponent = () => {
           </Typography>
         </Box>
       )}
-      {!currentIssue && isSettingPage && <Typography>Settings</Typography>}
     </Breadcrumbs>
   );
 };
