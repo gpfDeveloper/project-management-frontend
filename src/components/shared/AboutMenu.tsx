@@ -24,7 +24,7 @@ const AboutMenu: FunctionComponent<Props> = ({ anchorEl, onClose }) => {
         </Typography>
         <Typography>Designed and developed by Pengfei Gao</Typography>
         <Typography>
-          Read more on my website or reach out via{' '}
+          Reach out on upwork or via{' '}
           <Link
             href="mailto:pengfei@pengfeidevelopment.com"
             fontWeight={500}
@@ -34,11 +34,11 @@ const AboutMenu: FunctionComponent<Props> = ({ anchorEl, onClose }) => {
           </Link>{' '}
         </Typography>
         <Button
-          href="https://pengfeidevelopment.com"
+          href="https://www.upwork.com/freelancers/~0153a8afbfeeefbda4"
           target="_blank"
           variant="contained"
         >
-          Visit Website
+          Reach out on upwork
         </Button>
       </Box>
     </Menu>
